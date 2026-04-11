@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { useTheme } from '../ThemeContext';
 import resumePdf from '../assets/SurajPatelResume.pdf';
 
-// ─── Data ──────────────────────────────────────────────────────────────────────
+// Data 
 const SECTIONS = ['HOME', 'SKILLS', 'EXPERIENCE', 'PROJECTS', 'CERTS', 'CONTACT'] as const;
 type Section = (typeof SECTIONS)[number];
 
@@ -41,7 +41,7 @@ const CERTS_DATA = [
   { name: 'Advanced React Mastery', issuer: 'Scrimba', year: '2025', link: 'https://scrimba.com/certificate-cert24zAwPPowRQV2xfEN2ZiBrLXtw1vJ4YEgPtEU' },
 ];
 
-// ─── Command registry ──────────────────────────────────────────────────────────
+// Command registry 
 type CommandAction = Section | 'help' | 'clear' | 'exit' | 'resume' | 'github' | 'email' | 'linkedin' | 'phone';
 const COMMAND_MAP: Record<string, CommandAction> = {
   home: 'HOME',
@@ -71,7 +71,7 @@ const COMMAND_MAP: Record<string, CommandAction> = {
   tel: 'phone',
 };
 
-// ─── ASCII Art ──────────────────────────────────────────────────────────────────
+// ASCII Art 
 const ASCII_NAME = `
  ███████╗██╗   ██╗██████╗  █████╗      ██╗
  ██╔════╝██║   ██║██╔══██╗██╔══██╗     ██║
@@ -113,7 +113,7 @@ const HELP_TEXT = `
     ESC           — Exit terminal mode
 `;
 
-// ─── Typewriter Hook ────────────────────────────────────────────────────────────
+// Typewriter Hook 
 function useTypewriter(text: string, speed = 18, trigger = true) {
   const [displayed, setDisplayed] = useState('');
   const [done, setDone] = useState(false);
@@ -137,7 +137,7 @@ function useTypewriter(text: string, speed = 18, trigger = true) {
   return { displayed, done };
 }
 
-// ─── Blinking Cursor ────────────────────────────────────────────────────────────
+// Blinking Cursor 
 function Cursor() {
   return (
     <motion.span
@@ -151,7 +151,7 @@ function Cursor() {
   );
 }
 
-// ─── Prompt ─────────────────────────────────────────────────────────────────────
+// Prompt 
 function Prompt({ children, showCursor = false }: { children?: ReactNode; showCursor?: boolean }) {
   return (
     <div className="flex items-start gap-0 flex-wrap">
@@ -165,7 +165,7 @@ function Prompt({ children, showCursor = false }: { children?: ReactNode; showCu
   );
 }
 
-// ─── Command Block ──────────────────────────────────────────────────────────────
+// Command Block 
 function CmdBlock({
   command,
   children,
@@ -207,7 +207,7 @@ function CmdBlock({
   );
 }
 
-// ─── History entry ──────────────────────────────────────────────────────────────
+// History entry 
 interface HistoryEntry {
   id: number;
   command: string;
@@ -215,7 +215,7 @@ interface HistoryEntry {
   isError?: boolean;
 }
 
-// ─── Sections ───────────────────────────────────────────────────────────────────
+// Sections 
 function HomeSection() {
   return (
     <>
@@ -842,7 +842,7 @@ export default function TerminalView() {
         }}
       />
 
-      {/* ─── Top Status Bar ─────────────────────────────────────────── */}
+      {/* Top Status Bar  */}
       <div
         className="flex flex-wrap items-center justify-between px-6 py-3 text-xs tracking-wider shrink-0"
         style={{ background: '#060a10', borderBottom: '1px solid #1a2a1a' }}
@@ -879,7 +879,7 @@ export default function TerminalView() {
         </div>
       </div>
 
-      {/* ─── Main Content ───────────────────────────────────────────── */}
+      {/* Main Content  */}
       <div ref={contentRef} className="flex-1 overflow-y-auto px-6 py-6 space-y-2">
         {/* Render active section */}
         <AnimatePresence mode="wait">
@@ -894,7 +894,7 @@ export default function TerminalView() {
           </motion.div>
         </AnimatePresence>
 
-        {/* ─── Command History (past typed commands + outputs) ──── */}
+        {/* Command History (past typed commands + outputs)  */}
         {history.map((entry) => (
           <div key={entry.id} className="mb-3">
             <Prompt>
@@ -904,7 +904,7 @@ export default function TerminalView() {
           </div>
         ))}
 
-        {/* ─── Interactive Command Input ────────────────────────── */}
+        {/* Interactive Command Input  */}
         <form onSubmit={handleSubmit} className="flex items-center gap-0 flex-wrap">
           <span style={{ color: '#33ff33' }}>suraj</span>
           <span style={{ color: '#888' }}>@</span>
@@ -958,7 +958,7 @@ export default function TerminalView() {
         </form>
       </div>
 
-      {/* ─── Bottom Navigation Bar ──────────────────────────────────── */}
+      {/* Bottom Navigation Bar  */}
       <div
         className="shrink-0 px-6 py-3 flex flex-col gap-2"
         style={{ background: '#060a10', borderTop: '1px solid #1a2a1a' }}
