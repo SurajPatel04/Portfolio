@@ -42,7 +42,7 @@ const CERTS_DATA = [
 ];
 
 // Command registry 
-type CommandAction = Section | 'help' | 'clear' | 'exit' | 'resume' | 'github' | 'email' | 'linkedin' | 'phone';
+type CommandAction = Section | 'help' | 'clear' | 'exit' | 'resume' | 'github' | 'email' | 'linkedin' | 'phone' | 'ls';
 const COMMAND_MAP: Record<string, CommandAction> = {
   home: 'HOME',
   skills: 'SKILLS',
@@ -60,7 +60,8 @@ const COMMAND_MAP: Record<string, CommandAction> = {
   download: 'resume',
   whoami: 'HOME',
   about: 'HOME',
-  ls: 'SKILLS',
+  ls: 'ls',
+  dir: 'ls',
   github: 'github',
   gh: 'github',
   email: 'email',
@@ -101,6 +102,9 @@ const HELP_TEXT = `
     email         — Show email address
     linkedin      — Open LinkedIn profile
     phone         — Show phone number
+    ls            — List available sections/files
+    cd <dir>      — Enter a section (e.g., cd skills)
+    dir           — Alias for ls
     clear         — Clear command history
     help          — Show this help menu
     exit          — Return to modern theme
@@ -109,6 +113,7 @@ const HELP_TEXT = `
     gh → github, mail → email, li → linkedin
 
   Navigation:
+    ↑ ↓ arrows   — Command history
     ← → arrows   — Switch section tabs
     ESC           — Exit terminal mode
 `;
@@ -265,7 +270,7 @@ function HomeSection() {
 
       {/* Help tip */}
       <div className="mt-4 text-xs" style={{ color: '#555' }}>
-        TIP: ↑↓ arrows to navigate — type <span style={{ color: '#33ff33' }} className="font-bold">help</span> for commands
+        TIP: ↑↓ arrows for history — type <span style={{ color: '#33ff33' }} className="font-bold">help</span> for commands
       </div>
     </>
   );
@@ -413,6 +418,8 @@ export default function TerminalView() {
   const [cmdInput, setCmdInput] = useState('');
   const [history, setHistory] = useState<HistoryEntry[]>([]);
   const [historyId, setHistoryId] = useState(0);
+  const [commandHistory, setCommandHistory] = useState<string[]>([]);
+  const [historyPointer, setHistoryPointer] = useState(-1);
   const [suggestion, setSuggestion] = useState('');
   const contentRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -439,12 +446,31 @@ export default function TerminalView() {
 
   // Handle ghost text suggestions
   useEffect(() => {
-    if (!cmdInput) {
+    const input = cmdInput.toLowerCase();
+    if (!input) {
       setSuggestion('');
       return;
     }
+
     const allCmds = Object.keys(COMMAND_MAP);
-    const match = allCmds.find((c) => c.startsWith(cmdInput.toLowerCase()));
+
+    // Handle cd suggestions
+    if (input.startsWith('cd ')) {
+      const arg = input.slice(3);
+      if (!arg) {
+        setSuggestion('');
+        return;
+      }
+      // Only suggest sections/dirs for cd
+      const match = allCmds.find((c) => 
+        c.startsWith(arg) && 
+        SECTIONS.includes(COMMAND_MAP[c] as any)
+      );
+      setSuggestion(match ? `cd ${match}` : '');
+      return;
+    }
+
+    const match = allCmds.find((c) => c.startsWith(input));
     setSuggestion(match || '');
   }, [cmdInput]);
 
@@ -563,8 +589,19 @@ export default function TerminalView() {
 
   // Process a typed command
   const processCommand = useCallback((raw: string) => {
-    const cmd = raw.trim().toLowerCase();
-    if (!cmd) return;
+    const trimmed = raw.trim().toLowerCase();
+    if (!trimmed) return;
+
+    // Handle 'cd' commands
+    let cmd = trimmed;
+    if (trimmed.startsWith('cd ') || trimmed === 'cd') {
+      const arg = trimmed === 'cd' ? '' : trimmed.slice(3).trim().replace(/\/$/, '');
+      if (!arg || arg === '~' || arg === '..' || arg === '.') {
+        cmd = 'home';
+      } else {
+        cmd = arg;
+      }
+    }
 
     const newId = historyId + 1;
     setHistoryId(newId);
@@ -745,6 +782,28 @@ export default function TerminalView() {
       return;
     }
 
+    if (mapped === 'ls') {
+      setHistory((prev) => [
+        ...prev,
+        {
+          id: newId,
+          command: raw,
+          output: (
+            <div className="flex flex-wrap gap-x-10 gap-y-2 mt-2 font-mono">
+              {['home/', 'skills/', 'experience/', 'projects/', 'certs/', 'contact/', 'resume.pdf', 'banner.txt'].map((item) => (
+                <div key={item} className="flex items-center gap-2">
+                  <span style={{ color: item.endsWith('/') ? '#00daf8' : '#e0e0e0' }}>
+                    {item}
+                  </span>
+                </div>
+              ))}
+            </div>
+          ),
+        },
+      ]);
+      return;
+    }
+
     // It's a section navigation command — render content inline only
     setHistory((prev) => [
       ...prev,
@@ -765,8 +824,13 @@ export default function TerminalView() {
   const handleSubmit = useCallback(
     (e: FormEvent) => {
       e.preventDefault();
+      const input = cmdInput.trim();
+      if (input) {
+        setCommandHistory((prev) => [...prev, input]);
+      }
       processCommand(cmdInput);
       setCmdInput('');
+      setHistoryPointer(-1);
     },
     [cmdInput, processCommand]
   );
@@ -774,14 +838,49 @@ export default function TerminalView() {
   // Handle Tab autocomplete and ArrowRight to accept suggestion
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLInputElement>) => {
+      const idx = SECTIONS.indexOf(activeSection);
+      
       if (e.key === 'Tab' || e.key === 'ArrowRight') {
         if (suggestion && cmdInput.toLowerCase() !== suggestion) {
           e.preventDefault();
           setCmdInput(suggestion);
+          return;
+        }
+      }
+
+      if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        setActiveSection(SECTIONS[(idx + 1) % SECTIONS.length]);
+        setHistory([]);
+      } else if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        setActiveSection(SECTIONS[(idx - 1 + SECTIONS.length) % SECTIONS.length]);
+        setHistory([]);
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (commandHistory.length === 0) return;
+        
+        const newPointer = historyPointer === -1 
+          ? commandHistory.length - 1 
+          : Math.max(0, historyPointer - 1);
+        
+        setHistoryPointer(newPointer);
+        setCmdInput(commandHistory[newPointer]);
+      } else if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        if (historyPointer === -1) return;
+        
+        const newPointer = historyPointer + 1;
+        if (newPointer >= commandHistory.length) {
+          setHistoryPointer(-1);
+          setCmdInput('');
+        } else {
+          setHistoryPointer(newPointer);
+          setCmdInput(commandHistory[newPointer]);
         }
       }
     },
-    [suggestion, cmdInput]
+    [suggestion, cmdInput, commandHistory, historyPointer, activeSection]
   );
 
   // Keyboard nav (arrows for section tabs, escape to exit)
@@ -966,7 +1065,7 @@ export default function TerminalView() {
         {/* Navigation hint */}
         <div className="text-[11px] flex items-center gap-2" style={{ color: '#444' }}>
           <span style={{ color: '#555' }}>root@suraj/nav &gt;</span>
-          <span>SELECT MODULE (← → arrows + ENTER or click)</span>
+          <span>SELECT MODULE (← → arrows) | HISTORY (↑ ↓ arrows)</span>
           <span className="ml-auto">
             <span style={{ color: '#555' }}>ESC</span> to exit
           </span>
