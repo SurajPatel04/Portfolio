@@ -1,7 +1,16 @@
+import { motion } from 'motion/react';
+import { CodeXml, Layers, Server, Database, BrainCircuit, Terminal } from 'lucide-react';
+
 export default function TechEcosystem() {
   return (
     <section className="py-24 bg-surface-container-low">
-      <div className="max-w-7xl mx-auto px-8">
+      <motion.div 
+        className="max-w-7xl mx-auto px-8"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
         <h2 className="font-headline text-4xl font-bold mb-16 flex items-center gap-4">
           <span className="text-primary font-mono text-xl">01.</span> Tech Ecosystem
         </h2>
@@ -9,7 +18,7 @@ export default function TechEcosystem() {
           {/* Languages */}
           <div className="bg-surface-container p-8 rounded-full border border-outline-variant/10 hover:border-primary/30 transition-all">
             <div className="flex items-center gap-4 mb-6">
-              <span className="material-symbols-outlined text-primary text-3xl">code</span>
+              <CodeXml className="text-primary w-8 h-8" />
               <h3 className="font-headline text-xl font-bold">Languages</h3>
             </div>
             <ul className="space-y-4 text-base font-medium">
@@ -21,7 +30,7 @@ export default function TechEcosystem() {
           {/* Frontend */}
           <div className="bg-surface-container p-8 rounded-full border border-outline-variant/10 hover:border-primary/30 transition-all">
             <div className="flex items-center gap-4 mb-6">
-              <span className="material-symbols-outlined text-primary text-3xl">layers</span>
+              <Layers className="text-primary w-8 h-8" />
               <h3 className="font-headline text-xl font-bold">Frontend</h3>
             </div>
             <ul className="space-y-4 text-base font-medium">
@@ -33,7 +42,7 @@ export default function TechEcosystem() {
           {/* Backend */}
           <div className="bg-surface-container p-8 rounded-full border border-outline-variant/10 hover:border-primary/30 transition-all">
             <div className="flex items-center gap-4 mb-6">
-              <span className="material-symbols-outlined text-primary text-3xl">dns</span>
+              <Server className="text-primary w-8 h-8" />
               <h3 className="font-headline text-xl font-bold">Backend</h3>
             </div>
             <ul className="space-y-4 text-base font-medium">
@@ -45,7 +54,7 @@ export default function TechEcosystem() {
           {/* Databases */}
           <div className="bg-surface-container p-8 rounded-full border border-outline-variant/10 hover:border-primary/30 transition-all">
             <div className="flex items-center gap-4 mb-6">
-              <span className="material-symbols-outlined text-primary text-3xl">database</span>
+              <Database className="text-primary w-8 h-8" />
               <h3 className="font-headline text-xl font-bold">Databases</h3>
             </div>
             <ul className="space-y-4 text-base font-medium">
@@ -57,7 +66,7 @@ export default function TechEcosystem() {
           {/* AI/ML */}
           <div className="bg-surface-container p-8 rounded-full border border-outline-variant/10 hover:border-primary/30 transition-all">
             <div className="flex items-center gap-4 mb-6">
-              <span className="material-symbols-outlined text-primary text-3xl">psychology</span>
+              <BrainCircuit className="text-primary w-8 h-8" />
               <h3 className="font-headline text-xl font-bold">AI &amp; Agentic</h3>
             </div>
             <ul className="space-y-4 text-base font-medium">
@@ -69,7 +78,7 @@ export default function TechEcosystem() {
           {/* DevOps */}
           <div className="bg-surface-container p-8 rounded-full border border-outline-variant/10 hover:border-primary/30 transition-all">
             <div className="flex items-center gap-4 mb-6">
-              <span className="material-symbols-outlined text-primary text-3xl">terminal</span>
+              <Terminal className="text-primary w-8 h-8" />
               <h3 className="font-headline text-xl font-bold">DevOps &amp; Cloud</h3>
             </div>
             <ul className="space-y-4 text-base font-medium">
@@ -79,7 +88,7 @@ export default function TechEcosystem() {
             </ul>
           </div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

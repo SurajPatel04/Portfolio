@@ -1,7 +1,15 @@
+import { motion } from 'motion/react';
+
 export default function Experience() {
   return (
     <section className="py-24 bg-surface" id="experience">
-      <div className="max-w-7xl mx-auto px-8">
+      <motion.div 
+        className="max-w-7xl mx-auto px-8"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
         <h2 className="font-headline text-4xl font-bold mb-16 flex items-center gap-4">
           <span className="text-primary font-mono text-xl">02.</span> Professional Journey
         </h2>
@@ -37,7 +45,7 @@ export default function Experience() {
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }
