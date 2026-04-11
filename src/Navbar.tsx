@@ -5,9 +5,9 @@ export default function Navbar() {
     e.preventDefault();
     const element = document.getElementById(id);
     if (element) {
-      // Calculate position with a 100px offset so the navbar doesn't cover the section header
-      const y = element.getBoundingClientRect().top + window.scrollY - 100;
-      
+      // Calculate position with an 80px offset so the navbar doesn't cover the section header
+      const y = element.getBoundingClientRect().top + window.scrollY - 10;
+
       animate(window.scrollY, y, {
         duration: 1.2,
         ease: [0.25, 0.46, 0.45, 0.94], // The premium spring curve
