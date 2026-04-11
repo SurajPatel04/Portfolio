@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from 'motion/react';
-import { useState, FormEvent } from 'react';
+import { useState } from 'react';
+import type { FormEvent } from 'react';
 import { Loader2, Send, CheckCircle2, AlertCircle } from 'lucide-react';
 
 export default function Contact() {
@@ -11,7 +12,7 @@ export default function Contact() {
 
     const form = e.currentTarget;
     const formData = new FormData(form);
-    
+
     try {
       const res = await fetch("https://formsubmit.co/ajax/3ff67b6fefbf366175f9d537ac575e25", {
         method: "POST",
@@ -20,7 +21,7 @@ export default function Contact() {
           'Accept': 'application/json'
         }
       });
-      
+
       const data = await res.json();
       if (data.success) {
         setStatus('SUCCESS');
@@ -35,8 +36,8 @@ export default function Contact() {
   };
 
   return (
-    <section className="pt-24 pb-48 bg-surface-container-low relative" id="contact">
-      <motion.div 
+    <section className="pt-24 pb-20 bg-surface-container-lowest relative" id="contact">
+      <motion.div
         className="max-w-3xl mx-auto px-8 text-center"
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -52,7 +53,7 @@ export default function Contact() {
             <input type="hidden" name="_captcha" value="false" />
             {/* Prevents Formsubmit from creating a default subject */}
             <input type="hidden" name="_subject" value="New Portolio Contact Message!" />
-            
+
             <div className="grid md:grid-cols-2 gap-6">
               <div className="space-y-2">
                 <label className="text-sm font-label font-bold text-on-surface ml-1 uppercase tracking-widest">Name</label>
@@ -67,9 +68,9 @@ export default function Contact() {
               <label className="text-sm font-label font-bold text-on-surface ml-1 uppercase tracking-widest">Message</label>
               <textarea name="message" className="w-full bg-surface-container-lowest border border-outline-variant/30 focus:ring-2 focus:ring-primary rounded-xl text-on-surface p-4 placeholder-on-surface-variant/50" placeholder="Let's build something together..." rows={4} required disabled={status === 'SUBMITTING'}></textarea>
             </div>
-            
-            <button 
-              type="submit" 
+
+            <button
+              type="submit"
               disabled={status === 'SUBMITTING' || status === 'SUCCESS'}
               className="w-full relative overflow-hidden group bg-gradient-to-r from-primary to-secondary text-on-primary font-headline font-bold py-5 rounded-xl shadow-lg transition-all active:scale-[0.98] disabled:opacity-90 disabled:cursor-not-allowed text-lg uppercase tracking-widest flex items-center justify-center min-h-[68px]"
             >
@@ -103,7 +104,7 @@ export default function Contact() {
               {/* Submitting Loading Bar Animation */}
               <AnimatePresence>
                 {status === 'SUBMITTING' && (
-                  <motion.div 
+                  <motion.div
                     initial={{ x: "-100%" }}
                     animate={{ x: "100%" }}
                     transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}

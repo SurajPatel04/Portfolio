@@ -81,8 +81,8 @@ export default function ResumeSection() {
                 >
                   <h4 className="font-headline font-bold text-primary tracking-widest uppercase text-[11px] mb-3">Technical Skills</h4>
                   <div className="flex flex-wrap gap-2">
-                    {['TypeScript', 'Python', 'React', 'Node.js', 'FastAPI', 'PostgreSQL', 'MongoDB', 'LangChain', 'LangGraph', 'Docker', 'GCP'].map((skill, idx) => (
-                      <motion.span
+                    {['JavaScript', 'TypeScript', 'Python', 'React', 'HTML', 'CSS', 'Tailwind CSS', 'Node.js', 'Express.js', 'REST APIs', 'FastAPI', 'PostgreSQL', 'MongoDB', 'Redis', 'LangChain', 'LangGraph', 'Docker', 'Git', 'Github', 'Data Structures', 'Algorithms'].map((skill, idx) => (
+                      < motion.span
                         key={skill}
                         initial={{ opacity: 0, scale: 0.5, filter: "blur(5px)" }}
                         whileInView={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
@@ -187,7 +187,7 @@ export default function ResumeSection() {
           </div>
 
         </div>
-      </div>
-    </section>
+      </div >
+    </section >
   );
 }

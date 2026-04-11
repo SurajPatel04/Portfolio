@@ -1,3 +1,5 @@
+import { AnimatePresence } from 'motion/react';
+import { ThemeProvider, useTheme } from './ThemeContext';
 import Navbar from './Navbar';
 import Hero from './components/Hero';
 import TechEcosystem from './components/TechEcosystem';
@@ -7,22 +9,41 @@ import Certifications from './components/Certifications';
 import ResumeSection from './components/ResumeSection';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import TerminalView from './components/TerminalView';
 
 import './index.css';
 
-function App() {
+function AppContent() {
+  const { theme } = useTheme();
+
   return (
     <>
       <Navbar />
-      <Hero />
-      <TechEcosystem />
-      <Experience />
-      <Projects />
-      <Certifications />
-      <ResumeSection />
-      <Contact />
-      <Footer />
+      <AnimatePresence mode="wait">
+        {theme === 'terminal' ? (
+          <TerminalView key="terminal" />
+        ) : (
+          <div key="modern">
+            <Hero />
+            <TechEcosystem />
+            <Experience />
+            <Projects />
+            <Certifications />
+            <ResumeSection />
+            <Contact />
+            <Footer />
+          </div>
+        )}
+      </AnimatePresence>
     </>
+  );
+}
+
+function App() {
+  return (
+    <ThemeProvider>
+      <AppContent />
+    </ThemeProvider>
   );
 }
 
