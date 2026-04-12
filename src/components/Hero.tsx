@@ -6,7 +6,7 @@ const HeroAvatar3D = lazy(() => import('./HeroAvatar3D'));
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen flex flex-col justify-center pt-24 lg:pt-20 overflow-hidden">
+    <section className="relative min-h-[100dvh] flex flex-col justify-center pt-0 lg:pt-20 overflow-hidden">
       {/* Background glow */}
       <div className="absolute inset-0 hero-glow z-0"></div>
       <div className="absolute top-0 lg:top-1/4 right-0 w-full lg:w-1/2 h-1/2 opacity-20 pointer-events-none">
