@@ -31,8 +31,9 @@ export default function Projects() {
             <div className="p-8 flex-grow">
               <div className="flex justify-between items-start mb-4">
                 <h3 className="font-headline text-3xl font-bold text-on-surface">AI Interview Platform</h3>
-                <div className="flex gap-3"><a className="flex items-center gap-1 px-3 py-1 border border-primary text-primary rounded-full text-xs font-bold hover:bg-primary/10 transition-colors" href="#" target="_blank"><span>▶</span> Demo</a>
-                  <a className="flex items-center gap-1.5 px-3 py-1 border border-secondary text-secondary rounded-full text-xs font-bold hover:bg-secondary/10 transition-colors" href="#" target="_blank">
+                <div className="flex gap-3">
+                  <a className="flex items-center gap-1 px-3 py-1.5 bg-primary text-on-primary rounded-full text-[11px] sm:text-xs font-bold shadow-[0_0_10px_rgba(0,218,248,0.3)] hover:shadow-[0_0_15px_rgba(0,218,248,0.5)] transition-all active:scale-95" href="#" target="_blank"><span>▶</span> Demo</a>
+                  <a className="flex items-center gap-1.5 px-3 py-1.5 bg-transparent border border-outline-variant hover:border-primary text-primary rounded-full text-[11px] sm:text-xs font-bold transition-all active:scale-95" href="#" target="_blank">
                     <GithubIcon className="w-3.5 h-3.5" /> Source
                   </a>
                 </div>
@@ -67,8 +68,9 @@ export default function Projects() {
             <div className="p-8 flex-grow">
               <div className="flex justify-between items-start mb-4">
                 <h3 className="font-headline text-3xl font-bold text-on-surface">AI Manim Video Gen</h3>
-                <div className="flex gap-3"><a className="flex items-center gap-1 px-3 py-1 border border-primary text-primary rounded-full text-xs font-bold hover:bg-primary/10 transition-colors" href="https://www.youtube.com/watch?v=yanGT_wRSms" target="_blank"><span>▶</span> Demo</a>
-                  <a className="flex items-center gap-1.5 px-3 py-1 border border-secondary text-secondary rounded-full text-xs font-bold hover:bg-secondary/10 transition-colors" href="#" target="_blank">
+                <div className="flex gap-3">
+                  <a className="flex items-center gap-1 px-3 py-1.5 bg-primary text-on-primary rounded-full text-[11px] sm:text-xs font-bold shadow-[0_0_10px_rgba(0,218,248,0.3)] hover:shadow-[0_0_15px_rgba(0,218,248,0.5)] transition-all active:scale-95" href="https://www.youtube.com/watch?v=yanGT_wRSms" target="_blank"><span>▶</span> Demo</a>
+                  <a className="flex items-center gap-1.5 px-3 py-1.5 bg-transparent border border-outline-variant hover:border-primary text-primary rounded-full text-[11px] sm:text-xs font-bold transition-all active:scale-95" href="#" target="_blank">
                     <GithubIcon className="w-3.5 h-3.5" /> Source
                   </a>
                 </div>

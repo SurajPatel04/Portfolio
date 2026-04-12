@@ -74,17 +74,17 @@ export default function TechEcosystem() {
           </h2>
           <button
             onClick={toggleAll}
-            className="md:hidden text-[13px] sm:text-sm font-medium text-primary/80 hover:text-primary transition-colors active:scale-95 focus:outline-none"
+            className="md:hidden text-[13px] sm:text-sm font-medium text-primary/80 hover:text-primary transition-colors active:scale-95 focus:outline-none min-w-[90px] text-right"
           >
-            {isAllOpen ? 'Hide Skills' : 'Show All Skills'}
+            {isAllOpen ? 'Hide All Skills' : 'Show All Skills'}
           </button>
         </div>
         {/* Desktop Layout: Grid */}
         <div className="hidden md:grid grid-cols-2 lg:grid-cols-3 gap-6">
           {technologies.map((tech, index) => (
-            <div key={index} className="group relative overflow-hidden bg-surface-container p-8 rounded-[2rem] border border-outline-variant/10 hover:-translate-y-1 hover:border-primary/50 hover:shadow-[0_0_40px_-15px_rgba(0,218,248,0.3)] transition-all duration-300">
-              {/* Elegant Inner Glow */}
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-secondary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+            <div key={index} className="group relative overflow-hidden bg-surface-container p-8 rounded-full border border-outline-variant/10 hover:-translate-y-2 hover:border-primary/50 hover:shadow-[0_10px_40px_-15px_rgba(0,218,248,0.3)] transition-all duration-500">
+              {/* Elegant Inner Glow - Pure Primary/Green */}
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
               <div className="relative z-10">
                 <div className="flex items-center gap-4 mb-6">
@@ -96,7 +96,7 @@ export default function TechEcosystem() {
                 <ul className="space-y-4 text-base font-medium">
                   {tech.items.map((item, i) => (
                     <li key={i} className="flex items-center gap-3 text-on-surface-variant group-hover:text-on-surface transition-colors">
-                      <span className="w-1.5 h-1.5 shrink-0 rounded-full bg-primary shadow-[0_0_8px_rgba(0,218,248,0.6)] group-hover:bg-secondary group-hover:shadow-[0_0_8px_rgba(208,188,255,0.6)] transition-all duration-300"></span>
+                      <span className="w-1.5 h-1.5 shrink-0 rounded-full bg-primary shadow-[0_0_8px_rgba(0,218,248,0.6)] transition-all duration-300"></span>
                       <span>{item}</span>
                     </li>
                   ))}
@@ -111,11 +111,10 @@ export default function TechEcosystem() {
           {technologies.map((tech, index) => {
             const isOpen = openItems.includes(index);
             return (
-              <div 
-                key={index} 
-                className={`bg-surface-container border transition-all duration-300 rounded-2xl overflow-hidden ${
-                  isOpen ? 'border-primary/30 shadow-[0_4px_20px_-10px_rgba(0,218,248,0.15)] bg-surface-container-high' : 'border-outline-variant/10'
-                }`}
+              <div
+                key={index}
+                className={`bg-surface-container border transition-all duration-300 rounded-full overflow-hidden ${isOpen ? 'border-primary/30 shadow-[0_8px_30px_-10px_rgba(0,218,248,0.2)] bg-surface-container-high' : 'border-outline-variant/10'
+                  }`}
               >
                 <button
                   onClick={() => toggleItem(index)}
@@ -129,7 +128,7 @@ export default function TechEcosystem() {
                       <span className={`font-headline font-bold text-[15px] transition-colors tracking-tight shrink-0 ${isOpen ? 'text-primary' : 'text-on-surface'}`}>
                         {tech.title}
                       </span>
-                      
+
                       {/* Truncated inline preview when collapsed */}
                       {!isOpen && (
                         <span className="text-[13px] text-on-surface-variant/60 truncate mt-[1.5px]">
@@ -142,7 +141,7 @@ export default function TechEcosystem() {
                   </div>
                   <ChevronDown className={`shrink-0 w-5 h-5 transition-transform duration-300 ${isOpen ? 'rotate-180 text-primary' : 'text-on-surface-variant/70'}`} />
                 </button>
-                
+
                 <AnimatePresence initial={false}>
                   {isOpen && (
                     <motion.div

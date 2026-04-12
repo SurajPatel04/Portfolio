@@ -1,9 +1,10 @@
 import { animate, motion } from 'motion/react';
 import { useTheme } from './ThemeContext';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Menu, X } from 'lucide-react';
 
 const NAV_ITEMS = [
+  { id: 'tech', label: 'Skills' },
   { id: 'experience', label: 'Experience' },
   { id: 'projects', label: 'Projects' },
   { id: 'certifications', label: 'Certifications' },
@@ -14,6 +15,39 @@ export default function Navbar() {
   const { theme, toggleTheme } = useTheme();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const navRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const handleOutsideClick = (event: MouseEvent | TouchEvent) => {
+      if (isMobileMenuOpen && navRef.current && !navRef.current.contains(event.target as Node)) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    const handleScrollEvent = () => {
+      if (isMobileMenuOpen) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    if (isMobileMenuOpen) {
+      document.addEventListener('mousedown', handleOutsideClick);
+      document.addEventListener('touchstart', handleOutsideClick);
+      
+      // Delaying the scroll listener attachment slightly prevents it from firing 
+      // immediately if the menu opening itself causes a layout shift scroll.
+      const timeoutId = setTimeout(() => {
+        window.addEventListener('scroll', handleScrollEvent, { passive: true });
+      }, 100);
+
+      return () => {
+        clearTimeout(timeoutId);
+        document.removeEventListener('mousedown', handleOutsideClick);
+        document.removeEventListener('touchstart', handleOutsideClick);
+        window.removeEventListener('scroll', handleScrollEvent);
+      };
+    }
+  }, [isMobileMenuOpen]);
 
   const handleScroll = (e: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>, id: string) => {
     e.preventDefault();
@@ -35,21 +69,20 @@ export default function Navbar() {
   if (theme === 'terminal') return null;
 
   return (
-    <header className="fixed top-0 w-full z-50 bg-[#131318]/80 backdrop-blur-xl bg-gradient-to-b from-[#131318] to-transparent shadow-none">
+    <header ref={navRef} className="fixed top-0 w-full z-50 bg-[#131318]/80 backdrop-blur-xl bg-gradient-to-b from-[#131318] to-transparent shadow-none">
       <nav className="max-w-7xl mx-auto px-6 md:px-8 py-4">
         <div className="flex justify-between items-center">
           <div className="text-xl font-bold tracking-tighter text-slate-50 font-['Space_Grotesk']">
             Suraj Patel
           </div>
           
-          <div className="hidden md:flex items-center gap-1 lg:gap-2">
+          <div className="hidden md:flex items-center gap-1 lg:gap-2" onMouseLeave={() => setHoveredIndex(null)}>
             {NAV_ITEMS.map((item, index) => (
               <a
                 key={item.id}
                 href={`#${item.id}`}
                 onClick={(e) => handleScroll(e, item.id)}
                 onMouseEnter={() => setHoveredIndex(index)}
-                onMouseLeave={() => setHoveredIndex(null)}
                 className="relative cursor-pointer text-slate-400 font-medium hover:text-slate-200 px-3 lg:px-4 py-2 rounded-xl transition-colors duration-300 font-['Space_Grotesk'] tracking-tight"
               >
                 {hoveredIndex === index && (
@@ -78,7 +111,7 @@ export default function Navbar() {
                 Terminal Mode
               </span>
             </button>
-            <button onClick={(e) => handleScroll(e, 'resume')} className="bg-gradient-to-r from-primary to-secondary text-on-primary font-bold px-6 py-2 rounded-xl active:scale-95 duration-100 transition-all font-['Space_Grotesk'] flex items-center justify-center">
+            <button onClick={(e) => handleScroll(e, 'resume')} className="bg-primary text-on-primary font-bold px-6 py-2 rounded-xl shadow-[0_0_15px_rgba(0,218,248,0.3)] hover:shadow-[0_0_20px_rgba(0,218,248,0.5)] active:scale-95 duration-300 transition-all font-['Space_Grotesk'] flex items-center justify-center">
               Resume
             </button>
           </div>
@@ -112,13 +145,19 @@ export default function Navbar() {
           }`}
         >
           <div className="flex flex-col gap-2 pt-2 pb-4 border-t border-white/10">
-            <a href="#experience" onClick={(e) => handleScroll(e, 'experience')} className="block text-slate-400 font-medium hover:text-slate-200 hover:bg-white/5 transition-all duration-300 font-['Space_Grotesk'] py-3 px-4 rounded-lg">Experience</a>
-            <a href="#projects" onClick={(e) => handleScroll(e, 'projects')} className="block text-slate-400 font-medium hover:text-slate-200 hover:bg-white/5 transition-all duration-300 font-['Space_Grotesk'] py-3 px-4 rounded-lg">Projects</a>
-            <a href="#certifications" onClick={(e) => handleScroll(e, 'certifications')} className="block text-slate-400 font-medium hover:text-slate-200 hover:bg-white/5 transition-all duration-300 font-['Space_Grotesk'] py-3 px-4 rounded-lg">Certifications</a>
-            <a href="#contact" onClick={(e) => handleScroll(e, 'contact')} className="block text-slate-400 font-medium hover:text-slate-200 hover:bg-white/5 transition-all duration-300 font-['Space_Grotesk'] py-3 px-4 rounded-lg">Contact</a>
+            {NAV_ITEMS.map((item) => (
+              <a
+                key={item.id}
+                href={`#${item.id}`}
+                onClick={(e) => handleScroll(e, item.id)}
+                className="block text-slate-400 font-medium hover:text-slate-200 hover:bg-white/5 transition-all duration-300 font-['Space_Grotesk'] py-3 px-4 rounded-lg"
+              >
+                {item.label}
+              </a>
+            ))}
             
             <div className="pt-2 mt-2 border-t border-white/5">
-              <button onClick={(e) => handleScroll(e, 'resume')} className="w-full bg-gradient-to-r from-primary to-secondary text-on-primary font-bold px-6 py-3 rounded-xl active:scale-95 duration-100 transition-all font-['Space_Grotesk']">
+              <button onClick={(e) => handleScroll(e, 'resume')} className="w-full bg-primary text-on-primary font-bold px-6 py-3 rounded-xl shadow-[0_0_15px_rgba(0,218,248,0.3)] hover:shadow-[0_0_20px_rgba(0,218,248,0.5)] active:scale-95 duration-300 transition-all font-['Space_Grotesk']">
                 Resume
               </button>
             </div>

@@ -19,7 +19,7 @@ export default function Certifications() {
       year: "2025",
       img: fullStackImg,
       link: "https://scrimba.com/certificate-cert23wfboWopQ2SSv6pWzVHgSrmSF9gqPYtSWTLot5DwyAxWL1v",
-      color: "primary"
+      color: "secondary"
     },
     {
       title: "Advanced React Mastery",
@@ -51,7 +51,7 @@ export default function Certifications() {
               href={cert.link}
               target="_blank"
               rel="noopener noreferrer"
-              className={`group relative overflow-hidden bg-surface-container-low rounded-3xl flex flex-col border border-outline-variant/20 hover:-translate-y-2 transition-all duration-500 shadow-2xl ${
+              className={`group relative overflow-hidden bg-surface-container-low rounded-full flex flex-col border border-outline-variant/20 hover:-translate-y-2 transition-all duration-500 shadow-2xl ${
                 cert.color === 'primary' 
                   ? 'hover:border-primary/50 hover:shadow-[0_10px_40px_-15px_rgba(0,218,248,0.3)]' 
                   : 'hover:border-secondary/50 hover:shadow-[0_10px_40px_-15px_rgba(208,188,255,0.3)]'

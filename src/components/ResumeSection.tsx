@@ -34,10 +34,10 @@ export default function ResumeSection() {
           {/* Right Side: Resume Preview Card */}
           <div className="relative group">
             {/* Glow Effect */}
-            <div className="absolute inset-0 bg-primary/5 blur-3xl rounded-[2rem] group-hover:bg-primary/10 transition-colors duration-500"></div>
+            <div className="absolute inset-0 bg-primary/5 blur-3xl rounded-full group-hover:bg-primary/10 transition-colors duration-500"></div>
 
             {/* Glass Card */}
-            <div className="relative bg-surface-container border border-primary/30 p-10 rounded-[2rem] shadow-2xl flex flex-col gap-8 h-[520px] overflow-hidden">
+            <div className="relative bg-surface-container border border-primary/30 p-10 rounded-full shadow-2xl flex flex-col gap-8 h-[520px] overflow-hidden">
 
               {/* Header (Sticky inside visible bound) */}
               <div className="border-b border-outline-variant/20 pb-6 shrink-0 z-30 bg-surface-container">
@@ -182,7 +182,7 @@ export default function ResumeSection() {
               <div className="absolute top-[138px] left-0 right-0 h-8 bg-gradient-to-b from-surface-container to-transparent z-20 pointer-events-none"></div>
 
               {/* Bottom Fade */}
-              <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-surface-container to-transparent z-20 pointer-events-none rounded-b-[2rem]"></div>
+              <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-surface-container to-transparent z-20 pointer-events-none rounded-b-full"></div>
             </div>
           </div>
 

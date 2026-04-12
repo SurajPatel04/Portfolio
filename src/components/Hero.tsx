@@ -1,10 +1,25 @@
 import { lazy, Suspense } from 'react';
-import { motion } from 'motion/react';
+import { motion, animate } from 'motion/react';
 import surajPhoto from '../assets/Suraj Patel New.png';
 
 const HeroAvatar3D = lazy(() => import('./HeroAvatar3D'));
 
 export default function Hero() {
+  const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    e.preventDefault();
+    const element = document.getElementById(id);
+    if (element) {
+      // Offset matches the navbar logic to ensure headers aren't covered
+      const y = element.getBoundingClientRect().top + window.scrollY - 10;
+
+      animate(window.scrollY, y, {
+        duration: 1.2,
+        ease: [0.25, 0.46, 0.45, 0.94], // The premium spring curve
+        onUpdate: (latest) => window.scrollTo(0, latest)
+      });
+    }
+  };
+
   return (
     <section className="relative min-h-[100dvh] flex flex-col justify-center pt-0 lg:pt-20 overflow-hidden">
       {/* Background glow */}
@@ -69,14 +84,16 @@ export default function Hero() {
             transition={{ delay: 0.5, duration: 0.6 }}
           >
             <a
-              className="w-full flex items-center justify-center text-center bg-gradient-to-r from-primary to-secondary text-on-primary px-2 py-3 sm:px-6 lg:px-8 lg:py-4 rounded-xl font-headline font-bold text-sm sm:text-base lg:text-lg shadow-[0_0_20px_rgba(0,218,248,0.3)] hover:shadow-[0_0_30px_rgba(0,218,248,0.5)] transition-all active:scale-95 whitespace-nowrap"
+              className="w-full flex items-center justify-center text-center bg-primary text-on-primary px-2 py-3 sm:px-6 lg:px-8 lg:py-4 rounded-xl font-headline font-bold text-sm sm:text-base lg:text-lg shadow-[0_0_20px_rgba(0,218,248,0.3)] hover:shadow-[0_0_30px_rgba(0,218,248,0.5)] transition-all active:scale-95 whitespace-nowrap cursor-pointer"
               href="#projects"
+              onClick={(e) => handleScroll(e, 'projects')}
             >
               View Projects
             </a>
             <a
-              className="w-full flex items-center justify-center text-center bg-surface-container/40 backdrop-blur-md border border-outline-variant/30 text-on-surface px-2 py-3 sm:px-6 lg:px-8 lg:py-4 rounded-xl font-headline font-bold text-sm sm:text-base lg:text-lg hover:bg-surface-container transition-all active:scale-95 whitespace-nowrap"
+              className="w-full flex items-center justify-center text-center bg-transparent border border-outline-variant hover:border-primary text-primary px-2 py-3 sm:px-6 lg:px-8 lg:py-4 rounded-xl font-headline font-bold text-sm sm:text-base lg:text-lg transition-all active:scale-95 whitespace-nowrap cursor-pointer"
               href="#contact"
+              onClick={(e) => handleScroll(e, 'contact')}
             >
               Contact Me
             </a>
