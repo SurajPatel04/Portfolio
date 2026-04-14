@@ -1,4 +1,4 @@
-import { Mail, Phone } from 'lucide-react';
+import { Mail } from 'lucide-react';
 
 // GitHub SVG icon (inline to avoid lucide-react version export issues)
 const GithubIcon = ({ className }: { className?: string }) => (
@@ -32,18 +32,10 @@ export default function Footer() {
             <GithubIcon className="w-4 h-4 text-slate-500 group-hover:text-primary transition-colors shrink-0" />
             <span className="leading-none">GitHub</span>
           </a>
-          <a className="group inline-flex items-center gap-2 text-slate-400 hover:text-primary transition-all font-headline text-sm tracking-wide font-medium" href="mailto:surajpatel9390@gmail.com">
-            <Mail className="w-4 h-4 text-slate-500 group-hover:text-primary transition-colors shrink-0" />
-            <span className="leading-none">Email</span>
-          </a>
-          <a className="group inline-flex items-center gap-2 text-slate-400 hover:text-primary transition-all font-headline text-sm tracking-wide font-medium" href="tel:+919260923895">
-            <Phone className="w-4 h-4 text-slate-500 group-hover:text-primary transition-colors shrink-0" />
-            <span className="leading-none">Phone</span>
-          </a>
-        </div>
-        <div className="flex items-center gap-2">
-          <div className="w-2 h-2 rounded-full bg-primary animate-pulse shadow-[0_0_8px_#00daf8]"></div>
-          <span className="text-[10px] text-slate-500 uppercase tracking-tighter font-mono font-bold">System Online</span>
+          <div className="inline-flex items-center gap-2 text-slate-400 font-headline text-sm tracking-wide font-medium">
+            <Mail className="w-4 h-4 text-slate-500 shrink-0" />
+            <span className="leading-none">surajpatel9390@gmail.com</span>
+          </div>
         </div>
       </div>
     </footer>
