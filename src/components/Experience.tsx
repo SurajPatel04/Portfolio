@@ -10,8 +10,8 @@ export default function Experience() {
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
-        <h2 className="font-headline text-4xl font-bold mb-16 flex items-center gap-4">
-          <span className="text-primary font-mono text-xl">02.</span> Professional Journey
+        <h2 className="font-headline text-[30px] md:text-4xl font-bold mb-16 flex items-center gap-4">
+          <span className="text-primary font-mono text-lg md:text-xl">02.</span> Professional Journey
         </h2>
         <div className="relative space-y-8 md:space-y-12 before:absolute before:inset-0 before:ml-5 before:-translate-x-px lg:before:mx-auto lg:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-primary before:via-secondary before:to-transparent">
           <div className="relative flex flex-row items-center justify-between lg:justify-normal lg:odd:flex-row-reverse group">

@@ -253,6 +253,14 @@ function HomeSection() {
               <td>Full Stack · AI Systems · Agentic Backends</td>
             </tr>
             <tr>
+              <td className="pr-8 uppercase tracking-wider text-xs" style={{ color: '#666' }}>GitHub</td>
+              <td>
+                <a href="https://github.com/SurajPatel04" target="_blank" rel="noopener noreferrer" className="hover:underline" style={{ color: '#00daf8' }}>
+                  github.com/SurajPatel04
+                </a>
+              </td>
+            </tr>
+            <tr>
               <td className="pr-8 uppercase tracking-wider text-xs" style={{ color: '#666' }}>Contact</td>
               <td>
                 <a href="mailto:surajpatel9390@gmail.com" className="hover:underline" style={{ color: '#00daf8' }}>
@@ -261,8 +269,16 @@ function HomeSection() {
               </td>
             </tr>
             <tr>
-              <td className="pr-8 uppercase tracking-wider text-xs" style={{ color: '#666' }}>Status</td>
-              <td style={{ color: '#33ff33' }}>■ OPEN TO WORK</td>
+              <td className="pr-8 uppercase tracking-wider text-xs" style={{ color: '#666' }}>Resume</td>
+              <td>
+                <a href={resumePdf} download="Suraj_Patel_Resume.pdf" className="hover:underline font-bold" style={{ color: '#33ff33' }}>
+                  [↓ download.pdf]
+                </a>
+              </td>
+            </tr>
+            <tr>
+              <td className="pr-8 pt-2 uppercase tracking-wider text-xs" style={{ color: '#666' }}>Status</td>
+              <td className="pt-2" style={{ color: '#33ff33' }}>■ OPEN TO WORK</td>
             </tr>
           </tbody>
         </table>

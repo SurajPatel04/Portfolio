@@ -59,6 +59,10 @@
   --radius-full: 0.75rem;
 }
 
+html, body {
+    overflow-x: hidden;
+}
+
 body {
     background-color: var(--color-background);
     font-family: var(--font-body);

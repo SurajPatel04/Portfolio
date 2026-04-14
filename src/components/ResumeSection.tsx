@@ -9,24 +9,24 @@ export default function ResumeSection() {
   const springTransition: any = { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] };
 
   return (
-    <section className="py-24 bg-surface-container-low" id="resume">
+    <section className="py-18 bg-surface-container-low" id="resume">
       <div className="max-w-7xl mx-auto px-8">
         <div className="grid md:grid-cols-2 gap-16 items-center">
 
           {/* Left Side: Description & Buttons */}
           <div>
-            <h2 className="font-headline text-4xl font-bold mb-6 flex items-center gap-4 text-on-surface">
-              <span className="text-primary font-mono text-xl">05.</span> Resume
+            <h2 className="font-headline text-[30px] md:text-4xl font-bold mb-6 flex items-center gap-4 text-on-surface">
+              <span className="text-primary font-mono text-lg md:text-xl">05.</span> Resume
             </h2>
             <p className="text-on-surface-variant text-lg mb-10 leading-relaxed max-w-md">
               A snapshot of my experience, skills, and projects. Optimized for ATS and refined for engineering excellence.
             </p>
-            <div className="flex flex-wrap items-center gap-4">
-              <a href={resumePdf} download="Suraj_Patel_Resume.pdf" className="flex items-center gap-2 bg-primary text-on-primary font-headline font-bold px-6 py-4 rounded-xl shadow-[0_0_20px_rgba(0,218,248,0.3)] hover:shadow-[0_0_30px_rgba(0,218,248,0.5)] transition-all active:scale-95">
-                <span className="material-symbols-outlined text-[20px]">download</span> Download Resume
+            <div className="flex flex-row items-center gap-3 sm:gap-4 w-full sm:w-auto">
+              <a href={resumePdf} download="Suraj_Patel_Resume.pdf" className="flex-1 sm:flex-none flex justify-center items-center gap-2 bg-primary text-on-primary font-headline font-bold px-4 py-3 sm:px-6 sm:py-4 rounded-xl text-[13px] sm:text-base shadow-[0_0_20px_rgba(0,218,248,0.3)] hover:shadow-[0_0_30px_rgba(0,218,248,0.5)] transition-all active:scale-95 whitespace-nowrap">
+                <span className="material-symbols-outlined text-[18px] sm:text-[20px]">download</span> Download<span className="hidden sm:inline"> Resume</span>
               </a>
-              <a href={resumePdf} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 bg-transparent border border-outline-variant hover:border-primary text-primary font-headline font-bold px-6 py-4 rounded-xl transition-all active:scale-95">
-                <span className="material-symbols-outlined text-[20px]">visibility</span> View Full Resume
+              <a href={resumePdf} target="_blank" rel="noopener noreferrer" className="flex-1 sm:flex-none flex justify-center items-center gap-2 bg-transparent border border-outline-variant hover:border-primary text-primary font-headline font-bold px-4 py-3 sm:px-6 sm:py-4 rounded-xl text-[13px] sm:text-base transition-all active:scale-95 whitespace-nowrap">
+                <span className="material-symbols-outlined text-[18px] sm:text-[20px]">visibility</span> View<span className="hidden xs:inline"> Full</span><span className="hidden sm:inline"> Resume</span>
               </a>
             </div>
           </div>
@@ -37,7 +37,7 @@ export default function ResumeSection() {
             <div className="absolute inset-0 bg-primary/5 blur-3xl rounded-full group-hover:bg-primary/10 transition-colors duration-500"></div>
 
             {/* Glass Card */}
-            <div className="relative bg-surface-container border border-primary/30 p-10 rounded-full shadow-2xl flex flex-col gap-8 h-[520px] overflow-hidden">
+            <div className="relative bg-surface-container border border-primary/30 p-10 rounded-full shadow-2xl flex flex-col gap-8 h-[600px] overflow-hidden">
 
               {/* Header (Sticky inside visible bound) */}
               <div className="border-b border-outline-variant/20 pb-6 shrink-0 z-30 bg-surface-container">
