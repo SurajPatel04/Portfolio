@@ -68,87 +68,8 @@ export default function ResumeSection() {
                 >
                   <h4 className="font-headline font-bold text-primary tracking-widest uppercase text-[11px] mb-3">Summary</h4>
                   <p className="text-sm text-on-surface-variant leading-relaxed font-body">
-                    MCA student with hands-on experience building AI driven backend systems using LangChain, LangGraph, and GCP. Familiar with core data structures and algorithms, with practical exposure to real-time application design.
+                    MCA student focused on building AI-driven backend systems and real-time applications.  Experienced in designing agentic workflows using LangChain and LangGraph, with hands-on work in scalable architectures, streaming systems, and production deployment on GCP.
                   </p>
-                </motion.div>
-
-                {/* Core Expertise (Technical Skills) - Staggered Pop & Blur */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ root: scrollRef, once: true, amount: 0.1 }}
-                  transition={springTransition}
-                >
-                  <h4 className="font-headline font-bold text-primary tracking-widest uppercase text-[11px] mb-3">Technical Skills</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {['JavaScript', 'TypeScript', 'Python', 'React', 'HTML', 'CSS', 'Tailwind CSS', 'Node.js', 'Express.js', 'REST APIs', 'FastAPI', 'PostgreSQL', 'MongoDB', 'Redis', 'LangChain', 'LangGraph', 'Docker', 'Git', 'Github', 'Data Structures', 'Algorithms'].map((skill, idx) => (
-                      < motion.span
-                        key={skill}
-                        initial={{ opacity: 0, scale: 0.5, filter: "blur(5px)" }}
-                        whileInView={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-                        viewport={{ root: scrollRef, once: true, amount: 0.5 }}
-                        transition={{ duration: 0.5, delay: idx * 0.05, ease: [0.25, 0.46, 0.45, 0.94] as any }}
-                        className="bg-surface-container-highest text-on-surface-variant text-[11px] font-bold px-3 py-1.5 rounded-full"
-                      >
-                        {skill}
-                      </motion.span>
-                    ))}
-                  </div>
-                </motion.div>
-
-                {/* Experience - Slide from Left with Blur */}
-                <motion.div
-                  initial={{ opacity: 0, x: -30, filter: "blur(8px)" }}
-                  whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-                  viewport={{ root: scrollRef, once: true, amount: 0.2 }}
-                  transition={springTransition}
-                >
-                  <h4 className="font-headline font-bold text-primary tracking-widest uppercase text-[11px] mb-3">Professional Experience</h4>
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <h5 className="font-bold text-on-surface text-sm">Full Stack Engineer – Intern</h5>
-                      <p className="text-on-surface-variant/70 text-xs mt-1 font-bold">Careerboat.ai</p>
-                    </div>
-                    <span className="text-on-surface-variant/50 text-[10px] font-mono tracking-normal">Dec 2025 - Pres.</span>
-                  </div>
-                  <ul className="mt-3 space-y-2 text-[12px] text-on-surface-variant leading-relaxed">
-                    <li>• Built an AI-powered interview system generating context-aware questions using LangChain and LangGraph, adapting dynamically to simulate realistic scenarios.</li>
-                    <li>• Designed stateful LangGraph workflows with MongoDB, reducing token usage via context summarization.</li>
-                    <li>• Developed a real-time voice pipeline with GCP TTS, SSE, and AWS S3 for low-latency interactive interviews.</li>
-                    <li>• Implemented production-grade Razorpay payment flows with subscription and webhook validation logic.</li>
-                  </ul>
-                </motion.div>
-
-                {/* Projects - Slide from Right with Blur */}
-                <motion.div
-                  initial={{ opacity: 0, x: 30, filter: "blur(8px)" }}
-                  whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-                  viewport={{ root: scrollRef, once: true, amount: 0.2 }}
-                  transition={springTransition}
-                >
-                  <h4 className="font-headline font-bold text-primary tracking-widest uppercase text-[11px] mb-3">Projects</h4>
-
-                  <div className="mb-6">
-                    <div className="flex justify-between items-start">
-                      <h5 className="font-bold text-on-surface text-sm">AI Interview</h5>
-                      <span className="text-on-surface-variant/50 text-[10px] font-mono tracking-normal">May 2025 - June 2025</span>
-                    </div>
-                    <ul className="mt-2 space-y-2 text-[12px] text-on-surface-variant leading-relaxed">
-                      <li>• Built a real-time AI interview platform using React, Node.js, and WebSockets.</li>
-                      <li>• Reduced latency to 3-6s via Redis caching and Google Cloud TTS; deployed on GCP.</li>
-                    </ul>
-                  </div>
-
-                  <div>
-                    <div className="flex justify-between items-start">
-                      <h5 className="font-bold text-on-surface text-sm">AI Manim Video Generator</h5>
-                      <span className="text-on-surface-variant/50 text-[10px] font-mono tracking-normal">Jul 2025 - Aug 2025</span>
-                    </div>
-                    <ul className="mt-2 space-y-2 text-[12px] text-on-surface-variant leading-relaxed">
-                      <li>• Developed generative video platform using React, FastAPI, and LangGraph.</li>
-                      <li>• Built scalable rendering pipeline with Celery and Redis automated on GCP.</li>
-                    </ul>
-                  </div>
                 </motion.div>
 
                 {/* Education - Slide from Bottom with Blur */}
@@ -175,6 +96,122 @@ export default function ResumeSection() {
                   </div>
                 </motion.div>
 
+                {/* Experience - Slide from Left with Blur */}
+                <motion.div
+                  initial={{ opacity: 0, x: -30, filter: "blur(8px)" }}
+                  whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+                  viewport={{ root: scrollRef, once: true, amount: 0.2 }}
+                  transition={springTransition}
+                >
+                  <h4 className="font-headline font-bold text-primary tracking-widest uppercase text-[11px] mb-3">Professional Experience</h4>
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <h5 className="font-bold text-on-surface text-sm">Full Stack Engineer – Intern</h5>
+                      <p className="text-on-surface-variant/70 text-xs mt-1 font-bold">Careerboat.ai</p>
+                    </div>
+                    <span className="text-on-surface-variant/50 text-[10px] font-mono tracking-normal">Dec 2025 - Pres.</span>
+                  </div>
+                  <ul className="mt-3 space-y-2 text-[12px] text-on-surface-variant leading-relaxed">
+                    <li>• Developed AI interview APIs using Node.js with LangChain and LangGraph, generating context-aware questions based on resumes, skills, and prior responses, while optimizing token usage through state management using MongoDB checkpointers and dynamic context summarization.</li>
+                    <li>• Integrated Google Cloud TTS, AWS S3, and SSE for real-time audio streaming and token-by-token AI responses.</li>
+                    <li>• Developed an AI powered resume analyzer to evaluate job description match rates, identify skill gaps, and dynamically generate tailored resumes.</li>
+                    <li>• Integrated the Razorpay payment gateway to process secure user transactions, implementing custom backend logic to support discount coupons.</li>
+                  </ul>
+                </motion.div>
+
+                {/* Projects - Slide from Right with Blur */}
+                <motion.div
+                  initial={{ opacity: 0, x: 30, filter: "blur(8px)" }}
+                  whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+                  viewport={{ root: scrollRef, once: true, amount: 0.2 }}
+                  transition={springTransition}
+                >
+                  <h4 className="font-headline font-bold text-primary tracking-widest uppercase text-[11px] mb-3">Projects</h4>
+
+                  <div className="mb-6">
+                    <div className="flex justify-between items-start">
+                      <div className="flex items-center gap-2">
+                        <h5 className="font-bold text-on-surface text-sm">AI Interview</h5>
+                        <span className="text-on-surface-variant/30 text-xs text-bold">|</span>
+                        <a href="https://github.com/SurajPatel04/AI-Interview" target="_blank" rel="noopener noreferrer" className="text-primary text-[11px] font-bold hover:underline">Source Code</a>
+                      </div>
+                      <span className="text-on-surface-variant/50 text-[10px] font-mono tracking-normal">May 2025 - June 2025</span>
+                    </div>
+                    <ul className="mt-2 space-y-2 text-[12px] text-on-surface-variant leading-relaxed">
+                      <li>• Built a full-stack AI-powered interview system using React, Node.js and MongoDB, generating context-aware questions from resumes, skills, and user responses using LangChain and Gemini.</li>
+                      <li>• Engineered a real-time interview system with WebRTC and Socket.io, integrating streaming audio and TTS, reducing next-question API response latency from ~8–10s to ~3–6s using Redis caching.</li>
+                    </ul>
+                  </div>
+
+                  <div>
+                    <div className="flex justify-between items-start">
+                      <div className="flex items-center gap-2">
+                        <h5 className="font-bold text-on-surface text-sm">AI Manim Video Generator</h5>
+                        <span className="text-on-surface-variant/30 text-xs text-bold">|</span>
+                        <a href="https://github.com/SurajPatel04/manimVideoGenerate" target="_blank" rel="noopener noreferrer" className="text-primary text-[11px] font-bold hover:underline">Source Code</a>
+                      </div>
+                      <span className="text-on-surface-variant/50 text-[10px] font-mono tracking-normal">Jul 2025 - Aug 2025</span>
+                    </div>
+                    <ul className="mt-2 space-y-2 text-[12px] text-on-surface-variant leading-relaxed">
+                      <li>• Built an end-to-end AI pipeline using React, FastAPI and MongoDB to generate animations from text prompts into Manim code and rendered video output.</li>
+                      <li>• Designed a multi-agent LangGraph workflow with validation and repair loops, enabling self-healing code generation and improving execution success (~60% → ~90%+).</li>
+                      <li>• Implemented Celery + Redis task queue for concurrent rendering, improving stability under high load, with Supabase for video storage, deployed on GCP using Docker.</li>
+                    </ul>
+                  </div>
+                </motion.div>
+
+                {/* Core Expertise (Technical Skills) - Staggered Pop & Blur */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ root: scrollRef, once: true, amount: 0.1 }}
+                  transition={springTransition}
+                >
+                  <h4 className="font-headline font-bold text-primary tracking-widest uppercase text-[11px] mb-3">Technical Skills</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {['JavaScript', 'TypeScript', 'Python', 'React', 'HTML', 'CSS', 'Tailwind CSS', 'Node.js', 'Express.js', 'REST APIs', 'FastAPI', 'PostgreSQL', 'MongoDB', 'Redis', 'LangChain', 'LangGraph', 'Docker', 'Git', 'Github', "Scikit-learn", "PyTorch", "Pandas", "Prisma", "Mongoose", "Beanie"].map((skill, idx) => (
+                      < motion.span
+                        key={skill}
+                        initial={{ opacity: 0, scale: 0.5, filter: "blur(5px)" }}
+                        whileInView={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                        viewport={{ root: scrollRef, once: true, amount: 0.5 }}
+                        transition={{ duration: 0.5, delay: idx * 0.05, ease: [0.25, 0.46, 0.45, 0.94] as any }}
+                        className="bg-surface-container-highest text-on-surface-variant text-[11px] font-bold px-3 py-1.5 rounded-full"
+                      >
+                        {skill}
+                      </motion.span>
+                    ))}
+                  </div>
+                </motion.div>
+
+
+                {/* Certifications - Slide from Bottom with Blur */}
+                <motion.div
+                  initial={{ opacity: 0, y: 30, filter: "blur(8px)" }}
+                  whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                  viewport={{ root: scrollRef, once: true, amount: 0.2 }}
+                  transition={springTransition}
+                >
+                  <h4 className="font-headline font-bold text-primary tracking-widest uppercase text-[11px] mb-3">Certifications</h4>
+                  <div className="space-y-4">
+                    <div>
+                      <div className="flex justify-between items-start">
+                        <h5 className="font-bold text-on-surface text-sm">The Fullstack Developer Path</h5>
+                        <span className="text-on-surface-variant/50 text-[10px] font-mono tracking-normal">2025</span>
+                      </div>
+                      <p className="text-on-surface-variant/70 text-[12px] mt-1">Scrimba</p>
+                      <a href="https://scrimba.com/certificate-cert23wfboWopQ2SSv6pWzVHgSrmSF9gqPYtSWTLot5DwyAxWL1v" target="_blank" rel="noopener noreferrer" className="text-primary text-[11px] font-bold hover:underline mt-1 inline-block">View Certificate</a>
+                    </div>
+                    <div>
+                      <div className="flex justify-between items-start">
+                        <h5 className="font-bold text-on-surface text-sm">Learn React</h5>
+                        <span className="text-on-surface-variant/50 text-[10px] font-mono tracking-normal">2025</span>
+                      </div>
+                      <p className="text-on-surface-variant/70 text-[12px] mt-1">Scrimba</p>
+                      <a href="https://scrimba.com/certificate-cert24zAwPPowRQV2xfEN2ZiBrLXtw1vJ4YEgPtEU" target="_blank" rel="noopener noreferrer" className="text-primary text-[11px] font-bold hover:underline mt-1 inline-block">View Certificate</a>
+                    </div>
+                  </div>
+                </motion.div>
               </div>
 
               {/* Top fade to seamlessly pass under header */}
