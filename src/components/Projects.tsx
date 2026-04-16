@@ -20,11 +20,11 @@ const projectsData = [
     demoLink: "#",
     sourceLink: "#",
     bullets: [
-      "Real-time voice interviews with multi-dimension scoring; achieved 3-6s TTS latency via Redis + GCP caching",
-      "Resume-JD matching engine identifying skill gaps with automated feedback generation",
-      "Full CI/CD pipeline with Docker + GitHub Actions on GCP"
+      "Engineered a real-time AI interview system with WebRTC and Socket.io, enabling low-latency voice interactions with streaming TTS (Google Cloud + Redis caching)",
+      "Built context-aware interview workflows using LangChain, generating questions dynamically based on resumes, selected skills, and user responses",
+      "Implemented production-ready backend with Node.js, MongoDB, Redis, and Supabase, including authentication, interview history, and performance analysis"
     ],
-    techStack: ["React", "Node.js", "WebSockets", "Redis", "Docker", "GCP", "GitHub Actions"],
+    techStack: ["React", "Material UI", "Node.js", "Express.js", "MongoDB (Mongoose)", "Redis", "LangChain", "WebSockets", "JWT Auth", "Docker", "GCP", "Text-to-Speech (GCP TTS, Piper)", "GitHub Actions"],
     status: "COMPLETED",
     hasArchitecture: false,
     architectureImg: null
@@ -40,7 +40,7 @@ const projectsData = [
       "Celery + Redis async pipeline for CPU-intensive Manim renders; retry logic reduced rendering failures and improved system stability",
       "Production stack (FastAPI + web UI + GCP + Supabase) with distributed task workers"
     ],
-    techStack: ["FastAPI", "LangGraph", "Celery", "Redis", "Docker", "GCP", "Supabase"],
+    techStack: ["React", "Shadcn UI", "FastAPI", "LangGraph", "LangChain", "LangSmith", "Celery", "MongoDB (Beanie ODM)", "Redis", "Authentication (JWT, Google OAuth)", "Docker", "GCP", "GitHub Actions", "Supabase"],
     status: "COMPLETED",
     hasArchitecture: true,
     architectureImg: architectureImg
@@ -292,13 +292,6 @@ export default function Projects() {
                         </button>
                       </div>
                     )}
-                  </div>
-
-                  <div className="bg-[#18181A]/30 px-6 sm:px-8 py-4 sm:py-5 flex justify-between items-center border-t border-outline-variant/10 shrink-0">
-                    <span className="text-xs sm:text-[13px] font-mono font-bold text-green-400 flex items-center gap-2">
-                      <span className="w-2h-2 rounded-full bg-green-400 animate-pulse inline-block shadow-[0_0_8px_rgba(74,222,128,0.8)] h-2"></span>
-                      SYSTEM: {project.status}
-                    </span>
                   </div>
                 </div>
               ))}

@@ -21,11 +21,11 @@ const PROJECTS_DATA = [
   {
     name: 'ai-interview-platform',
     bullets: [
-      "Real-time voice interviews with multi-dimension scoring; achieved 3-6s TTS latency via Redis + GCP caching",
-      "Resume-JD matching engine identifying skill gaps with automated feedback generation",
-      "Full CI/CD pipeline with Docker + GitHub Actions on GCP"
+      "Engineered a real-time AI interview system with WebRTC and Socket.io, enabling low-latency voice interactions with streaming TTS (Google Cloud + Redis caching)",
+      "Built context-aware interview workflows using LangChain, generating questions dynamically based on resumes, selected skills, and user responses",
+      "Implemented production-ready backend with Node.js, MongoDB, Redis, and Supabase, including authentication, interview history, and performance analysis"
     ],
-    stack: ['React', 'Node.js', 'WebSockets', 'Redis', 'GCP', 'Docker'],
+    stack: ["React", "Material UI", "Node.js", "Express.js", "MongoDB (Mongoose)", "Redis", "LangChain", "WebSockets", "JWT Auth", "Docker", "GCP", "Text-to-Speech (GCP TTS, Piper)", "GitHub Actions"],
     status: 'COMPLETED',
     demo: '#',
     source: '#',
@@ -37,7 +37,7 @@ const PROJECTS_DATA = [
       "Celery + Redis async pipeline for CPU-intensive Manim renders; retry logic reduced rendering failures and improved system stability",
       "Production stack (FastAPI + web UI + GCP + Supabase) with distributed task workers"
     ],
-    stack: ['FastAPI', 'LangGraph', 'Celery', 'Redis', 'Docker', 'GCP', 'Supabase'],
+    stack: ["React", "Shadcn UI", "FastAPI", "LangGraph", "LangChain", "LangSmith", "Celery", "MongoDB (Beanie ODM)", "Redis", "Authentication (JWT, Google OAuth)", "Docker", "GCP", "GitHub Actions", "Supabase"],
     status: 'COMPLETED',
     demo: 'https://www.youtube.com/watch?v=yanGT_wRSms',
     source: '#',
@@ -354,12 +354,12 @@ function ProjectsSection() {
           <div key={proj.name} className="border-l-2 pl-4" style={{ borderColor: '#1a3a1a' }}>
             <div className="flex items-center gap-2 flex-wrap">
               <span style={{ color: '#33ff33' }} className="font-bold">{proj.name}/</span>
-              <span
+              {/* <span
                 className="text-[10px] px-2 py-0.5 rounded font-mono uppercase"
                 style={{ background: '#0a2a0a', color: '#33ff33', border: '1px solid #1a3a1a' }}
               >
                 {proj.status}
-              </span>
+              </span> */}
             </div>
             <div className="mt-2 space-y-1">
               {proj.bullets.map((bullet, i) => (
@@ -450,6 +450,7 @@ export default function TerminalView() {
   const [commandHistory, setCommandHistory] = useState<string[]>([]);
   const [historyPointer, setHistoryPointer] = useState(-1);
   const [suggestion, setSuggestion] = useState('');
+  const [showHelp, setShowHelp] = useState(true);
   const contentRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -565,10 +566,10 @@ export default function TerminalView() {
           <div className="flex items-center gap-3"><span style={{ color: '#33ff33' }}>●</span><span style={{ color: '#e0e0e0' }} className="font-bold">Full Stack Engineer — Intern</span></div>
           <div className="ml-6"><span style={{ color: '#00daf8' }}>@ Careerboat.ai</span><span style={{ color: '#666' }}> {'  '} Dec 2025 — Present</span></div>
           <div className="ml-6 mt-2 space-y-2 text-sm md:text-justify pr-4 sm:pr-8" style={{ color: '#aaa' }}>
-            <p>→ Built an AI-powered interview system that generates context-aware questions using LangChain and LangGraph, dynamically adapting based on candidate resumes, selected skills, and previous responses to simulate realistic interview scenarios.</p>
-            <p>→ Designed stateful LLM workflows using LangGraph with MongoDB checkpointers, implementing dynamic context summarization to manage long conversations and significantly reduce token usage while preserving relevant context.</p>
-            <p>→ Developed a real-time voice interaction pipeline integrating Google Cloud TTS, Server-Sent Events (SSE), and AWS S3 to enable low-latency, token-by-token audio streaming for interactive interviews.</p>
-            <p>→ Implemented a production-grade payment system using Razorpay, supporting subscriptions, one-time payments, coupon logic, and webhook-based backend validation for secure transaction handling.</p>
+            <p>• Built an AI-powered interview system that generates context-aware questions using LangChain and LangGraph, dynamically adapting based on candidate resumes, selected skills, and previous responses to simulate realistic interview scenarios.</p>
+            <p>• Designed stateful LLM workflows using LangGraph with MongoDB checkpointers, implementing dynamic context summarization to manage long conversations and significantly reduce token usage while preserving relevant context.</p>
+            <p>• Developed a real-time voice interaction pipeline integrating Google Cloud TTS, Server-Sent Events (SSE), and AWS S3 to enable low-latency, token-by-token audio streaming for interactive interviews.</p>
+            <p>• Implemented a production-grade payment system using Razorpay, supporting subscriptions, one-time payments, coupon logic, and webhook-based backend validation for secure transaction handling.</p>
           </div>
         </div>
       ),
@@ -1098,8 +1099,19 @@ export default function TerminalView() {
       >
         {/* Navigation hint */}
         <div className="text-[11px] flex items-center gap-2" style={{ color: '#444' }}>
-          <span style={{ color: '#555' }}>root@suraj/nav &gt;</span>
-          <span>SELECT MODULE (← → arrows) | HISTORY (↑ ↓ arrows)</span>
+          <button
+            onClick={() => setShowHelp(!showHelp)}
+            className="hover:text-primary transition-colors font-bold uppercase tracking-tighter mr-2"
+            style={{ color: '#555' }}
+          >
+            {showHelp ? '[ HIDE TIPS ]' : '[ SHOW TIPS ]'}
+          </button>
+          {showHelp && (
+            <>
+              <span style={{ color: '#555' }}>root@suraj/nav &gt;</span>
+              <span>SELECT MODULE (← → arrows) | HISTORY (↑ ↓ arrows)</span>
+            </>
+          )}
           <span className="ml-auto">
             <span style={{ color: '#555' }}>ESC</span> to exit
           </span>
