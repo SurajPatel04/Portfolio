@@ -112,11 +112,10 @@ export default function ResumeSection() {
                     <span className="text-on-surface-variant/50 text-[10px] font-mono tracking-normal">Dec 2025 - Pres.</span>
                   </div>
                   <ul className="mt-3 space-y-2 text-[12px] text-on-surface-variant leading-relaxed">
-                    <li>• Built Mock Interview Platform with Node.js and LangChain for dynamic, resume-based question generation.</li>
-                    <li>• Integrated Google Cloud TTS, AWS S3, and SSE for real-time audio streaming.</li>
-                    <li>• Developed an AI powered resume analyzer to evaluate JD match rates and generate tailored resumes.</li>
-                    <li>• Engineered AI Career Coach using LangGraph and MongoDB checkpointers with auto-summarization.</li>
-                    <li>• Integrated Razorpay payment gateway to process secure user transactions.</li>
+                    <li>• Built an AI-powered interview system generating context-aware questions using LangChain and LangGraph, adapting dynamically to simulate realistic scenarios.</li>
+                    <li>• Designed stateful LangGraph workflows with MongoDB, reducing token usage via context summarization.</li>
+                    <li>• Developed a real-time voice pipeline with GCP TTS, SSE, and AWS S3 for low-latency interactive interviews.</li>
+                    <li>• Implemented production-grade Razorpay payment flows with subscription and webhook validation logic.</li>
                   </ul>
                 </motion.div>
 
@@ -132,7 +131,7 @@ export default function ResumeSection() {
                   <div className="mb-6">
                     <div className="flex justify-between items-start">
                       <h5 className="font-bold text-on-surface text-sm">AI Interview</h5>
-                      <span className="text-on-surface-variant/50 text-[10px] font-mono tracking-normal">May 2025 - Aug 2025</span>
+                      <span className="text-on-surface-variant/50 text-[10px] font-mono tracking-normal">May 2025 - June 2025</span>
                     </div>
                     <ul className="mt-2 space-y-2 text-[12px] text-on-surface-variant leading-relaxed">
                       <li>• Built a real-time AI interview platform using React, Node.js, and WebSockets.</li>

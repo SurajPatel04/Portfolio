@@ -20,7 +20,11 @@ const SKILLS_DATA = [
 const PROJECTS_DATA = [
   {
     name: 'ai-interview-platform',
-    desc: 'Real-time AI interview platform with voice, multi-dimension scoring, TTS via Redis + GCP',
+    bullets: [
+      "Real-time voice interviews with multi-dimension scoring; achieved 3-6s TTS latency via Redis + GCP caching",
+      "Resume-JD matching engine identifying skill gaps with automated feedback generation",
+      "Full CI/CD pipeline with Docker + GitHub Actions on GCP"
+    ],
     stack: ['React', 'Node.js', 'WebSockets', 'Redis', 'GCP', 'Docker'],
     status: 'COMPLETED',
     demo: '#',
@@ -28,8 +32,12 @@ const PROJECTS_DATA = [
   },
   {
     name: 'ai-manim-video-gen',
-    desc: 'Multi-agent LangGraph workflow for generative Manim video rendering, 88% first-pass success',
-    stack: ['FastAPI', 'LangGraph', 'Celery', 'Redis', 'Docker', 'GCP'],
+    bullets: [
+      "Engineered multi-agent LangGraph workflow (query validation → description expansion → code generation → self-healing render), improving generation reliability",
+      "Celery + Redis async pipeline for CPU-intensive Manim renders; retry logic reduced rendering failures and improved system stability",
+      "Production stack (FastAPI + web UI + GCP + Supabase) with distributed task workers"
+    ],
+    stack: ['FastAPI', 'LangGraph', 'Celery', 'Redis', 'Docker', 'GCP', 'Supabase'],
     status: 'COMPLETED',
     demo: 'https://www.youtube.com/watch?v=yanGT_wRSms',
     source: '#',
@@ -327,12 +335,11 @@ function ExperienceSection() {
           <span style={{ color: '#00daf8' }}>@ Careerboat.ai</span>
           <span style={{ color: '#666' }}> {'  '} Dec 2025 — Present</span>
         </div>
-        <div className="ml-6 mt-2 space-y-1 text-sm" style={{ color: '#aaa' }}>
-          <p>→ Built Mock Interview Platform with Node.js + LangChain for resume-based question generation</p>
-          <p>→ Integrated Google Cloud TTS, AWS S3, and SSE for real-time audio streaming</p>
-          <p>→ Developed AI resume analyzer for JD match rates and tailored resume generation</p>
-          <p>→ Engineered AI Career Coach using LangGraph + MongoDB with auto-summarization</p>
-          <p>→ Integrated Razorpay payment gateway for secure transactions</p>
+        <div className="ml-6 mt-2 space-y-2 text-sm md:text-justify pr-4 sm:pr-8" style={{ color: '#aaa' }}>
+          <p>→ Built an AI-powered interview system that generates context-aware questions using LangChain and LangGraph, dynamically adapting based on candidate resumes, selected skills, and previous responses to simulate realistic interview scenarios.</p>
+          <p>→ Designed stateful LLM workflows using LangGraph with MongoDB checkpointers, implementing dynamic context summarization to manage long conversations and significantly reduce token usage while preserving relevant context.</p>
+          <p>→ Developed a real-time voice interaction pipeline integrating Google Cloud TTS, Server-Sent Events (SSE), and AWS S3 to enable low-latency, token-by-token audio streaming for interactive interviews.</p>
+          <p>→ Implemented a production-grade payment system using Razorpay, supporting subscriptions, one-time payments, coupon logic, and webhook-based backend validation for secure transaction handling.</p>
         </div>
       </div>
     </CmdBlock>
@@ -354,7 +361,13 @@ function ProjectsSection() {
                 {proj.status}
               </span>
             </div>
-            <p className="text-sm mt-1" style={{ color: '#aaa' }}>{proj.desc}</p>
+            <div className="mt-2 space-y-1">
+              {proj.bullets.map((bullet, i) => (
+                <p key={i} className="text-sm" style={{ color: '#aaa' }}>
+                  • {bullet}
+                </p>
+              ))}
+            </div>
             <div className="flex flex-wrap gap-2 mt-2">
               {proj.stack.map((s) => (
                 <span
@@ -478,8 +491,8 @@ export default function TerminalView() {
         return;
       }
       // Only suggest sections/dirs for cd
-      const match = allCmds.find((c) => 
-        c.startsWith(arg) && 
+      const match = allCmds.find((c) =>
+        c.startsWith(arg) &&
         SECTIONS.includes(COMMAND_MAP[c] as any)
       );
       setSuggestion(match ? `cd ${match}` : '');
@@ -551,12 +564,11 @@ export default function TerminalView() {
         <div className="mt-2 space-y-2">
           <div className="flex items-center gap-3"><span style={{ color: '#33ff33' }}>●</span><span style={{ color: '#e0e0e0' }} className="font-bold">Full Stack Engineer — Intern</span></div>
           <div className="ml-6"><span style={{ color: '#00daf8' }}>@ Careerboat.ai</span><span style={{ color: '#666' }}> {'  '} Dec 2025 — Present</span></div>
-          <div className="ml-6 mt-1 space-y-1 text-sm" style={{ color: '#aaa' }}>
-            <p>→ Built Mock Interview Platform with Node.js + LangChain</p>
-            <p>→ Integrated Google Cloud TTS, AWS S3, and SSE for real-time audio</p>
-            <p>→ Developed AI resume analyzer for JD match rates</p>
-            <p>→ Engineered AI Career Coach using LangGraph + MongoDB</p>
-            <p>→ Integrated Razorpay payment gateway</p>
+          <div className="ml-6 mt-2 space-y-2 text-sm md:text-justify pr-4 sm:pr-8" style={{ color: '#aaa' }}>
+            <p>→ Built an AI-powered interview system that generates context-aware questions using LangChain and LangGraph, dynamically adapting based on candidate resumes, selected skills, and previous responses to simulate realistic interview scenarios.</p>
+            <p>→ Designed stateful LLM workflows using LangGraph with MongoDB checkpointers, implementing dynamic context summarization to manage long conversations and significantly reduce token usage while preserving relevant context.</p>
+            <p>→ Developed a real-time voice interaction pipeline integrating Google Cloud TTS, Server-Sent Events (SSE), and AWS S3 to enable low-latency, token-by-token audio streaming for interactive interviews.</p>
+            <p>→ Implemented a production-grade payment system using Razorpay, supporting subscriptions, one-time payments, coupon logic, and webhook-based backend validation for secure transaction handling.</p>
           </div>
         </div>
       ),
@@ -568,8 +580,14 @@ export default function TerminalView() {
                 <span style={{ color: '#33ff33' }} className="font-bold">{proj.name}/</span>
                 <span className="text-[10px] px-2 py-0.5 rounded font-mono uppercase" style={{ background: '#0a2a0a', color: '#33ff33', border: '1px solid #1a3a1a' }}>{proj.status}</span>
               </div>
-              <p className="text-sm mt-1" style={{ color: '#aaa' }}>{proj.desc}</p>
-              <div className="flex flex-wrap gap-2 mt-2">{proj.stack.map((s) => <span key={s} className="text-[11px] px-2 py-0.5 rounded font-mono" style={{ background: '#0a1a2a', color: '#00daf8', border: '1px solid #0a2a3a' }}>{s}</span>)}</div>
+              <div className="mt-2 space-y-1">
+                {proj.bullets.map((bullet, i) => (
+                  <p key={i} className="text-sm md:text-justify" style={{ color: '#aaa' }}>
+                    <span style={{ color: '#33ff33' }}>▹</span> {bullet}
+                  </p>
+                ))}
+              </div>
+              <div className="flex flex-wrap gap-2 mt-3">{proj.stack.map((s) => <span key={s} className="text-[11px] px-2 py-0.5 rounded font-mono" style={{ background: '#0a1a2a', color: '#00daf8', border: '1px solid #0a2a3a' }}>{s}</span>)}</div>
               <div className="flex gap-4 mt-2 text-xs">
                 <a href={proj.demo} target="_blank" rel="noopener noreferrer" className="hover:underline" style={{ color: '#33ff33' }}>[▶ demo]</a>
                 <a href={proj.source} target="_blank" rel="noopener noreferrer" className="hover:underline" style={{ color: '#00daf8' }}>[⌥ source]</a>
@@ -855,7 +873,7 @@ export default function TerminalView() {
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLInputElement>) => {
       const idx = SECTIONS.indexOf(activeSection);
-      
+
       if (e.key === 'Tab' || e.key === 'ArrowRight') {
         if (suggestion && cmdInput.toLowerCase() !== suggestion) {
           e.preventDefault();
@@ -875,17 +893,17 @@ export default function TerminalView() {
       } else if (e.key === 'ArrowUp') {
         e.preventDefault();
         if (commandHistory.length === 0) return;
-        
-        const newPointer = historyPointer === -1 
-          ? commandHistory.length - 1 
+
+        const newPointer = historyPointer === -1
+          ? commandHistory.length - 1
           : Math.max(0, historyPointer - 1);
-        
+
         setHistoryPointer(newPointer);
         setCmdInput(commandHistory[newPointer]);
       } else if (e.key === 'ArrowDown') {
         e.preventDefault();
         if (historyPointer === -1) return;
-        
+
         const newPointer = historyPointer + 1;
         if (newPointer >= commandHistory.length) {
           setHistoryPointer(-1);

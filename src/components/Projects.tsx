@@ -36,8 +36,8 @@ const projectsData = [
     demoLink: "https://www.youtube.com/watch?v=yanGT_wRSms",
     sourceLink: "#",
     bullets: [
-      "Engineered multi-agent LangGraph workflow (query validation → description expansion → code generation → self-healing render); 88% first-pass success",
-      "Celery + Redis async pipeline for CPU-intensive Manim renders; 3x retry logic reduced failure rate from 35% to 12%",
+      "Engineered multi-agent LangGraph workflow (query validation → description expansion → code generation → self-healing render), improving generation reliability",
+      "Celery + Redis async pipeline for CPU-intensive Manim renders; retry logic reduced rendering failures and improved system stability",
       "Production stack (FastAPI + web UI + GCP + Supabase) with distributed task workers"
     ],
     techStack: ["FastAPI", "LangGraph", "Celery", "Redis", "Docker", "GCP", "Supabase"],
@@ -60,14 +60,14 @@ const ArchitectureModal = ({
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
     };
-    
+
     if (isOpen) {
       document.body.style.overflow = 'hidden';
       window.addEventListener('keydown', handleEscape);
     } else {
       document.body.style.overflow = '';
     }
-    
+
     return () => {
       document.body.style.overflow = '';
       window.removeEventListener('keydown', handleEscape);
@@ -87,7 +87,7 @@ const ArchitectureModal = ({
             onClick={onClose}
             className="absolute inset-0 bg-background/80 backdrop-blur-md"
           />
-          
+
           {/* Modal Content */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
@@ -110,12 +110,12 @@ const ArchitectureModal = ({
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
               </button>
             </div>
-            
+
             {/* Scrollable Diagram Area */}
             <div className="overflow-auto p-4 sm:p-8 bg-[#18181A] flex-grow flex custom-scrollbar">
-              <img 
-                src={imageSrc} 
-                alt="System Architecture Diagram" 
+              <img
+                src={imageSrc}
+                alt="System Architecture Diagram"
                 className="w-auto h-auto min-w-[280px] max-w-full max-h-[75vh] object-contain m-auto hover:cursor-zoom-in transition-transform duration-300"
                 onClick={() => window.open(imageSrc, '_blank')}
                 title="Click to view full screen in new tab"
@@ -236,16 +236,16 @@ export default function Projects() {
               className={`grid gap-8 ${itemsPerPage === 2 ? 'lg:grid-cols-2' : 'grid-cols-1'}`}
             >
               {visibleProjects.map(project => (
-                <div key={project.id} className="group relative bg-surface-container-low rounded-full overflow-hidden border border-outline-variant/10 flex flex-col shadow-2xl transition-all duration-300 w-full h-full">
+                <div key={project.id} className="group relative bg-surface-container-low rounded-full overflow-hidden border border-outline-variant/20 flex flex-col shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:-translate-y-1 sm:hover:-translate-y-2 hover:border-[#0AB4D6]/50 hover:shadow-[0_10px_40px_-15px_rgba(10,180,214,0.3)] transition-all duration-500 w-full h-full">
                   <div className="relative h-56 sm:h-72 overflow-hidden shrink-0">
-                    <img 
-                      alt={project.title} 
+                    <img
+                      alt={project.title}
                       src={project.image}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-surface-container-low via-surface-container-low/20 to-transparent"></div>
                   </div>
-                  
+
                   <div className="p-6 sm:p-8 flex-grow flex flex-col pt-2 sm:pt-4 relative z-10 bg-surface-container-low -mt-[2px]">
                     <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start mb-6 gap-4">
                       <h3 className="font-headline text-2xl sm:text-3xl font-bold text-on-surface leading-tight">{project.title}</h3>
@@ -262,7 +262,7 @@ export default function Projects() {
                     <div className="mb-6 space-y-3 font-body text-on-surface-variant text-sm sm:text-base leading-relaxed flex-grow">
                       {project.bullets.map((bullet, idx) => (
                         <p key={idx} className="flex flex-row items-start gap-2">
-                          <span className="text-primary mt-1 text-sm font-bold shrink-0">▹</span>
+                          <span className="text-primary mt-[6px] text-xs shrink-0">•</span>
                           <span>{bullet}</span>
                         </p>
                       ))}
@@ -270,7 +270,7 @@ export default function Projects() {
 
                     <div className="mb-2 w-full mt-auto pt-6 border-t border-outline-variant/10">
                       <p className="text-primary font-headline font-bold text-[10px] sm:text-[11px] uppercase tracking-widest mb-4">Technology Stack</p>
-                      
+
                       <div className="flex flex-wrap gap-2.5 sm:gap-3">
                         {project.techStack.map((tech) => (
                           <span key={tech} className="bg-surface-container-high/60 hover:bg-surface-container-highest transition-colors duration-300 px-4 py-[0.4rem] rounded-full text-[11px] sm:text-xs font-bold text-on-surface-variant/90 border border-outline-variant/10 shadow-sm hover:shadow-md cursor-default">
@@ -280,10 +280,10 @@ export default function Projects() {
                       </div>
 
                     </div>
-                    
+
                     {project.hasArchitecture && (
                       <div className="mt-8 flex">
-                        <button 
+                        <button
                           onClick={() => setSelectedArchitecture(project.architectureImg || null)}
                           className="inline-flex items-center gap-2 border border-primary/30 bg-primary/5 text-primary px-5 py-2.5 rounded-xl text-sm font-headline font-bold cursor-pointer hover:bg-primary/15 hover:border-primary hover:shadow-[0_0_15px_rgba(0,218,248,0.2)] transition-all active:scale-95 group/btn"
                         >
@@ -307,15 +307,15 @@ export default function Projects() {
         </div>
 
         {totalPages > 1 && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             className="flex flex-col sm:flex-row justify-between items-center mt-10 gap-6"
           >
             <div className="flex gap-2.5">
               {Array.from({ length: totalPages }).map((_, i) => (
-                <button 
-                  key={i} 
+                <button
+                  key={i}
                   onClick={() => {
                     setDirection(i > currentPage ? 1 : -1);
                     setCurrentIndex(i * itemsPerPage);
@@ -325,17 +325,17 @@ export default function Projects() {
                 />
               ))}
             </div>
-            
+
             <div className="flex gap-4">
-              <button 
-                onClick={prevSlide} 
+              <button
+                onClick={prevSlide}
                 disabled={currentPage === 0}
                 className="w-12 h-12 bg-surface-container hover:bg-surface-container-high disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100 rounded-full border border-outline-variant/20 text-on-surface transition-all flex items-center justify-center hover:scale-110 active:scale-95 shadow-lg"
               >
                 <span className="material-symbols-outlined text-[18px]">arrow_back_ios_new</span>
               </button>
-              <button 
-                onClick={nextSlide} 
+              <button
+                onClick={nextSlide}
                 disabled={currentPage >= totalPages - 1}
                 className="w-12 h-12 bg-surface-container hover:bg-surface-container-high disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100 rounded-full border border-outline-variant/20 text-on-surface transition-all flex items-center justify-center hover:scale-110 active:scale-95 shadow-lg"
               >
@@ -346,10 +346,10 @@ export default function Projects() {
         )}
       </div>
 
-      <ArchitectureModal 
-        isOpen={!!selectedArchitecture} 
-        onClose={() => setSelectedArchitecture(null)} 
-        imageSrc={selectedArchitecture} 
+      <ArchitectureModal
+        isOpen={!!selectedArchitecture}
+        onClose={() => setSelectedArchitecture(null)}
+        imageSrc={selectedArchitecture}
       />
     </section>
   );

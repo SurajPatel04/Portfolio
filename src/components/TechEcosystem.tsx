@@ -96,7 +96,7 @@ export default function TechEcosystem() {
                 <ul className="space-y-4 text-base font-medium">
                   {tech.items.map((item, i) => (
                     <li key={i} className="flex items-center gap-3 text-on-surface-variant group-hover:text-on-surface transition-colors">
-                      <span className="w-1.5 h-1.5 shrink-0 rounded-full bg-primary shadow-[0_0_8px_rgba(0,218,248,0.6)] transition-all duration-300"></span>
+                      <span className="w-1.5 h-1.5 shrink-0 rounded-full bg-primary transition-all duration-300"></span>
                       <span>{item}</span>
                     </li>
                   ))}
