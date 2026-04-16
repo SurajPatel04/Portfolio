@@ -22,7 +22,7 @@ const certs = [
     color: "secondary"
   },
   {
-    title: "Advanced React Mastery",
+    title: "Learn React",
     issuer: "Scrimba",
     year: "2025",
     img: reactImg,
@@ -65,9 +65,9 @@ export default function Certifications() {
 
   const slideVariants: any = {
     enter: (dir: number) => ({
-      x: dir > 0 ? 50 : -50,
+      x: dir > 0 ? '100%' : '-100%',
       opacity: 0,
-      scale: 0.98,
+      scale: 0.95,
     }),
     center: {
       zIndex: 1,
@@ -75,22 +75,22 @@ export default function Certifications() {
       opacity: 1,
       scale: 1,
       position: "relative",
-      transition: { duration: 0.4, ease: "easeOut" }
+      transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] }
     },
     exit: (dir: number) => ({
       zIndex: 0,
-      x: dir < 0 ? 50 : -50,
+      x: dir < 0 ? '100%' : '-100%',
       opacity: 0,
-      scale: 0.98,
+      scale: 0.95,
       position: "absolute",
       top: 0,
       left: 0,
       right: 0,
-      transition: { duration: 0.3, ease: "easeIn" }
+      transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] }
     })
   };
 
-  const swipeConfidenceThreshold = 10000;
+  const swipeConfidenceThreshold = 1500;
   const swipePower = (offset: number, velocity: number) => {
     return Math.abs(offset) * velocity;
   };
@@ -111,7 +111,7 @@ export default function Certifications() {
             <span className="text-primary font-mono text-lg md:text-xl">04.</span> Certificates
           </h2>
         </motion.div>
-        
+
         <div className="relative overflow-visible">
           <AnimatePresence initial={false} custom={direction}>
             <motion.div
@@ -123,47 +123,44 @@ export default function Certifications() {
               exit="exit"
               drag={itemsPerPage === 1 && totalPages > 1 ? "x" : false}
               dragConstraints={{ left: 0, right: 0 }}
-              dragElastic={1}
+              dragElastic={0.4}
               onDragEnd={(_, { offset, velocity }) => {
                 if (itemsPerPage !== 1 || totalPages <= 1) return;
                 const swipe = swipePower(offset.x, velocity.x);
-                if (swipe < -swipeConfidenceThreshold) {
+                if (swipe < -swipeConfidenceThreshold || offset.x < -75) {
                   nextSlide();
-                } else if (swipe > swipeConfidenceThreshold) {
+                } else if (swipe > swipeConfidenceThreshold || offset.x > 75) {
                   prevSlide();
                 }
               }}
               className={`grid gap-6 sm:gap-8 ${itemsPerPage === 2 ? 'lg:grid-cols-2' : 'grid-cols-1'} w-full`}
             >
               {visibleCerts.map((cert, index) => (
-                <a 
+                <a
                   key={index}
                   href={cert.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`group relative overflow-hidden bg-surface-container-low rounded-full flex flex-col border border-outline-variant/20 hover:-translate-y-1 sm:hover:-translate-y-2 transition-all duration-500 shadow-xl sm:shadow-2xl w-full h-full ${
-                    cert.color === 'primary' 
-                      ? 'hover:border-primary/50 hover:shadow-[0_10px_40px_-15px_rgba(0,218,248,0.3)]' 
+                  className={`group relative overflow-hidden bg-surface-container-low rounded-full flex flex-col border border-outline-variant/20 hover:-translate-y-1 sm:hover:-translate-y-2 transition-all duration-500 shadow-xl sm:shadow-2xl w-full h-full ${cert.color === 'primary'
+                      ? 'hover:border-primary/50 hover:shadow-[0_10px_40px_-15px_rgba(0,218,248,0.3)]'
                       : 'hover:border-secondary/50 hover:shadow-[0_10px_40px_-15px_rgba(208,188,255,0.3)]'
-                  }`}
+                    }`}
                 >
                   {/* Elegant Inner Hover Glow */}
-                  <div className={`absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-0 ${
-                    cert.color === 'primary' 
-                      ? 'from-primary/5 to-transparent' 
+                  <div className={`absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-0 ${cert.color === 'primary'
+                      ? 'from-primary/5 to-transparent'
                       : 'from-secondary/5 to-transparent'
-                  }`} />
+                    }`} />
 
                   {/* Image Section */}
                   <div className="relative w-full overflow-hidden bg-surface-container/50 p-6 sm:p-8 flex items-center justify-center min-h-[180px] sm:min-h-[280px]">
                     {/* Subtle background glow behind the image */}
-                    <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 sm:w-56 sm:h-56 blur-[60px] sm:blur-[80px] opacity-30 pointer-events-none ${
-                      cert.color === 'primary' ? 'bg-primary' : 'bg-secondary'
-                    }`}></div>
-                    
-                    <img 
-                      src={cert.img} 
-                      alt={`${cert.title} Certificate`} 
+                    <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 sm:w-56 sm:h-56 blur-[60px] sm:blur-[80px] opacity-30 pointer-events-none ${cert.color === 'primary' ? 'bg-primary' : 'bg-secondary'
+                      }`}></div>
+
+                    <img
+                      src={cert.img}
+                      alt={`${cert.title} Certificate`}
                       className="w-full h-auto object-contain relative z-10 rounded-lg sm:rounded-xl shadow-md transition-transform duration-700 group-hover:scale-[1.02]"
                     />
                   </div>
@@ -171,19 +168,17 @@ export default function Certifications() {
                   {/* Bottom Content Section */}
                   <div className="p-6 sm:p-8 relative flex flex-col flex-grow border-t border-outline-variant/10 z-10 pt-4 sm:pt-6">
                     <div className="flex justify-between items-start mb-3 sm:mb-4">
-                      <h3 className={`font-headline text-xl sm:text-3xl font-bold text-on-surface transition-colors pr-4 ${
-                        cert.color === 'primary' ? 'group-hover:text-primary' : 'group-hover:text-secondary'
-                      }`}>
+                      <h3 className={`font-headline text-[19px] min-[400px]:text-xl sm:text-3xl font-bold text-on-surface transition-colors pr-4 truncate ${cert.color === 'primary' ? 'group-hover:text-primary' : 'group-hover:text-secondary'
+                        }`}>
                         {cert.title}
                       </h3>
-                      <div className={`mt-1 flex-shrink-0 transition-transform duration-500 group-hover:-translate-y-1 group-hover:translate-x-1 opacity-70 group-hover:opacity-100 ${
-                        cert.color === 'primary' ? 'text-primary' : 'text-secondary'
-                      }`}>
+                      <div className={`mt-1 flex-shrink-0 transition-transform duration-500 group-hover:-translate-y-1 group-hover:translate-x-1 opacity-70 group-hover:opacity-100 ${cert.color === 'primary' ? 'text-primary' : 'text-secondary'
+                        }`}>
                         <ExternalLinkIcon className="w-5 h-5 sm:w-6 sm:h-6" />
                       </div>
                     </div>
-                    
-                    <div className="flex items-center gap-2 sm:gap-3 mt-auto pt-2">
+
+                    <div className="flex items-center gap-2 sm:gap-3 mt-1 sm:mt-auto pt-1 sm:pt-2">
                       <p className={`font-label text-[15px] sm:text-xl font-bold ${cert.color === 'primary' ? 'text-primary' : 'text-secondary'}`}>
                         {cert.issuer}
                       </p>
@@ -200,15 +195,15 @@ export default function Certifications() {
         </div>
 
         {totalPages > 1 && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             className="flex flex-col sm:flex-row justify-between items-center mt-10 gap-6"
           >
             <div className="flex gap-2.5">
               {Array.from({ length: totalPages }).map((_, i) => (
-                <button 
-                  key={i} 
+                <button
+                  key={i}
                   onClick={() => {
                     setDirection(i > currentPage ? 1 : -1);
                     setCurrentIndex(i * itemsPerPage);
@@ -218,17 +213,17 @@ export default function Certifications() {
                 />
               ))}
             </div>
-            
+
             <div className="flex gap-4">
-              <button 
-                onClick={prevSlide} 
+              <button
+                onClick={prevSlide}
                 disabled={currentPage === 0}
                 className="w-12 h-12 bg-surface-container hover:bg-surface-container-high disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100 rounded-full border border-outline-variant/20 text-on-surface transition-all flex items-center justify-center hover:scale-110 active:scale-95 shadow-lg"
               >
                 <span className="material-symbols-outlined text-[18px]">arrow_back_ios_new</span>
               </button>
-              <button 
-                onClick={nextSlide} 
+              <button
+                onClick={nextSlide}
                 disabled={currentPage >= totalPages - 1}
                 className="w-12 h-12 bg-surface-container hover:bg-surface-container-high disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100 rounded-full border border-outline-variant/20 text-on-surface transition-all flex items-center justify-center hover:scale-110 active:scale-95 shadow-lg"
               >

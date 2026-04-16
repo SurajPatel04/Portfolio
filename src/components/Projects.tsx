@@ -167,9 +167,9 @@ export default function Projects() {
 
   const slideVariants: any = {
     enter: (dir: number) => ({
-      x: dir > 0 ? 50 : -50,
+      x: dir > 0 ? '100%' : '-100%',
       opacity: 0,
-      scale: 0.98,
+      scale: 0.95,
     }),
     center: {
       zIndex: 1,
@@ -177,22 +177,22 @@ export default function Projects() {
       opacity: 1,
       scale: 1,
       position: "relative",
-      transition: { duration: 0.4, ease: "easeOut" }
+      transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } // Apple-like spring easing
     },
     exit: (dir: number) => ({
       zIndex: 0,
-      x: dir < 0 ? 50 : -50,
+      x: dir < 0 ? '100%' : '-100%',
       opacity: 0,
-      scale: 0.98,
+      scale: 0.95,
       position: "absolute",
       top: 0,
       left: 0,
       right: 0,
-      transition: { duration: 0.3, ease: "easeIn" }
+      transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] }
     })
   };
 
-  const swipeConfidenceThreshold = 10000;
+  const swipeConfidenceThreshold = 1500;
   const swipePower = (offset: number, velocity: number) => {
     return Math.abs(offset) * velocity;
   };
@@ -225,13 +225,14 @@ export default function Projects() {
               exit="exit"
               drag={itemsPerPage === 1 ? "x" : false}
               dragConstraints={{ left: 0, right: 0 }}
-              dragElastic={1}
+              dragElastic={0.4}
               onDragEnd={(_, { offset, velocity }) => {
                 if (itemsPerPage !== 1) return;
                 const swipe = swipePower(offset.x, velocity.x);
-                if (swipe < -swipeConfidenceThreshold) {
+                // Adjust for threshold triggering either quickly or far
+                if (swipe < -swipeConfidenceThreshold || offset.x < -75) {
                   nextSlide();
-                } else if (swipe > swipeConfidenceThreshold) {
+                } else if (swipe > swipeConfidenceThreshold || offset.x > 75) {
                   prevSlide();
                 }
               }}

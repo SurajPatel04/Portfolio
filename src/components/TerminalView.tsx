@@ -48,7 +48,7 @@ const PROJECTS_DATA = [
 
 const CERTS_DATA = [
   { name: 'Full Stack Developer Path', issuer: 'Scrimba', year: '2025', link: 'https://scrimba.com/certificate-cert23wfboWopQ2SSv6pWzVHgSrmSF9gqPYtSWTLot5DwyAxWL1v' },
-  { name: 'Advanced React Mastery', issuer: 'Scrimba', year: '2025', link: 'https://scrimba.com/certificate-cert24zAwPPowRQV2xfEN2ZiBrLXtw1vJ4YEgPtEU' },
+  { name: 'Learn React', issuer: 'Scrimba', year: '2025', link: 'https://scrimba.com/certificate-cert24zAwPPowRQV2xfEN2ZiBrLXtw1vJ4YEgPtEU' },
 ];
 
 // Command registry 
@@ -379,6 +379,14 @@ function ProjectsSection() {
                 {proj.status}
               </span> */}
             </div>
+            <div className="flex gap-4 mt-2 text-xs">
+              <a href={proj.demo} target="_blank" rel="noopener noreferrer" className="hover:underline" style={{ color: '#33ff33' }}>
+                [▶ demo]
+              </a>
+              <a href={proj.source} target="_blank" rel="noopener noreferrer" className="hover:underline" style={{ color: '#00daf8' }}>
+                [⌥ source]
+              </a>
+            </div>
             <div className="mt-2 space-y-3 md:space-y-1">
               {proj.bullets.map((bullet, i) => (
                 <p key={i} className="text-sm" style={{ color: '#aaa' }}>
@@ -386,6 +394,7 @@ function ProjectsSection() {
                 </p>
               ))}
             </div>
+            <div className="mt-4 mb-2 text-[11px] uppercase tracking-wider font-bold" style={{ color: '#666' }}>Technology Stack:</div>
             <div className="flex flex-wrap gap-2 mt-2">
               {proj.stack.map((s) => (
                 <span
@@ -396,14 +405,6 @@ function ProjectsSection() {
                   {s}
                 </span>
               ))}
-            </div>
-            <div className="flex gap-4 mt-2 text-xs">
-              <a href={proj.demo} target="_blank" rel="noopener noreferrer" className="hover:underline" style={{ color: '#33ff33' }}>
-                [▶ demo]
-              </a>
-              <a href={proj.source} target="_blank" rel="noopener noreferrer" className="hover:underline" style={{ color: '#00daf8' }}>
-                [⌥ source]
-              </a>
             </div>
           </div>
         ))}
@@ -618,6 +619,10 @@ export default function TerminalView() {
                 <span style={{ color: '#33ff33' }} className="font-bold">{proj.name}/</span>
                 <span className="text-[10px] px-2 py-0.5 rounded font-mono uppercase" style={{ background: '#0a2a0a', color: '#33ff33', border: '1px solid #1a3a1a' }}>{proj.status}</span>
               </div>
+              <div className="flex gap-4 mt-2 mb-3 text-xs">
+                <a href={proj.demo} target="_blank" rel="noopener noreferrer" className="hover:underline" style={{ color: '#33ff33' }}>[▶ demo]</a>
+                <a href={proj.source} target="_blank" rel="noopener noreferrer" className="hover:underline" style={{ color: '#00daf8' }}>[⌥ source]</a>
+              </div>
               <div className="mt-2 space-y-3 md:space-y-1">
                 {proj.bullets.map((bullet, i) => (
                   <p key={i} className="text-sm md:text-justify" style={{ color: '#aaa' }}>
@@ -625,11 +630,8 @@ export default function TerminalView() {
                   </p>
                 ))}
               </div>
+              <div className="mt-4 mb-2 text-[11px] uppercase tracking-wider font-bold" style={{ color: '#666' }}>Technology Stack:</div>
               <div className="flex flex-wrap gap-2 mt-3">{proj.stack.map((s) => <span key={s} className="text-[11px] px-2 py-0.5 rounded font-mono" style={{ background: '#0a1a2a', color: '#00daf8', border: '1px solid #0a2a3a' }}>{s}</span>)}</div>
-              <div className="flex gap-4 mt-2 text-xs">
-                <a href={proj.demo} target="_blank" rel="noopener noreferrer" className="hover:underline" style={{ color: '#33ff33' }}>[▶ demo]</a>
-                <a href={proj.source} target="_blank" rel="noopener noreferrer" className="hover:underline" style={{ color: '#00daf8' }}>[⌥ source]</a>
-              </div>
             </div>
           ))}
         </div>
