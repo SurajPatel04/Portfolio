@@ -21,9 +21,10 @@ const PROJECTS_DATA = [
   {
     name: 'ai-interview-platform',
     bullets: [
-      "Engineered a real-time AI interview system with WebRTC and Socket.io, enabling low-latency voice interactions with streaming TTS (Google Cloud + Redis caching)",
-      "Built context-aware interview workflows using LangChain, generating questions dynamically based on resumes, selected skills, and user responses",
-      "Implemented production-ready backend with Node.js, MongoDB, Redis, and Supabase, including authentication, interview history, and performance analysis"
+      "Engineered a real-time AI interview system (React + Node.js + MongoDB) with WebRTC and Socket.io, enabling low-latency voice interactions with streaming audio and TTS",
+      "Reduced next-question API latency from ~8–10s → ~3–6s by caching  interview context and responses in Redis, avoiding redundant LLM calls on each user interaction",
+      "Built context-aware interview workflows using LangChain and Gemini, generating questions dynamically from resumes, selected skills, and live user responses",
+      "Developed a production-ready backend with Node.js and MongoDB supporting authentication, interview history, and the end-to-end interview pipeline"
     ],
     stack: ["React", "Material UI", "Node.js", "Express.js", "MongoDB (Mongoose)", "Redis", "LangChain", "WebSockets", "JWT Auth", "Docker", "GCP", "Text-to-Speech (GCP TTS, Piper)", "GitHub Actions"],
     status: 'COMPLETED',
@@ -33,9 +34,10 @@ const PROJECTS_DATA = [
   {
     name: 'ai-manim-video-gen',
     bullets: [
-      "Engineered multi-agent LangGraph workflow (query validation → description expansion → code generation → self-healing render), improving generation reliability",
-      "Celery + Redis async pipeline for CPU-intensive Manim renders; retry logic reduced rendering failures and improved system stability",
-      "Production stack (FastAPI + web UI + GCP + Supabase) with distributed task workers"
+      "Built an end - to - end AI pipeline(React + FastAPI + MongoDB) that converts text prompts into rendered Manim animations",
+      "Designed a multi - agent LangGraph workflow with query validation, description expansion, code generation, and self- healing repair loops boosting execution success from ~60 % → 90 % +",
+      "Implemented a Celery + Redis async task queue for concurrent CPU - intensive renders, significantly improving stability under load",
+      "Deployed on GCP with Docker, using Supabase for video storage and a clean web UI for end - to - end user interaction"
     ],
     stack: ["React", "Shadcn UI", "FastAPI", "LangGraph", "LangChain", "LangSmith", "Celery", "MongoDB (Beanie ODM)", "Redis", "Authentication (JWT, Google OAuth)", "Docker", "GCP", "GitHub Actions", "Supabase"],
     status: 'COMPLETED',
