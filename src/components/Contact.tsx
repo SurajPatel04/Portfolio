@@ -95,7 +95,6 @@ export default function Contact() {
                 {/* Auto-response configuration for the connector */}
                 <input type="hidden" name="_autoresponse" value="Thank you for reaching out! I have received your message and will get back to you as soon as possible. - Suraj Patel" />
                 <input type="hidden" name="_captcha" value="false" />
-                <input type="hidden" name="_subject" value="New Portfolio Contact Message!" />
 
                 <div className="grid sm:grid-cols-2 gap-6">
                   <div className="space-y-2">
@@ -122,6 +121,16 @@ export default function Contact() {
                   </div>
                 </div>
                 <div className="space-y-2">
+                  <label className="text-xs font-headline font-bold text-on-surface-variant ml-1 uppercase tracking-widest px-1">Subject (Optional)</label>
+                  <input 
+                    name="_subject" 
+                    className="w-full bg-surface-container border border-outline-variant/30 focus:border-primary focus:ring-1 focus:ring-primary rounded-xl text-on-surface p-4 placeholder-on-surface-variant/30 outline-none transition-all [&:-webkit-autofill]:shadow-[0_0_0_1000px_#1e1e24_inset] [&:-webkit-autofill]:[-webkit-text-fill-color:white]" 
+                    placeholder="What is this regarding?" 
+                    type="text" 
+                    disabled={status === 'SUBMITTING'} 
+                  />
+                </div>
+                <div className="space-y-2">
                   <label className="text-xs font-headline font-bold text-on-surface-variant ml-1 uppercase tracking-widest px-1">Message</label>
                   <textarea 
                     name="message" 
@@ -135,7 +144,7 @@ export default function Contact() {
                 <button
                   type="submit"
                   disabled={status === 'SUBMITTING' || status === 'SUCCESS'}
-                  className="w-full relative overflow-hidden group bg-primary text-on-primary font-headline font-bold py-5 rounded-xl shadow-[0_0_20px_rgba(0,218,248,0.3)] hover:shadow-[0_0_30px_rgba(0,218,248,0.5)] transition-all active:scale-[0.98] disabled:opacity-90 disabled:cursor-not-allowed text-base uppercase tracking-widest flex items-center justify-center min-h-[68px]"
+                  className="w-full relative overflow-hidden group bg-primary text-on-primary font-headline font-bold py-3 sm:py-5 rounded-xl shadow-[0_0_20px_rgba(0,218,248,0.3)] hover:shadow-[0_0_30px_rgba(0,218,248,0.5)] transition-all active:scale-[0.98] disabled:opacity-90 disabled:cursor-not-allowed text-base uppercase tracking-widest flex items-center justify-center min-h-[56px] sm:min-h-[68px]"
                 >
                   <AnimatePresence mode="wait">
                     {status === 'IDLE' && (

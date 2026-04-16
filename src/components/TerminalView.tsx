@@ -52,7 +52,7 @@ const CERTS_DATA = [
 ];
 
 // Command registry 
-type CommandAction = Section | 'help' | 'clear' | 'exit' | 'resume' | 'github' | 'email' | 'linkedin' | 'phone' | 'ls';
+type CommandAction = Section | 'help' | 'clear' | 'exit' | 'resume' | 'github' | 'email' | 'linkedin' | 'phone' | 'ls' | 'su';
 const COMMAND_MAP: Record<string, CommandAction> = {
   home: 'HOME',
   skills: 'SKILLS',
@@ -80,6 +80,8 @@ const COMMAND_MAP: Record<string, CommandAction> = {
   li: 'linkedin',
   phone: 'phone',
   tel: 'phone',
+  su: 'su',
+  login: 'su',
 };
 
 // ASCII Art 
@@ -109,10 +111,11 @@ const HELP_TEXT = `
     contact       — Show contact info / links
     resume        — Download resume PDF
     github        — Open GitHub profile
-    email         — Show email address
+    email, mail   — Send an interactive email message
     linkedin      — Open LinkedIn profile
     phone         — Show phone number
     ls            — List available sections/files
+    su <user>     — Switch user/auth (SYS.AUTH)
     cd <dir>      — Enter a section (e.g., cd skills)
     dir           — Alias for ls
     clear         — Clear command history
@@ -166,11 +169,23 @@ function Cursor() {
   );
 }
 
+// Sending Animation
+function SendingAnimation() {
+  const [dots, setDots] = useState('');
+  useEffect(() => {
+    const i = setInterval(() => {
+      setDots(d => d.length >= 3 ? '' : d + '.');
+    }, 400);
+    return () => clearInterval(i);
+  }, []);
+  return <span style={{ color: '#00daf8' }}>Sending message{dots}</span>;
+}
+
 // Prompt 
-function Prompt({ children, showCursor = false }: { children?: ReactNode; showCursor?: boolean }) {
+function Prompt({ children, showCursor = false, user = 'suraj' }: { children?: ReactNode; showCursor?: boolean, user?: string }) {
   return (
     <div className="flex items-start gap-0 flex-wrap">
-      <span style={{ color: '#33ff33' }}>suraj</span>
+      <span style={{ color: '#33ff33' }}>{user}</span>
       <span style={{ color: '#888' }}>@</span>
       <span style={{ color: '#00daf8' }}>portfolio</span>
       <span style={{ color: '#888' }}>:~$ </span>
@@ -228,6 +243,7 @@ interface HistoryEntry {
   command: string;
   output: ReactNode;
   isError?: boolean;
+  customPrompt?: ReactNode;
 }
 
 // Sections 
@@ -337,11 +353,11 @@ function ExperienceSection() {
           <span style={{ color: '#00daf8' }}>@ Careerboat.ai</span>
           <span style={{ color: '#666' }}> {'  '} Dec 2025 — Present</span>
         </div>
-        <div className="ml-6 mt-2 space-y-2 text-sm md:text-justify pr-4 sm:pr-8" style={{ color: '#aaa' }}>
-          <p>→ Built an AI-powered interview system that generates context-aware questions using LangChain and LangGraph, dynamically adapting based on candidate resumes, selected skills, and previous responses to simulate realistic interview scenarios.</p>
-          <p>→ Designed stateful LLM workflows using LangGraph with MongoDB checkpointers, implementing dynamic context summarization to manage long conversations and significantly reduce token usage while preserving relevant context.</p>
-          <p>→ Developed a real-time voice interaction pipeline integrating Google Cloud TTS, Server-Sent Events (SSE), and AWS S3 to enable low-latency, token-by-token audio streaming for interactive interviews.</p>
-          <p>→ Implemented a production-grade payment system using Razorpay, supporting subscriptions, one-time payments, coupon logic, and webhook-based backend validation for secure transaction handling.</p>
+        <div className="ml-6 mt-2 space-y-3 md:space-y-1 text-sm md:text-justify pr-4 sm:pr-8" style={{ color: '#aaa' }}>
+          <p>• Built an AI-powered interview system that generates context-aware questions using LangChain and LangGraph, dynamically adapting based on candidate resumes, selected skills, and previous responses to simulate realistic interview scenarios.</p>
+          <p>• Designed stateful LLM workflows using LangGraph with MongoDB checkpointers, implementing dynamic context summarization to manage long conversations and significantly reduce token usage while preserving relevant context.</p>
+          <p>• Developed a real-time voice interaction pipeline integrating Google Cloud TTS, Server-Sent Events (SSE), and AWS S3 to enable low-latency, token-by-token audio streaming for interactive interviews.</p>
+          <p>• Implemented a production-grade payment system using Razorpay, supporting subscriptions, one-time payments, coupon logic, and webhook-based backend validation for secure transaction handling.</p>
         </div>
       </div>
     </CmdBlock>
@@ -363,7 +379,7 @@ function ProjectsSection() {
                 {proj.status}
               </span> */}
             </div>
-            <div className="mt-2 space-y-1">
+            <div className="mt-2 space-y-3 md:space-y-1">
               {proj.bullets.map((bullet, i) => (
                 <p key={i} className="text-sm" style={{ color: '#aaa' }}>
                   • {bullet}
@@ -419,13 +435,14 @@ function CertsSection() {
 function ContactSection() {
   return (
     <CmdBlock command="cat contact.json" delay={200}>
-      <pre className="text-sm" style={{ color: '#c0c0c0' }}>
+      <pre className="text-sm whitespace-pre-wrap break-words" style={{ color: '#c0c0c0' }}>
         {`{
   "email": "`}<a href="mailto:surajpatel9390@gmail.com" className="hover:underline" style={{ color: '#00daf8' }}>surajpatel9390@gmail.com</a>{`",
   "phone": "`}<a href="tel:+919260923895" className="hover:underline" style={{ color: '#00daf8' }}>+91 9260923895</a>{`",
   "github": "`}<a href="https://github.com/SurajPatel04" target="_blank" rel="noopener noreferrer" className="hover:underline" style={{ color: '#00daf8' }}>github.com/SurajPatel04</a>{`",
-  "linkedin": "`}<a href="https://linkedin.com/in/suraj-patel-9201b2381" target="_blank" rel="noopener noreferrer" className="hover:underline" style={{ color: '#00daf8' }}>linkedin.com/in/suraj-patel</a>{`",
-  "resume": "`}<a href={resumePdf} download="Suraj_Patel_Resume.pdf" className="hover:underline" style={{ color: '#33ff33' }}>[↓ download_resume.pdf]</a>{`"
+  "linkedin": "`}<a href="https://linkedin.com/in/suraj-patel-9201b2381" target="_blank" rel="noopener noreferrer" className="hover:underline" style={{ color: '#00daf8' }}>linkedin.com/in/suraj-patel-9201b2381</a>{`",
+  "resume": "`}<a href={resumePdf} download="Suraj_Patel_Resume.pdf" className="hover:underline" style={{ color: '#33ff33' }}>[↓ download_resume.pdf]</a>{`",
+  "message_me": "Type 'mail' or 'email' command to send a direct message!"
 }`}
       </pre>
     </CmdBlock>
@@ -453,6 +470,9 @@ export default function TerminalView() {
   const [historyPointer, setHistoryPointer] = useState(-1);
   const [suggestion, setSuggestion] = useState('');
   const [showHelp, setShowHelp] = useState(true);
+  const [systemUser, setSystemUser] = useState('suraj');
+  const [isGuest, setIsGuest] = useState(true);
+  const [mailState, setMailState] = useState<{ step: 'none' | 'name' | 'email' | 'subject' | 'body' | 'sending', name: string, email: string, subject: string }>({ step: 'none', name: '', email: '', subject: '' });
   const contentRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -469,6 +489,14 @@ export default function TerminalView() {
     return () => clearInterval(interval);
   }, []);
 
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 640);
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   // Scroll to bottom when history or section changes
   useEffect(() => {
     setTimeout(() => {
@@ -478,6 +506,11 @@ export default function TerminalView() {
 
   // Handle ghost text suggestions
   useEffect(() => {
+    if (mailState.step !== 'none') {
+      setSuggestion('');
+      return;
+    }
+
     const input = cmdInput.toLowerCase();
     if (!input) {
       setSuggestion('');
@@ -504,15 +537,17 @@ export default function TerminalView() {
 
     const match = allCmds.find((c) => c.startsWith(input));
     setSuggestion(match || '');
-  }, [cmdInput]);
+  }, [cmdInput, mailState.step]);
 
   // Focus input when clicking anywhere on the terminal
   const handleContainerClick = useCallback(() => {
     // If user is selecting text, don't force focus to input
     const selection = window.getSelection();
     if (selection && selection.toString() !== '') return;
-    inputRef.current?.focus();
-  }, []);
+    if (mailState.step !== 'sending') {
+      inputRef.current?.focus();
+    }
+  }, [mailState.step]);
 
   // Simple Levenshtein distance for fuzzy matching
   const levenshtein = (a: string, b: string): number => {
@@ -567,7 +602,7 @@ export default function TerminalView() {
         <div className="mt-2 space-y-2">
           <div className="flex items-center gap-3"><span style={{ color: '#33ff33' }}>●</span><span style={{ color: '#e0e0e0' }} className="font-bold">Full Stack Engineer — Intern</span></div>
           <div className="ml-6"><span style={{ color: '#00daf8' }}>@ Careerboat.ai</span><span style={{ color: '#666' }}> {'  '} Dec 2025 — Present</span></div>
-          <div className="ml-6 mt-2 space-y-2 text-sm md:text-justify pr-4 sm:pr-8" style={{ color: '#aaa' }}>
+          <div className="ml-6 mt-2 space-y-3 md:space-y-1 text-sm md:text-justify pr-4 sm:pr-8" style={{ color: '#aaa' }}>
             <p>• Built an AI-powered interview system that generates context-aware questions using LangChain and LangGraph, dynamically adapting based on candidate resumes, selected skills, and previous responses to simulate realistic interview scenarios.</p>
             <p>• Designed stateful LLM workflows using LangGraph with MongoDB checkpointers, implementing dynamic context summarization to manage long conversations and significantly reduce token usage while preserving relevant context.</p>
             <p>• Developed a real-time voice interaction pipeline integrating Google Cloud TTS, Server-Sent Events (SSE), and AWS S3 to enable low-latency, token-by-token audio streaming for interactive interviews.</p>
@@ -583,7 +618,7 @@ export default function TerminalView() {
                 <span style={{ color: '#33ff33' }} className="font-bold">{proj.name}/</span>
                 <span className="text-[10px] px-2 py-0.5 rounded font-mono uppercase" style={{ background: '#0a2a0a', color: '#33ff33', border: '1px solid #1a3a1a' }}>{proj.status}</span>
               </div>
-              <div className="mt-2 space-y-1">
+              <div className="mt-2 space-y-3 md:space-y-1">
                 {proj.bullets.map((bullet, i) => (
                   <p key={i} className="text-sm md:text-justify" style={{ color: '#aaa' }}>
                     <span style={{ color: '#33ff33' }}>▹</span> {bullet}
@@ -629,15 +664,20 @@ export default function TerminalView() {
     const trimmed = raw.trim().toLowerCase();
     if (!trimmed) return;
 
-    // Handle 'cd' commands
+    const args = raw.trim().split(/\s+/);
+    const baseCommand = args[0].toLowerCase();
+
+    // Handle parametrized commands
     let cmd = trimmed;
-    if (trimmed.startsWith('cd ') || trimmed === 'cd') {
-      const arg = trimmed === 'cd' ? '' : trimmed.slice(3).trim().replace(/\/$/, '');
+    if (baseCommand === 'cd') {
+      const arg = args[1] ? args[1].replace(/\/$/, '').toLowerCase() : '';
       if (!arg || arg === '~' || arg === '..' || arg === '.') {
         cmd = 'home';
       } else {
         cmd = arg;
       }
+    } else if (baseCommand === 'su' || baseCommand === 'login') {
+      cmd = 'su';
     }
 
     const newId = historyId + 1;
@@ -714,6 +754,24 @@ export default function TerminalView() {
       return;
     }
 
+    if (mapped === 'su') {
+      const targetUser = args[1];
+      if (!targetUser) {
+        setHistory((prev) => [
+          ...prev,
+          { id: newId, command: raw, output: <span style={{ color: '#ff5555' }}>Usage: su &lt;username&gt;</span> },
+        ]);
+        return;
+      }
+      setSystemUser(targetUser.toLowerCase());
+      setIsGuest(false);
+      setHistory((prev) => [
+        ...prev,
+        { id: newId, command: raw, output: <div className="mt-1"><span style={{ color: '#33ff33' }}>Authentication granted. Changed user to {targetUser.toLowerCase()}.</span></div> },
+      ]);
+      return;
+    }
+
     if (mapped === 'resume') {
       // Trigger download
       const link = document.createElement('a');
@@ -761,17 +819,13 @@ export default function TerminalView() {
           id: newId,
           command: raw,
           output: (
-            <div className="mt-1 space-y-1">
-              <div>
-                <span style={{ color: '#888' }}>EMAIL: </span>
-                <a href="mailto:surajpatel9390@gmail.com" className="hover:underline" style={{ color: '#00daf8' }}>
-                  surajpatel9390@gmail.com
-                </a>
-              </div>
+            <div className="mt-1 text-xs" style={{ color: '#888' }}>
+              Interactive email process started. Type 'exit'<span className="hidden sm:inline"> or press Ctrl+C</span> to abort.
             </div>
           ),
         },
       ]);
+      setMailState({ step: 'name', name: '', email: '', subject: '' });
       return;
     }
 
@@ -861,6 +915,153 @@ export default function TerminalView() {
   const handleSubmit = useCallback(
     (e: FormEvent) => {
       e.preventDefault();
+
+      if (mailState.step !== 'none') {
+        const input = cmdInput;
+        const newId = historyId + 1;
+        setHistoryId(newId);
+
+        const currentStep = mailState.step;
+        let promptLabel = '';
+        if (currentStep === 'name') promptLabel = !isGuest ? `Name (press Enter for '${systemUser}'): ` : 'Name: ';
+        else if (currentStep === 'email') promptLabel = 'Email: ';
+        else if (currentStep === 'subject') promptLabel = 'Subject (optional): ';
+        else if (currentStep === 'body') promptLabel = 'Message: ';
+
+        // Add to history
+        setHistory((prev) => [
+          ...prev,
+          {
+            id: newId,
+            command: input,
+            output: null,
+            customPrompt: <span style={{ color: '#00daf8' }}>{promptLabel}</span>,
+          },
+        ]);
+
+        if (input.trim().toLowerCase() === 'exit') {
+          setHistory((prev) => {
+            const newHistory = [...prev];
+            const lastIdx = newHistory.length - 1;
+            newHistory[lastIdx] = {
+              ...newHistory[lastIdx],
+              output: <div className="mt-1 mb-3"><span style={{ color: '#ff5555' }}>Mail aborted.</span></div>,
+            };
+            return newHistory;
+          });
+          setMailState({ step: 'none', name: '', email: '', subject: '' });
+          setCmdInput('');
+          return;
+        }
+
+        if (currentStep === 'name') {
+          const nameInput = input.trim();
+          if (!nameInput) {
+            if (!isGuest) {
+              setMailState({ ...mailState, step: 'email', name: systemUser });
+              setCmdInput('');
+              return;
+            }
+            setHistory(prev => {
+              const newHistory = [...prev];
+              const lastIdx = newHistory.length - 1;
+              newHistory[lastIdx] = { ...newHistory[lastIdx], output: <div className="mt-1"><span style={{ color: '#ff5555' }}>error: name is required.</span></div> };
+              return newHistory;
+            });
+            setCmdInput(''); return;
+          }
+          setMailState({ ...mailState, step: 'email', name: nameInput });
+        } else if (currentStep === 'email') {
+          const emailInput = input.trim();
+          if (!emailInput) {
+            setHistory(prev => {
+              const newHistory = [...prev];
+              const lastIdx = newHistory.length - 1;
+              newHistory[lastIdx] = { ...newHistory[lastIdx], output: <div className="mt-1"><span style={{ color: '#ff5555' }}>error: email is required.</span></div> };
+              return newHistory;
+            });
+            setCmdInput(''); return;
+          }
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailRegex.test(emailInput)) {
+            setHistory(prev => {
+              const newHistory = [...prev];
+              const lastIdx = newHistory.length - 1;
+              newHistory[lastIdx] = { ...newHistory[lastIdx], output: <div className="mt-1"><span style={{ color: '#ff5555' }}>error: please enter a valid email address.</span></div> };
+              return newHistory;
+            });
+            setCmdInput(''); return;
+          }
+          setMailState({ ...mailState, step: 'subject', email: emailInput });
+        } else if (currentStep === 'subject') {
+          setMailState({ ...mailState, step: 'body', subject: input.trim() });
+        } else if (currentStep === 'body') {
+          const body = input.trim();
+          if (!body) {
+            setHistory(prev => {
+              const newHistory = [...prev];
+              const lastIdx = newHistory.length - 1;
+              newHistory[lastIdx] = { ...newHistory[lastIdx], output: <div className="mt-1"><span style={{ color: '#ff5555' }}>error: message is required.</span></div> };
+              return newHistory;
+            });
+            setCmdInput(''); return;
+          }
+
+          setHistory((prev) => {
+            const newHistory = [...prev];
+            const lastIdx = newHistory.length - 1;
+            newHistory[lastIdx] = {
+              ...newHistory[lastIdx],
+              output: <div className="mt-1"><SendingAnimation /></div>,
+            };
+            return newHistory;
+          });
+
+          setMailState({ ...mailState, step: 'sending' });
+
+          const formData = new FormData();
+          formData.append('name', mailState.name || 'Anonymous');
+          formData.append('email', mailState.email || 'no-email@provided.com');
+          formData.append('_subject', mailState.subject || "New Portfolio Contact Message!");
+          formData.append('_autoresponse', "Thank you for reaching out! I have received your message and will get back to you as soon as possible. - Suraj Patel");
+          formData.append('_captcha', "false");
+          formData.append('message', body);
+
+          fetch("https://formsubmit.co/ajax/3ff67b6fefbf366175f9d537ac575e25", {
+            method: "POST",
+            body: formData,
+            headers: {
+              'Accept': 'application/json'
+            }
+          }).then(res => res.json())
+            .then(data => {
+              setHistory((prev) => {
+                const newHistory = [...prev];
+                const lastIdx = newHistory.length - 1;
+                if (data.success) {
+                  newHistory[lastIdx] = { ...newHistory[lastIdx], output: <div className="mt-1 mb-3"><span style={{ color: '#33ff33' }}>Message Sent Successfully!</span></div> };
+                } else {
+                  newHistory[lastIdx] = { ...newHistory[lastIdx], output: <div className="mt-1 mb-3"><span style={{ color: '#ff5555' }}>Error sending message. Please try again.</span></div> };
+                }
+                return newHistory;
+              });
+              setMailState({ step: 'none', name: '', email: '', subject: '' });
+            }).catch(() => {
+              setHistory((prev) => {
+                const newHistory = [...prev];
+                const lastIdx = newHistory.length - 1;
+                newHistory[lastIdx] = { ...newHistory[lastIdx], output: <div className="mt-1 mb-3"><span style={{ color: '#ff5555' }}>Error sending message. Please try again.</span></div> };
+                return newHistory;
+              });
+              setMailState({ step: 'none', name: '', email: '', subject: '' });
+            });
+        }
+
+        setCmdInput('');
+        setHistoryPointer(-1);
+        return;
+      }
+
       const input = cmdInput.trim();
       if (input) {
         setCommandHistory((prev) => [...prev, input]);
@@ -869,12 +1070,55 @@ export default function TerminalView() {
       setCmdInput('');
       setHistoryPointer(-1);
     },
-    [cmdInput, processCommand]
+    [cmdInput, processCommand, mailState, historyId]
   );
 
   // Handle Tab autocomplete and ArrowRight to accept suggestion
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLInputElement>) => {
+      if (e.ctrlKey && e.key.toLowerCase() === 'c') {
+        const selection = window.getSelection();
+        if (selection && selection.toString() !== '') return;
+        e.preventDefault();
+
+        const inputStr = cmdInput + '^C';
+        const newId = historyId + 1;
+        setHistoryId(newId);
+
+        if (mailState.step !== 'none') {
+          let promptLabel = '';
+          const currentStep = mailState.step;
+          if (currentStep === 'name') promptLabel = 'Name: ';
+          else if (currentStep === 'email') promptLabel = 'Email: ';
+          else if (currentStep === 'subject') promptLabel = 'Subject (optional): ';
+          else if (currentStep === 'body') promptLabel = 'Message: ';
+
+          setHistory((prev) => [
+            ...prev,
+            {
+              id: newId,
+              command: inputStr,
+              output: <div className="mt-1 mb-3"><span style={{ color: '#ff5555' }}>Mail aborted by user.</span></div>,
+              customPrompt: <span style={{ color: '#00daf8' }}>{promptLabel}</span>,
+            },
+          ]);
+          setMailState({ step: 'none', name: '', email: '', subject: '' });
+        } else {
+          setHistory((prev) => [
+            ...prev,
+            {
+              id: newId,
+              command: inputStr,
+              output: null,
+            },
+          ]);
+        }
+        setCmdInput('');
+        setSuggestion('');
+        setHistoryPointer(-1);
+        return;
+      }
+
       const idx = SECTIONS.indexOf(activeSection);
 
       if (e.key === 'Tab' || e.key === 'ArrowRight') {
@@ -917,7 +1161,7 @@ export default function TerminalView() {
         }
       }
     },
-    [suggestion, cmdInput, commandHistory, historyPointer, activeSection]
+    [suggestion, cmdInput, commandHistory, historyPointer, activeSection, mailState, historyId]
   );
 
   // Keyboard nav (arrows for section tabs, escape to exit)
@@ -985,21 +1229,23 @@ export default function TerminalView() {
       >
         <div className="flex flex-col sm:flex-row sm:gap-8 gap-1">
           <span>
-            <span style={{ color: '#555' }}>SYS.NAME {'  '}: </span>
+            <span style={{ color: '#555' }}>SYS.NAME&nbsp;&nbsp;: </span>
             <span style={{ color: '#e0e0e0' }} className="font-bold">SURAJ_OS v1.0.0</span>
           </span>
           <span>
-            <span style={{ color: '#555' }}>SYS.AUTH {'  '}: </span>
-            <span style={{ color: '#33ff33' }} className="font-bold">GUEST_ACCESS_GRANTED</span>
+            <span style={{ color: '#555' }}>SYS.AUTH&nbsp;&nbsp;: </span>
+            <span style={{ color: '#33ff33' }} className="font-bold">
+              {isGuest ? 'GUEST_ACCESS_GRANTED' : `${systemUser.toUpperCase()}_ACCESS_GRANTED`}
+            </span>
           </span>
         </div>
-        <div className="flex flex-col sm:flex-row sm:gap-8 gap-1 text-right">
+        <div className="flex flex-row sm:gap-8 gap-4 sm:text-right mt-2 sm:mt-0">
           <span>
-            <span style={{ color: '#555' }}>UPTIME {'  '}: </span>
+            <span style={{ color: '#555' }}>UPTIME&nbsp;&nbsp;&nbsp;&nbsp;: </span>
             <span style={{ color: '#e0e0e0' }}>{uptime}</span>
           </span>
           <span>
-            <span style={{ color: '#555' }}>STATUS {'  '}: </span>
+            <span style={{ color: '#555' }}>&nbsp;&nbsp;STATUS&nbsp;: </span>
             <span
               className="font-bold"
               style={{
@@ -1032,118 +1278,127 @@ export default function TerminalView() {
 
         {/* Command History (past typed commands + outputs)  */}
         {history.map((entry) => (
-          <div key={entry.id} className="mb-3">
-            <Prompt>
-              <span style={{ color: '#e0e0e0' }}>{entry.command}</span>
-            </Prompt>
+          <div key={entry.id} className={entry.customPrompt !== undefined ? "mb-0" : "mb-3"}>
+            {entry.customPrompt !== undefined ? (
+              <div className="flex items-start flex-wrap whitespace-pre-wrap break-words">
+                {entry.customPrompt}
+                <span style={{ color: '#e0e0e0' }}>{entry.command}</span>
+              </div>
+            ) : (
+              <Prompt user={systemUser}>
+                <span style={{ color: '#e0e0e0' }}>{entry.command}</span>
+              </Prompt>
+            )}
             <div className="mt-1 ml-0">{entry.output}</div>
           </div>
         ))}
 
         {/* Interactive Command Input  */}
-        <form onSubmit={handleSubmit} className="flex items-center gap-0 flex-wrap">
-          <span style={{ color: '#33ff33' }}>suraj</span>
-          <span style={{ color: '#888' }}>@</span>
-          <span style={{ color: '#00daf8' }}>portfolio</span>
-          <span style={{ color: '#888' }}>:~$ </span>
-          <div className="flex-1 relative flex items-center">
-            {/* Ghost Text Suggestion */}
-            {suggestion && (
-              <span
-                className="absolute left-0 pointer-events-none flex items-center h-full"
-                style={{
-                  color: '#444',
-                  fontFamily: 'inherit',
-                  fontSize: 'inherit',
-                  whiteSpace: 'pre',
-                }}
-              >
-                <span className="opacity-0">{cmdInput}</span>
-                <span>{suggestion.slice(cmdInput.length)}</span>
-                {suggestion.length > cmdInput.length && (
-                  <motion.span
-                    initial={{ opacity: 0, x: -5 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    className="ml-4 px-1.5 py-0.5 rounded flex items-center gap-1 border border-[#333] bg-[#0c0c0c] text-[9px] text-[#666] font-mono leading-none"
-                    style={{ marginTop: '1px' }}
-                  >
-                    TAB <span className="text-[10px]">⇥</span>
-                  </motion.span>
-                )}
+        {mailState.step !== 'sending' && (
+          <form onSubmit={handleSubmit} className="flex items-center gap-0 flex-wrap">
+            {mailState.step === 'none' ? (
+              <>
+                <span style={{ color: '#33ff33' }}>{systemUser}</span>
+                <span style={{ color: '#888' }}>@</span>
+                <span style={{ color: '#00daf8' }}>portfolio</span>
+                <span style={{ color: '#888' }}>:~$ </span>
+              </>
+            ) : (
+              <span style={{ color: '#00daf8' }}>
+                {mailState.step === 'name' ? (!isGuest ? `Name (press Enter for '${systemUser}'): ` : 'Name: ') :
+                  mailState.step === 'email' ? 'Email: ' :
+                    mailState.step === 'subject' ? 'Subject (optional): ' : 'Message: '}
               </span>
             )}
-            <input
-              ref={inputRef}
-              type="text"
-              value={cmdInput}
-              onChange={(e) => setCmdInput(e.target.value)}
-              onKeyDown={handleKeyDown}
-              placeholder={!suggestion ? "type a command (try: help)" : ""}
-              autoFocus
-              spellCheck={false}
-              autoComplete="off"
-              className="w-full bg-transparent outline-none border-none relative z-10"
-              style={{
-                color: '#e0e0e0',
-                caretColor: '#33ff33',
-                fontFamily: 'inherit',
-                fontSize: 'inherit',
-              }}
-            />
-          </div>
-        </form>
+            <div className="flex-1 relative flex items-center">
+              {/* Ghost Text Suggestion */}
+              {suggestion && (
+                <span
+                  className="absolute left-0 pointer-events-none flex items-center h-full"
+                  style={{
+                    color: '#444',
+                    fontFamily: 'inherit',
+                    fontSize: 'inherit',
+                    whiteSpace: 'pre',
+                  }}
+                >
+                  <span className="opacity-0">{cmdInput}</span>
+                  <span>{suggestion.slice(cmdInput.length)}</span>
+                  {suggestion.length > cmdInput.length && (
+                    <motion.span
+                      initial={{ opacity: 0, x: -5 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      className="ml-4 px-1.5 py-0.5 rounded flex items-center gap-1 border border-[#333] bg-[#0c0c0c] text-[9px] text-[#666] font-mono leading-none"
+                      style={{ marginTop: '1px' }}
+                    >
+                      TAB <span className="text-[10px]">⇥</span>
+                    </motion.span>
+                  )}
+                </span>
+              )}
+              <input
+                ref={inputRef}
+                type="text"
+                value={cmdInput}
+                onChange={(e) => setCmdInput(e.target.value)}
+                onKeyDown={handleKeyDown}
+                placeholder={!suggestion && mailState.step === 'none' ? "type a command (try: help)" : ""}
+                autoFocus
+                spellCheck={false}
+                autoComplete="off"
+                className="w-full bg-transparent outline-none border-none relative z-10"
+                style={{
+                  color: '#e0e0e0',
+                  caretColor: '#33ff33',
+                  fontFamily: 'inherit',
+                  fontSize: 'inherit',
+                }}
+              />
+            </div>
+          </form>
+        )}
       </div>
 
       {/* Bottom Navigation Bar  */}
       <div
-        className="shrink-0 px-6 py-3 flex flex-col gap-2"
-        style={{ background: '#060a10', borderTop: '1px solid #1a2a1a' }}
+        className="shrink-0 px-6 py-3 flex flex-col-reverse sm:flex-col relative bg-[#060a10]"
+        style={{ borderTop: '1px solid #1a2a1a' }}
       >
-        {/* Navigation hint */}
-        <div className="text-[11px] flex items-center gap-2" style={{ color: '#444' }}>
-          <button
-            onClick={() => setShowHelp(!showHelp)}
-            className="hover:text-primary transition-colors font-bold uppercase tracking-tighter mr-2"
-            style={{ color: '#555' }}
-          >
-            {showHelp ? '[ HIDE TIPS ]' : '[ SHOW TIPS ]'}
-          </button>
-          {showHelp && (
-            <>
-              <span style={{ color: '#555' }}>root@suraj/nav &gt;</span>
-              <span>SELECT MODULE (← → arrows) | HISTORY (↑ ↓ arrows)</span>
-            </>
-          )}
-          <span className="ml-auto">
+        {/* Top Row: Navigation hint & Mobile Exit Button */}
+        <div className="flex items-center justify-between w-full">
+          <div className="text-[11px] flex items-center gap-2" style={{ color: '#444' }}>
+            <button
+              onClick={() => setShowHelp(!showHelp)}
+              className="hover:text-primary transition-colors font-bold uppercase tracking-tighter mr-2 whitespace-nowrap"
+              style={{ color: '#555' }}
+            >
+              <span className="sm:hidden">{showHelp ? '[ HIDE OPTIONS ]' : '[ SHOW OPTIONS ]'}</span>
+              <span className="hidden sm:inline">{showHelp ? '[ HIDE TIPS ]' : '[ SHOW TIPS ]'}</span>
+            </button>
+
+            <AnimatePresence>
+              {showHelp && (
+                <motion.div
+                  initial={{ opacity: 0, width: 0 }}
+                  animate={{ opacity: 1, width: 'auto' }}
+                  exit={{ opacity: 0, width: 0 }}
+                  className="hidden sm:flex items-center gap-2 overflow-hidden whitespace-nowrap"
+                >
+                  <span style={{ color: '#555' }}>root@suraj/nav &gt;</span>
+                  <span>SELECT MODULE (← → arrows) | HISTORY (↑ ↓ arrows)</span>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+
+          <span className="hidden sm:inline shrink-0 text-[11px]" style={{ color: '#444' }}>
             <span style={{ color: '#555' }}>ESC</span> to exit
           </span>
-        </div>
 
-        {/* Section tabs */}
-        <div className="flex flex-wrap gap-2">
-          {SECTIONS.map((section, i) => {
-            const isActive = section === activeSection;
-            return (
-              <button
-                key={section}
-                onClick={(e) => { e.stopPropagation(); setActiveSection(section); setHistory([]); }}
-                className="px-3 py-1.5 text-xs font-bold tracking-wider uppercase transition-all duration-200"
-                style={{
-                  background: isActive ? '#33ff33' : 'transparent',
-                  color: isActive ? '#0a0e14' : '#555',
-                  border: `1px solid ${isActive ? '#33ff33' : '#1a2a1a'}`,
-                  borderRadius: '4px',
-                }}
-              >
-                {`0${i + 1}._${section}`}
-              </button>
-            );
-          })}
-
-          {/* Exit button */}
+          {/* Mobile Exit Button (Hidden on sm screens) */}
           <button
             onClick={(e) => { e.stopPropagation(); toggleTheme(); }}
-            className="ml-auto px-3 py-1.5 text-xs font-bold tracking-wider uppercase transition-all duration-200 hover:opacity-80"
+            className="sm:hidden px-3 py-1.5 text-xs font-bold tracking-wider uppercase transition-colors hover:opacity-80 shrink-0"
             style={{
               background: 'transparent',
               color: '#ff5555',
@@ -1154,6 +1409,52 @@ export default function TerminalView() {
             EXIT_TERMINAL
           </button>
         </div>
+
+        {/* Section tabs & Desktop Exit Button */}
+        <AnimatePresence initial={false}>
+          {(!isMobile || showHelp) && (
+            <motion.div
+              initial={isMobile ? { opacity: 0, height: 0, marginTop: 0, marginBottom: 0 } : false}
+              animate={{ opacity: 1, height: 'auto', marginTop: isMobile ? 0 : 8, marginBottom: isMobile ? 8 : 0 }}
+              exit={{ opacity: 0, height: 0, marginTop: 0, marginBottom: 0 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+              className="flex flex-wrap gap-2 overflow-hidden"
+            >
+              {SECTIONS.map((section, i) => {
+                const isActive = section === activeSection;
+                return (
+                  <button
+                    key={section}
+                    onClick={(e) => { e.stopPropagation(); setActiveSection(section); setHistory([]); }}
+                    className="px-3 py-1.5 text-xs font-bold tracking-wider uppercase transition-colors"
+                    style={{
+                      background: isActive ? '#33ff33' : 'transparent',
+                      color: isActive ? '#0a0e14' : '#555',
+                      border: `1px solid ${isActive ? '#33ff33' : '#1a2a1a'}`,
+                      borderRadius: '4px',
+                    }}
+                  >
+                    {`0${i + 1}._${section}`}
+                  </button>
+                );
+              })}
+
+              {/* Desktop Exit Button (Hidden on mobile) */}
+              <button
+                onClick={(e) => { e.stopPropagation(); toggleTheme(); }}
+                className="hidden sm:block ml-auto px-3 py-1.5 text-xs font-bold tracking-wider uppercase transition-colors hover:opacity-80 shrink-0"
+                style={{
+                  background: 'transparent',
+                  color: '#ff5555',
+                  border: '1px solid #3a1a1a',
+                  borderRadius: '4px',
+                }}
+              >
+                EXIT_TERMINAL
+              </button>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </motion.div>
   );
