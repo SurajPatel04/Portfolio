@@ -20,12 +20,12 @@ export default function Experience() {
               {/* Header */}
               <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 md:gap-0 border-b border-outline-variant/10 pb-6">
                 <div>
-                  <h3 className="font-headline text-xl sm:text-3xl font-bold text-on-surface">Full Stack Engineer Intern</h3>
+                  <h3 className="font-headline text-xl sm:text-3xl font-bold text-on-surface">Full Stack Engineer</h3>
                   <div className="text-[#D0ADC5] font-headline font-semibold text-base sm:text-lg mt-1">@ Careerboat.ai</div>
                 </div>
                 <div className="shrink-0">
                   <span className="font-headline font-semibold text-[13px] sm:text-[14px] leading-[20px] text-[#00DAF8] tracking-wide">
-                    Dec 2025 – Present
+                    June 2025 – Present
                   </span>
                 </div>
               </div>

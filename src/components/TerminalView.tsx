@@ -351,7 +351,7 @@ function ExperienceSection() {
         </div>
         <div className="ml-6">
           <span style={{ color: '#00daf8' }}>@ Careerboat.ai</span>
-          <span style={{ color: '#666' }}> {'  '} Dec 2025 — Present</span>
+          <span style={{ color: '#666' }}> {'  '} May 2025 — Present</span>
         </div>
         <div className="ml-6 mt-2 space-y-3 md:space-y-1 text-sm md:text-justify pr-4 sm:pr-8" style={{ color: '#aaa' }}>
           <p>• Built an AI-powered interview system that generates context-aware questions using LangChain and LangGraph, dynamically adapting based on candidate resumes, selected skills, and previous responses to simulate realistic interview scenarios.</p>
