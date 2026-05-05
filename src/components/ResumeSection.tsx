@@ -109,7 +109,7 @@ export default function ResumeSection() {
                       <h5 className="font-bold text-on-surface text-sm">Full Stack Engineer – Intern</h5>
                       <p className="text-on-surface-variant/70 text-xs mt-1 font-bold">Careerboat.ai</p>
                     </div>
-                    <span className="text-on-surface-variant/50 text-[10px] font-mono tracking-normal">Dec 2025 - Pres.</span>
+                    <span className="text-on-surface-variant/50 text-[10px] font-mono tracking-normal">June 2025 - Pres.</span>
                   </div>
                   <ul className="mt-3 space-y-2 text-[12px] text-on-surface-variant leading-relaxed">
                     <li>• Developed AI interview APIs using Node.js with LangChain and LangGraph, generating context-aware questions based on resumes, skills, and prior responses, while optimizing token usage through state management using MongoDB checkpointers and dynamic context summarization.</li>
