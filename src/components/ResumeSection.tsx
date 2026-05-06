@@ -68,7 +68,7 @@ export default function ResumeSection() {
                 >
                   <h4 className="font-headline font-bold text-primary tracking-widest uppercase text-[11px] mb-3">Summary</h4>
                   <p className="text-sm text-on-surface-variant leading-relaxed font-body">
-                    MCA student focused on building AI-driven backend systems and real-time applications.  Experienced in designing agentic workflows using LangChain and LangGraph, with hands-on work in scalable architectures, streaming systems, and production deployment on GCP.
+                    Software Engineer with a strong foundation in high-performance backend systems and real-time architecture. Skilled in agentic workflows (LangChain, LangGraph), scalable RESTful services, and streaming pipelines. Focused on production ready systems, latency optimization, and efficient data-driven solutions.
                   </p>
                 </motion.div>
 

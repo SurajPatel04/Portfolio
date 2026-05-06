@@ -11,7 +11,7 @@ const technologies = [
   {
     title: "Frontend",
     icon: Layers,
-    items: ["React / Next.js", "Tailwind CSS", "HTML5 / CSS3"]
+    items: ["React / Redux", "Tailwind CSS", "HTML5 / CSS3"]
   },
   {
     title: "Backend",

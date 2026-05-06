@@ -10,7 +10,7 @@ type Section = (typeof SECTIONS)[number];
 
 const SKILLS_DATA = [
   { dir: 'languages/', items: ['TypeScript', 'Python', 'JavaScript'] },
-  { dir: 'frontend/', items: ['React', 'Tailwind CSS', 'HTML / CSS'] },
+  { dir: 'frontend/', items: ['React / Redux', 'Tailwind CSS', 'HTML5 / CSS3'] },
   { dir: 'backend/', items: ['Node.js / Express.js', 'FastAPI', 'REST APIs / WebSockets'] },
   { dir: 'databases/', items: ['PostgreSQL', 'MongoDB', 'Redis'] },
   { dir: 'ai-agentic/', items: ['LangChain / LangGraph', 'OpenAI / Gemini APIs', 'Vector DBs / RAG'] },
