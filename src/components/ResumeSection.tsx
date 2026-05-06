@@ -169,7 +169,7 @@ export default function ResumeSection() {
                 >
                   <h4 className="font-headline font-bold text-primary tracking-widest uppercase text-[11px] mb-3">Technical Skills</h4>
                   <div className="flex flex-wrap gap-2">
-                    {['JavaScript', 'TypeScript', 'Python', 'React', 'HTML', 'CSS', 'Tailwind CSS', 'Node.js', 'Express.js', 'REST APIs', 'FastAPI', 'PostgreSQL', 'MongoDB', 'Redis', 'LangChain', 'LangGraph', 'Docker', 'Git', 'Github', "Scikit-learn", "PyTorch", "Pandas", "Prisma", "Mongoose", "Beanie"].map((skill, idx) => (
+                    {['JavaScript', 'TypeScript', 'Python', 'React', 'HTML', 'CSS', 'Tailwind CSS', 'Node.js', 'Express.js', 'REST APIs', 'FastAPI', 'PostgreSQL', 'MongoDB', 'Redis', 'LangChain', 'LangGraph', 'Docker', 'Git', 'Github', "Prisma", "Mongoose", "Beanie"].map((skill, idx) => (
                       < motion.span
                         key={skill}
                         initial={{ opacity: 0, scale: 0.5, filter: "blur(5px)" }}
