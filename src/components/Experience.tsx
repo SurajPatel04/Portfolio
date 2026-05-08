@@ -25,7 +25,7 @@ export default function Experience() {
                 </div>
                 <div className="shrink-0">
                   <span className="font-headline font-semibold text-[13px] sm:text-[14px] leading-[20px] text-[#00DAF8] tracking-wide">
-                    June 2025 – Present
+                    Dec 2025 – Present
                   </span>
                 </div>
               </div>
