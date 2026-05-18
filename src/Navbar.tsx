@@ -1,4 +1,4 @@
-import { animate, motion } from 'motion/react';
+import { motion } from 'motion/react';
 import { useTheme } from './ThemeContext';
 import { useState, useEffect, useRef } from 'react';
 import { Menu, X } from 'lucide-react';
@@ -56,10 +56,9 @@ export default function Navbar() {
       // Calculate position with an 80px offset so the navbar doesn't cover the section header
       const y = element.getBoundingClientRect().top + window.scrollY - 10;
 
-      animate(window.scrollY, y, {
-        duration: 1.2,
-        ease: [0.25, 0.46, 0.45, 0.94], // The premium spring curve
-        onUpdate: (latest) => window.scrollTo(0, latest)
+      window.scrollTo({
+        top: y,
+        behavior: 'smooth'
       });
       setIsMobileMenuOpen(false); // Close menu after clicking
     }
@@ -69,7 +68,7 @@ export default function Navbar() {
   if (theme === 'terminal') return null;
 
   return (
-    <header ref={navRef} className="fixed top-0 w-full z-50 bg-[#131318]/80 backdrop-blur-xl bg-gradient-to-b from-[#131318] to-transparent shadow-none">
+    <header ref={navRef} className="fixed top-0 w-full z-50 bg-[#131318]/95 bg-gradient-to-b from-[#131318] to-transparent shadow-none">
       <nav className="max-w-7xl mx-auto px-6 md:px-8 py-4">
         <div className="flex justify-between items-center">
           <div className="text-xl font-bold tracking-tighter text-slate-50 font-['Space_Grotesk']">
@@ -88,7 +87,7 @@ export default function Navbar() {
                 {hoveredIndex === index && (
                   <motion.div
                     layoutId="nav-hover-glass"
-                    className="absolute inset-0 bg-white/10 backdrop-blur-md rounded-xl border border-white/5"
+                    className="absolute inset-0 bg-white/10 rounded-xl border border-white/5"
                     transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
                   />
                 )}

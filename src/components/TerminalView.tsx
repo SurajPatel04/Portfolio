@@ -19,30 +19,49 @@ const SKILLS_DATA = [
 
 const PROJECTS_DATA = [
   {
+    name: 'insightflow-rag-platform',
+    bullets: [
+      "Architected a multi-modal RAG platform (FastAPI + LangGraph + FAISS) enabling semantic search over PDFs, audio, and video with AI-generated answers and clickable media timestamp citations.",
+      "Designed a cost-efficient two-phase ingestion pipeline that stages files in MongoDB before confirmation, eliminating unnecessary embedding costs for cancelled uploads.",
+      "Built agentic conversation memory using LangGraph with auto-triggered summarization to condense history when token thresholds are exceeded, enabling indefinitely long sessions.",
+      "Implemented Redis semantic caching with cosine similarity matching (≥95% threshold) to stream cached responses instantly, bypassing the LLM entirely for near-duplicate queries.",
+      "Integrated Deepgram transcription with timestamped utterance chunking, surfacing precise [start - end] citations seekable via a plyr-react media player.",
+      "Deployed on GCP using Docker and Docker Compose, with GitHub Actions CI/CD pipeline to build and push images to Docker Hub."
+    ],
+    stack: ["React 19", "Tailwind CSS", "Shadcn UI", "FastAPI", "LangGraph", "MongoDB", "FAISS", "Supabase", "Deepgram", "OpenAI", "Gemini", "Redis", "SSE", "Docker", "GitHub Actions"],
+    status: 'COMPLETED',
+    demo: '#',
+    live: 'https://insightflow.surajpatel.dev/',
+    source: 'https://github.com/SurajPatel04/ai-multimedia-rag-app',
+  },
+  {
     name: 'ai-interview-platform',
     bullets: [
-      "Engineered a real-time AI interview system (React + Node.js + MongoDB) with WebRTC and Socket.io, enabling low-latency voice interactions with streaming audio and TTS",
-      "Reduced next-question API latency from ~8–10s → ~3–6s by caching  interview context and responses in Redis, avoiding redundant LLM calls on each user interaction",
-      "Built context-aware interview workflows using LangChain and Gemini, generating questions dynamically from resumes, selected skills, and live user responses",
-      "Developed a production-ready backend with Node.js and MongoDB supporting authentication, interview history, and the end-to-end interview pipeline"
+      "Engineered a real-time AI interview system (React + Node.js + MongoDB) with WebRTC and Socket.io, enabling low-latency voice interactions with streaming audio and TTS.",
+      "Reduced next-question API latency from ~8–10s → ~3–6s by caching  interview context and responses in Redis, avoiding redundant LLM calls on each user interaction.",
+      "Built context-aware interview workflows using LangChain and Gemini, generating questions dynamically from resumes, selected skills, and live user responses.",
+      "Developed a production-ready backend with Node.js and MongoDB supporting authentication, interview history, and the end-to-end interview pipeline.",
+      "Deployed on GCP using Docker and Docker Compose, with GitHub Actions CI/CD pipeline to build and push images to Docker Hub."
     ],
     stack: ["React", "Material UI", "Node.js", "Express.js", "MongoDB (Mongoose)", "Redis", "LangChain", "WebSockets", "JWT Auth", "Docker", "GCP", "Text-to-Speech (GCP TTS, Piper)", "GitHub Actions"],
     status: 'COMPLETED',
     demo: '#',
-    source: '#',
+    live: 'https://interview.surajpatel.dev/',
+    source: 'https://github.com/SurajPatel04/AI-Interview',
   },
   {
     name: 'ai-manim-video-gen',
     bullets: [
-      "Built an end - to - end AI pipeline(React + FastAPI + MongoDB) that converts text prompts into rendered Manim animations",
-      "Designed a multi - agent LangGraph workflow with query validation, description expansion, code generation, and self- healing repair loops boosting execution success from ~60 % → 90 % +",
-      "Implemented a Celery + Redis async task queue for concurrent CPU - intensive renders, significantly improving stability under load",
-      "Deployed on GCP with Docker, using Supabase for video storage and a clean web UI for end - to - end user interaction"
+      "Built an end - to - end AI pipeline(React + FastAPI + MongoDB) that converts text prompts into rendered Manim animations.",
+      "Designed a multi - agent LangGraph workflow with query validation, description expansion, code generation, and self- healing repair loops boosting execution success from ~60 % → 90 % +.",
+      "Implemented a Celery + Redis async task queue for concurrent CPU - intensive renders, significantly improving stability under load.",
+      "Deployed on GCP using Docker and Docker Compose, with GitHub Actions CI/CD pipeline to build and push images to Docker Hub, utilizing Supabase for robust video storage."
     ],
     stack: ["React", "Shadcn UI", "FastAPI", "LangGraph", "LangChain", "LangSmith", "Celery", "MongoDB (Beanie ODM)", "Redis", "Authentication (JWT, Google OAuth)", "Docker", "GCP", "GitHub Actions", "Supabase"],
     status: 'COMPLETED',
     demo: 'https://www.youtube.com/watch?v=yanGT_wRSms',
-    source: '#',
+    live: '#',
+    source: 'https://github.com/SurajPatel04/manimVideoGenerate',
   },
 ];
 
@@ -380,12 +399,9 @@ function ProjectsSection() {
               </span> */}
             </div>
             <div className="flex gap-4 mt-2 text-xs">
-              <a href={proj.demo} target="_blank" rel="noopener noreferrer" className="hover:underline" style={{ color: '#33ff33' }}>
-                [▶ demo]
-              </a>
-              <a href={proj.source} target="_blank" rel="noopener noreferrer" className="hover:underline" style={{ color: '#00daf8' }}>
-                [⌥ source]
-              </a>
+              {proj.demo !== '#' && <a href={proj.demo} target="_blank" rel="noopener noreferrer" className="hover:underline" style={{ color: '#33ff33' }}>[▶ demo]</a>}
+              {proj.live !== '#' && <a href={proj.live} target="_blank" rel="noopener noreferrer" className="hover:underline" style={{ color: '#33ff33' }}>[▶ live]</a>}
+              {proj.source !== '#' && <a href={proj.source} target="_blank" rel="noopener noreferrer" className="hover:underline" style={{ color: '#00daf8' }}>[⌥ source]</a>}
             </div>
             <div className="mt-2 space-y-3 md:space-y-1">
               {proj.bullets.map((bullet, i) => (
@@ -620,8 +636,9 @@ export default function TerminalView() {
                 <span className="text-[10px] px-2 py-0.5 rounded font-mono uppercase" style={{ background: '#0a2a0a', color: '#33ff33', border: '1px solid #1a3a1a' }}>{proj.status}</span>
               </div>
               <div className="flex gap-4 mt-2 mb-3 text-xs">
-                <a href={proj.demo} target="_blank" rel="noopener noreferrer" className="hover:underline" style={{ color: '#33ff33' }}>[▶ demo]</a>
-                <a href={proj.source} target="_blank" rel="noopener noreferrer" className="hover:underline" style={{ color: '#00daf8' }}>[⌥ source]</a>
+                {proj.demo !== '#' && <a href={proj.demo} target="_blank" rel="noopener noreferrer" className="hover:underline" style={{ color: '#33ff33' }}>[▶ demo]</a>}
+                {proj.live !== '#' && <a href={proj.live} target="_blank" rel="noopener noreferrer" className="hover:underline" style={{ color: '#33ff33' }}>[▶ live]</a>}
+                {proj.source !== '#' && <a href={proj.source} target="_blank" rel="noopener noreferrer" className="hover:underline" style={{ color: '#00daf8' }}>[⌥ source]</a>}
               </div>
               <div className="mt-2 space-y-3 md:space-y-1">
                 {proj.bullets.map((bullet, i) => (

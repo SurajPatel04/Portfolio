@@ -127,35 +127,37 @@ export default function ResumeSection() {
                   transition={springTransition}
                 >
                   <h4 className="font-headline font-bold text-primary tracking-widest uppercase text-[11px] mb-3">Projects</h4>
-
+                  <div>
+                    <div className="flex justify-between items-start">
+                      <div className="flex items-center gap-2">
+                        <h5 className="font-bold text-on-surface text-sm">InsightFlow</h5>
+                        <span className="text-on-surface-variant/30 text-xs text-bold">|</span>
+                        <a href="https://github.com/SurajPatel04/ai-multimedia-rag-app" target="_blank" rel="noopener noreferrer" className="text-primary text-[11px] font-bold hover:underline">Source Code</a>
+                        <a href="https://insightflow.surajpatel.dev/" target="_blank" rel="noopener noreferrer" className="text-primary text-[11px] font-bold hover:underline">Live Link</a>
+                      </div>
+                      <span className="text-on-surface-variant/50 text-[10px] font-mono tracking-normal">May 2026 - May 2026</span>
+                    </div>
+                    <ul className="mt-2 space-y-2 text-[12px] text-on-surface-variant leading-relaxed">
+                      <li>• Built a full-stack multimodal RAG platform using FastAPI, LangGraph, React, MongoDB, FAISS, Redis, and SSE for PDF/audio/video question answering with source citations.</li>
+                      <li>• Designed a two-phase ingestion flow with temporary upload storage, confirmation-based promotion and cleanup to eliminate wasted embedding cost. </li>
+                      <li>• Integrated Deepgram for timestamped audio/video transcription and implemented clickable media citations for precise retrieval and playback.</li>
+                      <li>• Implemented Redis semantic caching for repeated queries, LangGraph-based conversation memory management, and GCP deployment using Docker and GitHub Actions CI/CD.</li>
+                    </ul>
+                  </div>
+                  <br></br>
                   <div className="mb-6">
                     <div className="flex justify-between items-start">
                       <div className="flex items-center gap-2">
                         <h5 className="font-bold text-on-surface text-sm">AI Interview</h5>
                         <span className="text-on-surface-variant/30 text-xs text-bold">|</span>
                         <a href="https://github.com/SurajPatel04/AI-Interview" target="_blank" rel="noopener noreferrer" className="text-primary text-[11px] font-bold hover:underline">Source Code</a>
+                        <a href="https://interview.surajpatel.dev/" target="_blank" rel="noopener noreferrer" className="text-primary text-[11px] font-bold hover:underline">Live URL</a>
                       </div>
                       <span className="text-on-surface-variant/50 text-[10px] font-mono tracking-normal">May 2025 - June 2025</span>
                     </div>
                     <ul className="mt-2 space-y-2 text-[12px] text-on-surface-variant leading-relaxed">
                       <li>• Built a full-stack AI-powered interview system using React, Node.js and MongoDB, generating context-aware questions from resumes, skills, and user responses using LangChain and Gemini.</li>
-                      <li>• Engineered a real-time interview system with WebRTC and Socket.io, integrating streaming audio and TTS, reducing next-question API response latency from ~8–10s to ~3–6s using Redis caching.</li>
-                    </ul>
-                  </div>
-
-                  <div>
-                    <div className="flex justify-between items-start">
-                      <div className="flex items-center gap-2">
-                        <h5 className="font-bold text-on-surface text-sm">AI Manim Video Generator</h5>
-                        <span className="text-on-surface-variant/30 text-xs text-bold">|</span>
-                        <a href="https://github.com/SurajPatel04/manimVideoGenerate" target="_blank" rel="noopener noreferrer" className="text-primary text-[11px] font-bold hover:underline">Source Code</a>
-                      </div>
-                      <span className="text-on-surface-variant/50 text-[10px] font-mono tracking-normal">Jul 2025 - Aug 2025</span>
-                    </div>
-                    <ul className="mt-2 space-y-2 text-[12px] text-on-surface-variant leading-relaxed">
-                      <li>• Built an end-to-end AI pipeline using React, FastAPI and MongoDB to generate animations from text prompts into Manim code and rendered video output.</li>
-                      <li>• Designed a multi-agent LangGraph workflow with validation and repair loops, enabling self-healing code generation and improving execution success (~60% → ~90%+).</li>
-                      <li>• Implemented Celery + Redis task queue for concurrent rendering, improving stability under high load, with Supabase for video storage, deployed on GCP using Docker.</li>
+                      <li>• Engineered a real-time interview system with Socket.io, integrating streaming audio and TTS, reducing next-question API response latency from ~8–10s to ~3–6s using Redis caching.</li>
                     </ul>
                   </div>
                 </motion.div>

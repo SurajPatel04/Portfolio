@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react';
-import { motion, animate } from 'motion/react';
+import { motion } from 'motion/react';
 import surajPhoto from '../assets/Suraj Patel New.png';
 
 const HeroAvatar3D = lazy(() => import('./HeroAvatar3D'));
@@ -12,10 +12,9 @@ export default function Hero() {
       // Offset matches the navbar logic to ensure headers aren't covered
       const y = element.getBoundingClientRect().top + window.scrollY - 10;
 
-      animate(window.scrollY, y, {
-        duration: 1.2,
-        ease: [0.25, 0.46, 0.45, 0.94], // The premium spring curve
-        onUpdate: (latest) => window.scrollTo(0, latest)
+      window.scrollTo({
+        top: y,
+        behavior: 'smooth'
       });
     }
   };

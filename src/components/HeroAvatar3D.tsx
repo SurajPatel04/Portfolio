@@ -201,8 +201,7 @@ export default function HeroAvatar3D() {
           style={{
             width: 300,
             height: 370,
-            background: 'rgba(10,15,28,0.25)',
-            backdropFilter: 'blur(12px)',
+            background: 'rgba(10,15,28,0.85)',
             border: '1px solid rgba(0,218,248,0.22)',
             boxShadow:
               '0 0 0 1px rgba(167,139,250,0.12) inset, 0 32px 64px rgba(0,0,0,0.65), 0 0 48px rgba(0,218,248,0.10)',

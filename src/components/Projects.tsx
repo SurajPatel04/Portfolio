@@ -11,74 +11,109 @@ const GithubIcon = ({ className }: { className?: string }) => (
 import aiInterviewImg from '../assets/Ai-Interview.png';
 import mainmVideoImg from '../assets/MainmVIdeo.png';
 import architectureImg from '../assets/manim_video_generation_pipeline.png';
+import insightFlowImg from '../assets/InsightFlow.png';
+import insightFlowArchitectureImg from '../assets/InsightFlowSystemDiagram.png';
+import timestampCitationImg from '../assets/timestamp_citation_ux.png';
 
 const projectsData = [
   {
     id: 1,
-    title: "AI Interview Platform",
-    image: aiInterviewImg,
-    demoLink: "#",
-    sourceLink: "#",
+    title: "InsightFlow RAG Platform",
+    image: insightFlowImg,
+    sourceLink: "https://github.com/SurajPatel04/ai-multimedia-rag-app",
+    liveLink: "https://insightflow.surajpatel.dev/",
     bullets: [
-      "Engineered a real-time AI interview system (React + Node.js + MongoDB) with WebRTC and Socket.io, enabling low-latency voice interactions with streaming audio and TTS",
-      "Reduced next-question API latency from ~8–10s → ~3–6s by caching  interview context and responses in Redis, avoiding redundant LLM calls on each user interaction",
-      "Built context-aware interview workflows using LangChain and Gemini, generating questions dynamically from resumes, selected skills, and live user responses",
-      "Developed a production-ready backend with Node.js and MongoDB supporting authentication, interview history, and the end-to-end interview pipeline"
+      "Architected a multi-modal RAG platform (FastAPI + LangGraph + FAISS) enabling semantic search over PDFs, audio, and video with AI-generated answers and clickable media timestamp citations.",
+      "Designed a cost-efficient two-phase ingestion pipeline that stages files in MongoDB before confirmation, eliminating unnecessary embedding costs for cancelled uploads.",
+      "Built agentic conversation memory using LangGraph with auto-triggered summarization to condense history when token thresholds are exceeded, enabling indefinitely long sessions.",
+      "Implemented Redis semantic caching with cosine similarity matching (≥95% threshold) to stream cached responses instantly, bypassing the LLM entirely for near-duplicate queries.",
+      "Integrated Deepgram transcription with timestamped utterance chunking, surfacing precise [start - end] citations seekable via a plyr-react media player.",
+      "Deployed on GCP using Docker and Docker Compose, with GitHub Actions CI/CD pipeline to build and push images to Docker Hub."
     ],
-    techStack: ["React", "Material UI", "Node.js", "Express.js", "MongoDB (Mongoose)", "Redis", "LangChain", "WebSockets", "JWT Auth", "Docker", "GCP", "Text-to-Speech (GCP TTS, Piper)", "GitHub Actions"],
+    techStack: ["React", "Tailwind CSS", "Shadcn UI", "FastAPI", "LangGraph", "MongoDB", "FAISS", "Supabase", "Deepgram", "OpenAI", "Gemini", "Redis", "SSE", "JWT Auth", "Docker", "GitHub Actions"],
     status: "COMPLETED",
-    hasArchitecture: false,
-    architectureImg: null
+    deepDive: {
+      problemStatement: "Most RAG tools treat upload as a one-step process — I wanted to avoid charging users embedding costs for files they might cancel. This led to the intentional design of the two-phase ingestion pipeline.",
+      architectureImg: insightFlowArchitectureImg,
+      timestampUxImg: timestampCitationImg,
+      decisions: [
+        { title: "FAISS over Managed Vector DB", text: "Chose FAISS for zero-latency local retrieval and to eliminate cloud database costs during development and scale testing." },
+        { title: "LangGraph over plain LangChain", text: "Required cyclic execution and persistent state for long-term memory and auto-summarization, which plain DAGs couldn't support." },
+        { title: "95% Cosine Similarity Threshold", text: "Calibrated to aggressively cache exact and highly similar phrasing without sacrificing context specificity." }
+      ],
+      challenges: [
+        { title: "Long-context Memory without Token Bloat", text: "Solved token bloat by triggering background summarization nodes in LangGraph when message count or token usage thresholds are exceeded." },
+        { title: "Multi-modal Chunking Strategies", text: "Engineered separate chunking strategies: text splitting for PDFs vs. timestamped utterance chunking for Deepgram audio/video transcripts." }
+      ]
+    }
   },
   {
     id: 2,
+    title: "AI Interview Platform",
+    image: aiInterviewImg,
+    sourceLink: "https://github.com/SurajPatel04/AI-Interview",
+    liveLink: "https://interview.surajpatel.dev/",
+    bullets: [
+      "Engineered a real-time AI interview system (React + Node.js + MongoDB) with WebRTC and Socket.io, enabling low-latency voice interactions with streaming audio and TTS.",
+      "Reduced next-question API latency from ~8–10s → ~3–6s by caching  interview context and responses in Redis, avoiding redundant LLM calls on each user interaction.",
+      "Built context-aware interview workflows using LangChain and Gemini, generating questions dynamically from resumes, selected skills, and live user responses.",
+      "Developed a production-ready backend with Node.js and MongoDB supporting authentication, interview history, and the end-to-end interview pipeline.",
+      "Deployed on GCP using Docker and Docker Compose, with GitHub Actions CI/CD pipeline to build and push images to Docker Hub."
+    ],
+    techStack: ["React", "Material UI", "Node.js", "Express.js", "MongoDB (Mongoose)", "Redis", "LangChain", "WebSockets", "JWT Auth", "Docker", "GCP", "Text-to-Speech (GCP TTS, Piper)", "GitHub Actions"],
+    status: "COMPLETED"
+  },
+  {
+    id: 3,
     title: "AI Manim Video Gen",
     image: mainmVideoImg,
     demoLink: "https://www.youtube.com/watch?v=yanGT_wRSms",
-    sourceLink: "#",
+    sourceLink: "https://github.com/SurajPatel04/manimVideoGenerate",
     bullets: [
-      "Built an end - to - end AI pipeline(React + FastAPI + MongoDB) that converts text prompts into rendered Manim animations",
-      "Designed a multi - agent LangGraph workflow with query validation, description expansion, code generation, and self- healing repair loops boosting execution success from ~60 % → 90 % +",
-      "Implemented a Celery + Redis async task queue for concurrent CPU - intensive renders, significantly improving stability under load",
-      "Deployed on GCP with Docker, using Supabase for video storage and a clean web UI for end - to - end user interaction"
+      "Built an end - to - end AI pipeline(React + FastAPI + MongoDB) that converts text prompts into rendered Manim animations.",
+      "Designed a multi - agent LangGraph workflow with query validation, description expansion, code generation, and self- healing repair loops boosting execution success from ~60 % → 90 % +.",
+      "Implemented a Celery + Redis async task queue for concurrent CPU - intensive renders, significantly improving stability under load.",
+      "Deployed on GCP using Docker and Docker Compose, with GitHub Actions CI/CD pipeline to build and push images to Docker Hub, utilizing Supabase for robust video storage."
     ],
     techStack: ["React", "Shadcn UI", "FastAPI", "LangGraph", "LangChain", "LangSmith", "Celery", "MongoDB (Beanie ODM)", "Redis", "Authentication (JWT, Google OAuth)", "Docker", "GCP", "GitHub Actions", "Supabase"],
     status: "COMPLETED",
-    hasArchitecture: true,
-    architectureImg: architectureImg
+    deepDive: {
+      architectureImg: architectureImg
+    }
   }
 ];
 
-const ArchitectureModal = ({
-  isOpen,
-  onClose,
-  imageSrc
+const ProjectDetailsModal = ({
+  project,
+  onClose
 }: {
-  isOpen: boolean;
+  project: any;
   onClose: () => void;
-  imageSrc: string | null;
 }) => {
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
     };
 
-    if (isOpen) {
+    if (project) {
       document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
       window.addEventListener('keydown', handleEscape);
     } else {
       document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
     }
 
     return () => {
       document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
       window.removeEventListener('keydown', handleEscape);
     };
-  }, [isOpen, onClose]);
+  }, [project, onClose]);
 
   return (
     <AnimatePresence>
-      {isOpen && imageSrc && (
+      {project && project.deepDive && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 md:p-8">
           {/* Backdrop */}
           <motion.div
@@ -87,7 +122,7 @@ const ArchitectureModal = ({
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
             onClick={onClose}
-            className="absolute inset-0 bg-background/80 backdrop-blur-md"
+            className="absolute inset-0 bg-[#000000]/80"
           />
 
           {/* Modal Content */}
@@ -96,13 +131,13 @@ const ArchitectureModal = ({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ duration: 0.3, ease: 'easeOut' }}
-            className="relative w-fit max-w-[96vw] xl:max-w-[85vw] max-h-[90vh] bg-surface-container shadow-[0_0_50px_rgba(0,218,248,0.15)] border border-primary/20 rounded-2xl sm:rounded-3xl overflow-hidden flex flex-col"
+            className="relative w-full max-w-[96vw] xl:max-w-4xl max-h-[90vh] bg-surface-container shadow-[0_0_50px_rgba(0,218,248,0.15)] border border-primary/20 rounded-full overflow-hidden flex flex-col"
           >
             {/* Header */}
             <div className="flex justify-between items-center px-6 py-4 sm:px-8 sm:py-5 border-b border-outline-variant/10 shrink-0 bg-surface-container-low/50">
               <div>
-                <h3 className="font-headline text-lg sm:text-xl font-bold text-on-surface">System Architecture</h3>
-                <p className="text-[11px] sm:text-xs font-body text-on-surface-variant mt-0.5 hidden sm:block">Detailed view of the agentic generation pipeline.</p>
+                <h3 className="font-headline text-lg sm:text-xl font-bold text-on-surface">{project.title} - System Architecture</h3>
+                <p className="text-[11px] sm:text-xs font-body text-on-surface-variant mt-0.5 hidden sm:block">High-level system design and data flow.</p>
               </div>
               <button
                 onClick={onClose}
@@ -113,15 +148,13 @@ const ArchitectureModal = ({
               </button>
             </div>
 
-            {/* Scrollable Diagram Area */}
-            <div className="overflow-auto p-4 sm:p-8 bg-[#18181A] flex-grow flex custom-scrollbar">
-              <img
-                src={imageSrc}
-                alt="System Architecture Diagram"
-                className="w-auto h-auto min-w-[280px] max-w-full max-h-[75vh] object-contain m-auto hover:cursor-zoom-in transition-transform duration-300"
-                onClick={() => window.open(imageSrc, '_blank')}
-                title="Click to view full screen in new tab"
-              />
+            {/* Scrollable Area */}
+            <div className="overflow-auto p-6 sm:p-8 bg-surface-container flex-grow custom-scrollbar">
+              {project.deepDive.architectureImg && (
+                <div className="bg-[#18181A] p-4 rounded-xl border border-outline-variant/10 flex justify-center">
+                  <img src={project.deepDive.architectureImg} alt="Architecture" className="max-w-full rounded-lg" />
+                </div>
+              )}
             </div>
           </motion.div>
         </div>
@@ -132,9 +165,8 @@ const ArchitectureModal = ({
 
 export default function Projects() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [direction, setDirection] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(2);
-  const [selectedArchitecture, setSelectedArchitecture] = useState<string | null>(null);
+  const [selectedProject, setSelectedProject] = useState<any | null>(null);
 
   useEffect(() => {
     const handleResize = () => {
@@ -148,56 +180,29 @@ export default function Projects() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const totalPages = Math.ceil(projectsData.length / itemsPerPage);
-  const currentPage = Math.floor(currentIndex / itemsPerPage);
+  const totalSlides = Math.max(1, projectsData.length - itemsPerPage + 1);
+  const maxIndex = totalSlides - 1;
 
   const nextSlide = () => {
-    if (currentPage < totalPages - 1) {
-      setDirection(1);
-      setCurrentIndex(prev => prev + itemsPerPage);
+    if (currentIndex < maxIndex) {
+      setCurrentIndex(prev => prev + 1);
     }
   };
 
   const prevSlide = () => {
-    if (currentPage > 0) {
-      setDirection(-1);
-      setCurrentIndex(prev => prev - itemsPerPage);
+    if (currentIndex > 0) {
+      setCurrentIndex(prev => prev - 1);
     }
   };
 
-  const slideVariants: any = {
-    enter: (dir: number) => ({
-      x: dir > 0 ? '100%' : '-100%',
-      opacity: 0,
-      scale: 0.95,
-    }),
-    center: {
-      zIndex: 1,
-      x: 0,
-      opacity: 1,
-      scale: 1,
-      position: "relative",
-      transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } // Apple-like spring easing
-    },
-    exit: (dir: number) => ({
-      zIndex: 0,
-      x: dir < 0 ? '100%' : '-100%',
-      opacity: 0,
-      scale: 0.95,
-      position: "absolute",
-      top: 0,
-      left: 0,
-      right: 0,
-      transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] }
-    })
-  };
+
 
   const swipeConfidenceThreshold = 1500;
   const swipePower = (offset: number, velocity: number) => {
     return Math.abs(offset) * velocity;
   };
 
-  const visibleProjects = projectsData.slice(currentIndex, currentIndex + itemsPerPage);
+
 
   return (
     <section className="py-24 bg-surface-container-lowest" id="projects">
@@ -214,31 +219,30 @@ export default function Projects() {
           </h2>
         </motion.div>
 
-        <div className="relative overflow-visible">
-          <AnimatePresence initial={false} custom={direction}>
-            <motion.div
-              key={currentIndex}
-              custom={direction}
-              variants={slideVariants}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              drag={itemsPerPage === 1 ? "x" : false}
-              dragConstraints={{ left: 0, right: 0 }}
-              dragElastic={0.4}
-              onDragEnd={(_, { offset, velocity }) => {
-                if (itemsPerPage !== 1) return;
-                const swipe = swipePower(offset.x, velocity.x);
-                // Adjust for threshold triggering either quickly or far
-                if (swipe < -swipeConfidenceThreshold || offset.x < -75) {
-                  nextSlide();
-                } else if (swipe > swipeConfidenceThreshold || offset.x > 75) {
-                  prevSlide();
-                }
-              }}
-              className={`grid gap-8 ${itemsPerPage === 2 ? 'lg:grid-cols-2' : 'grid-cols-1'}`}
-            >
-              {visibleProjects.map(project => (
+        <div className="relative overflow-hidden p-4 -m-4">
+          <motion.div
+            drag={itemsPerPage === 1 ? "x" : false}
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={0.4}
+            onDragEnd={(_, { offset, velocity }) => {
+              if (itemsPerPage !== 1) return;
+              const swipe = swipePower(offset.x, velocity.x);
+              if (swipe < -swipeConfidenceThreshold || offset.x < -75) {
+                nextSlide();
+              } else if (swipe > swipeConfidenceThreshold || offset.x > 75) {
+                prevSlide();
+              }
+            }}
+            className="flex flex-nowrap gap-8"
+            animate={{
+              x: itemsPerPage === 1
+                ? `calc(-${currentIndex * 100}% - ${currentIndex * 2}rem)`
+                : `calc(-${currentIndex * 50}% - ${currentIndex * 1}rem)`
+            }}
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+          >
+            {projectsData.map(project => (
+              <div key={project.id} className={`flex-none w-full ${itemsPerPage === 2 ? 'lg:w-[calc(50%-1rem)]' : ''}`}>
                 <div key={project.id} className="group relative bg-surface-container-low rounded-full overflow-hidden border border-outline-variant/20 flex flex-col shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:-translate-y-1 sm:hover:-translate-y-2 hover:border-[#0AB4D6]/50 hover:shadow-[0_10px_40px_-15px_rgba(10,180,214,0.3)] transition-all duration-500 w-full h-full">
                   <div className="relative h-56 sm:h-72 overflow-hidden shrink-0">
                     <img
@@ -253,12 +257,21 @@ export default function Projects() {
                     <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start mb-6 gap-4">
                       <h3 className="font-headline text-2xl sm:text-3xl font-bold text-on-surface leading-tight">{project.title}</h3>
                       <div className="flex flex-wrap gap-3 shrink-0 auto-cols-min">
-                        <a className="flex items-center gap-1.5 px-4 py-2 bg-primary text-on-primary rounded-full text-[11px] sm:text-xs font-bold shadow-[0_0_10px_rgba(0,218,248,0.3)] hover:shadow-[0_0_20px_rgba(0,218,248,0.5)] transition-all hover:scale-105 active:scale-95" href={project.demoLink} target="_blank">
-                          <span className="material-symbols-outlined text-[14px]">play_arrow</span> Demo
-                        </a>
-                        <a className="flex items-center gap-1.5 px-4 py-2 bg-transparent border border-outline-variant hover:border-primary text-primary rounded-full text-[11px] sm:text-xs font-bold transition-all hover:bg-primary/5 hover:scale-105 active:scale-95" href={project.sourceLink} target="_blank">
-                          <GithubIcon className="w-3.5 h-3.5" /> Source
-                        </a>
+                        {project.demoLink && (
+                          <a className="flex items-center gap-1.5 px-4 py-2 bg-primary text-on-primary rounded-full text-[11px] sm:text-xs font-bold shadow-[0_0_10px_rgba(0,218,248,0.3)] hover:shadow-[0_0_20px_rgba(0,218,248,0.5)] transition-all hover:scale-105 active:scale-95" href={project.demoLink} target="_blank">
+                            <span className="material-symbols-outlined text-[14px]">play_arrow</span> Demo
+                          </a>
+                        )}
+                        {project.liveLink && (
+                          <a className="flex items-center gap-1.5 px-4 py-2 bg-transparent border border-outline-variant hover:border-primary text-primary rounded-full text-[11px] sm:text-xs font-bold transition-all hover:bg-primary/5 hover:scale-105 active:scale-95" href={project.liveLink} target="_blank">
+                            <span className="material-symbols-outlined text-[14px]">language</span> Live Link
+                          </a>
+                        )}
+                        {project.sourceLink && (
+                          <a className="flex items-center gap-1.5 px-4 py-2 bg-transparent border border-outline-variant hover:border-primary text-primary rounded-full text-[11px] sm:text-xs font-bold transition-all hover:bg-primary/5 hover:scale-105 active:scale-95" href={project.sourceLink} target="_blank">
+                            <GithubIcon className="w-3.5 h-3.5" /> Source
+                          </a>
+                        )}
                       </div>
                     </div>
 
@@ -271,9 +284,8 @@ export default function Projects() {
                       ))}
                     </div>
 
-                    <div className="mb-2 w-full mt-auto pt-6 border-t border-outline-variant/10">
+                    <div className="mb-2 w-full pt-6 border-t border-outline-variant/10">
                       <p className="text-primary font-headline font-bold text-[10px] sm:text-[11px] uppercase tracking-widest mb-4">Technology Stack</p>
-
                       <div className="flex flex-wrap gap-2.5 sm:gap-3">
                         {project.techStack.map((tech) => (
                           <span key={tech} className="bg-surface-container-high/60 hover:bg-surface-container-highest transition-colors duration-300 px-4 py-[0.4rem] rounded-full text-[11px] sm:text-xs font-bold text-on-surface-variant/90 border border-outline-variant/10 shadow-sm hover:shadow-md cursor-default">
@@ -281,42 +293,43 @@ export default function Projects() {
                           </span>
                         ))}
                       </div>
-
                     </div>
 
-                    {project.hasArchitecture && (
-                      <div className="mt-8 flex">
-                        <button
-                          onClick={() => setSelectedArchitecture(project.architectureImg || null)}
-                          className="inline-flex items-center gap-2 border border-primary/30 bg-primary/5 text-primary px-5 py-2.5 rounded-xl text-sm font-headline font-bold cursor-pointer hover:bg-primary/15 hover:border-primary hover:shadow-[0_0_15px_rgba(0,218,248,0.2)] transition-all active:scale-95 group/btn"
-                        >
-                          <span className="material-symbols-outlined text-[18px] group-hover/btn:scale-110 group-hover/btn:rotate-[-5deg] transition-transform duration-300">account_tree</span>
-                          <span className="tracking-wide">Sequence Diagram</span>
-                        </button>
-                      </div>
-                    )}
+                    <div className="mt-auto pt-6 flex">
+                      <button
+                        onClick={() => project.deepDive && setSelectedProject(project)}
+                        disabled={!project.deepDive}
+                        className={`inline-flex items-center gap-2 border px-5 py-2.5 rounded-xl text-sm font-headline font-bold transition-all group/btn ${
+                          project.deepDive 
+                            ? 'border-primary/30 bg-primary/5 text-primary cursor-pointer hover:bg-primary/15 hover:border-primary hover:shadow-[0_0_15px_rgba(0,218,248,0.2)] active:scale-95' 
+                            : 'border-outline-variant/20 bg-surface-container-high/30 text-on-surface-variant/40 cursor-not-allowed opacity-50'
+                        }`}
+                      >
+                        <span className={`material-symbols-outlined text-[18px] ${project.deepDive ? 'group-hover/btn:scale-110 group-hover/btn:rotate-[-5deg] transition-transform duration-300' : ''}`}>account_tree</span>
+                        <span className="tracking-wide">System Architecture Diagram</span>
+                      </button>
+                    </div>
                   </div>
                 </div>
-              ))}
-            </motion.div>
-          </AnimatePresence>
+              </div>
+            ))}
+          </motion.div>
         </div>
 
-        {totalPages > 1 && (
+        {totalSlides > 1 && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             className="flex flex-col sm:flex-row justify-between items-center mt-10 gap-6"
           >
             <div className="flex gap-2.5">
-              {Array.from({ length: totalPages }).map((_, i) => (
+              {Array.from({ length: totalSlides }).map((_, i) => (
                 <button
                   key={i}
                   onClick={() => {
-                    setDirection(i > currentPage ? 1 : -1);
-                    setCurrentIndex(i * itemsPerPage);
+                    setCurrentIndex(i);
                   }}
-                  className={`h-2.5 rounded-full transition-all duration-300 ${currentPage === i ? 'w-8 bg-primary shadow-[0_0_10px_rgba(0,218,248,0.5)]' : 'w-2.5 bg-outline-variant/30 hover:bg-outline-variant'}`}
+                  className={`h-2.5 rounded-full transition-all duration-300 ${currentIndex === i ? 'w-8 bg-primary shadow-[0_0_10px_rgba(0,218,248,0.5)]' : 'w-2.5 bg-outline-variant/30 hover:bg-outline-variant'}`}
                   aria-label={`Go to slide ${i + 1}`}
                 />
               ))}
@@ -325,14 +338,14 @@ export default function Projects() {
             <div className="flex gap-4">
               <button
                 onClick={prevSlide}
-                disabled={currentPage === 0}
+                disabled={currentIndex === 0}
                 className="w-12 h-12 bg-surface-container hover:bg-surface-container-high disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100 rounded-full border border-outline-variant/20 text-on-surface transition-all flex items-center justify-center hover:scale-110 active:scale-95 shadow-lg"
               >
                 <span className="material-symbols-outlined text-[18px]">arrow_back_ios_new</span>
               </button>
               <button
                 onClick={nextSlide}
-                disabled={currentPage >= totalPages - 1}
+                disabled={currentIndex >= maxIndex}
                 className="w-12 h-12 bg-surface-container hover:bg-surface-container-high disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100 rounded-full border border-outline-variant/20 text-on-surface transition-all flex items-center justify-center hover:scale-110 active:scale-95 shadow-lg"
               >
                 <span className="material-symbols-outlined text-[18px]">arrow_forward_ios</span>
@@ -342,10 +355,9 @@ export default function Projects() {
         )}
       </div>
 
-      <ArchitectureModal
-        isOpen={!!selectedArchitecture}
-        onClose={() => setSelectedArchitecture(null)}
-        imageSrc={selectedArchitecture}
+      <ProjectDetailsModal
+        project={selectedProject}
+        onClose={() => setSelectedProject(null)}
       />
     </section>
   );
