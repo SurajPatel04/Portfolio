@@ -56,48 +56,59 @@ export default function ResumeSection() {
               {/* Scrolling Content Area (Manual Scroll with Premium Motion Intercepts) */}
               <div
                 ref={scrollRef}
-                className="flex flex-col gap-10 relative z-10 overflow-y-auto overflow-x-hidden scroll-smooth pr-4 -mr-2 pb-8 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-outline-variant/30 hover:[&::-webkit-scrollbar-thumb]:bg-primary/50 [&::-webkit-scrollbar-thumb]:rounded-full"
+                className="flex flex-col relative z-10 overflow-y-auto overflow-x-hidden scroll-smooth pr-4 -mr-2 pb-8 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-outline-variant/30 hover:[&::-webkit-scrollbar-thumb]:bg-primary/50 [&::-webkit-scrollbar-thumb]:rounded-full"
               >
 
-                {/* Summary - Blur & Scale Reveal */}
+                {/* Profile Summary - Blur & Scale Reveal */}
                 <motion.div
                   initial={{ opacity: 0, scale: 0.95, filter: "blur(10px)" }}
                   whileInView={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
                   viewport={{ root: scrollRef, once: true, amount: 0.2 }}
                   transition={springTransition}
                 >
-                  <h4 className="font-headline font-bold text-primary tracking-widest uppercase text-[11px] mb-3">Summary</h4>
+                  <h4 className="font-headline font-bold text-primary tracking-widest uppercase text-[11px] mb-3">Profile Summary</h4>
                   <p className="text-sm text-on-surface-variant leading-relaxed font-body">
-                    Software Engineer with a strong foundation in high-performance backend systems and real-time architecture. Skilled in agentic workflows (LangChain, LangGraph), scalable RESTful services, and streaming pipelines. Focused on production ready systems, latency optimization, and efficient data-driven solutions.
+                    Software Engineer specializing in high-performance backend systems, real-time streaming architecture, and agentic AI workflows. Experienced building scalable REST APIs, RAG pipelines, and LLM-powered applications with Node.js, FastAPI, and LangGraph. Proven record of latency optimization and production deployment on cloud infrastructure.
                   </p>
                 </motion.div>
 
-                {/* Education - Slide from Bottom with Blur */}
+                {/* Technical Skills - Staggered Pop & Blur */}
                 <motion.div
-                  initial={{ opacity: 0, y: 30, filter: "blur(8px)" }}
-                  whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                  viewport={{ root: scrollRef, once: true, amount: 0.2 }}
+                  className="border-t border-outline-variant/10 pt-6 mt-6"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ root: scrollRef, once: true, amount: 0.1 }}
                   transition={springTransition}
                 >
-                  <h4 className="font-headline font-bold text-primary tracking-widest uppercase text-[11px] mb-3">Education</h4>
-                  <div className="mb-4">
-                    <div className="flex justify-between items-start">
-                      <h5 className="font-bold text-on-surface text-sm">Master of Computer Applications (MCA)</h5>
-                      <span className="text-on-surface-variant/50 text-[10px] font-mono tracking-normal">2024 - Pres.</span>
+                  <h4 className="font-headline font-bold text-primary tracking-widest uppercase text-[11px] mb-3">Technical Skills</h4>
+                  <div className="flex flex-col gap-2.5 text-xs text-on-surface-variant leading-relaxed font-body">
+                    <div>
+                      <span className="font-bold text-on-surface">Languages:</span> JavaScript, TypeScript, Python
                     </div>
-                    <p className="text-on-surface-variant/70 text-[12px] mt-1">Amity University Online, Noida</p>
-                  </div>
-                  <div>
-                    <div className="flex justify-between items-start">
-                      <h5 className="font-bold text-on-surface text-sm">Bachelor of Science</h5>
-                      <span className="text-on-surface-variant/50 text-[10px] font-mono tracking-normal">2021 - 2024</span>
+                    <div>
+                      <span className="font-bold text-on-surface">Frontend:</span> React, Redux, HTML5, CSS3
                     </div>
-                    <p className="text-on-surface-variant/70 text-[12px] mt-1">Lucknow Christian College, Lucknow</p>
+                    <div>
+                      <span className="font-bold text-on-surface">Backend:</span> Node.js, Express.js, FastAPI, REST APIs, JWT, OAuth 2.0
+                    </div>
+                    <div>
+                      <span className="font-bold text-on-surface">Databases & Caching:</span> PostgreSQL (Prisma), MongoDB (Mongoose, Beanie), Redis
+                    </div>
+                    <div>
+                      <span className="font-bold text-on-surface">AI:</span> LangChain, LangGraph, LangSmith
+                    </div>
+                    <div>
+                      <span className="font-bold text-on-surface">Tools & DevOps:</span> Docker, Git, GitHub Actions, Celery (Task Queue System)
+                    </div>
+                    <div>
+                      <span className="font-bold text-on-surface">Core Fundamentals:</span> Data Structures & Algorithms, System Design
+                    </div>
                   </div>
                 </motion.div>
 
                 {/* Experience - Slide from Left with Blur */}
                 <motion.div
+                  className="border-t border-outline-variant/10 pt-6 mt-6"
                   initial={{ opacity: 0, x: -30, filter: "blur(8px)" }}
                   whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
                   viewport={{ root: scrollRef, once: true, amount: 0.2 }}
@@ -106,96 +117,101 @@ export default function ResumeSection() {
                   <h4 className="font-headline font-bold text-primary tracking-widest uppercase text-[11px] mb-3">Professional Experience</h4>
                   <div className="flex justify-between items-start">
                     <div>
-                      <h5 className="font-bold text-on-surface text-sm">Full Stack Engineer – Intern</h5>
+                      <h5 className="font-bold text-on-surface text-sm">Full Stack Engineer Intern</h5>
                       <p className="text-on-surface-variant/70 text-xs mt-1 font-bold">Careerboat.ai</p>
                     </div>
-                    <span className="text-on-surface-variant/50 text-[10px] font-mono tracking-normal">Dec 2025 - Pres.</span>
+                    <span className="text-on-surface-variant/50 text-[10px] font-mono tracking-normal">Dec 2025 – Present</span>
                   </div>
-                  <ul className="mt-3 space-y-2 text-[12px] text-on-surface-variant leading-relaxed">
+                  <ul className="mt-3 space-y-2 text-[12px] text-on-surface-variant leading-relaxed font-body">
                     <li>• Developed AI interview APIs using Node.js with LangChain and LangGraph, generating context-aware questions based on resumes, skills, and prior responses, while optimizing token usage through state management using MongoDB checkpointers and dynamic context summarization.</li>
-                    <li>• Integrated Google Cloud TTS, AWS S3, and SSE for real-time audio streaming and token-by-token AI responses.</li>
-                    <li>• Developed an AI powered resume analyzer to evaluate job description match rates, identify skill gaps, and dynamically generate tailored resumes.</li>
-                    <li>• Integrated the Razorpay payment gateway to process secure user transactions, implementing custom backend logic to support discount coupons.</li>
+                    <li>• Orchestrated TTS, AWS S3, and SSE for real-time audio streaming and token-by-token AI responses.</li>
+                    <li>• Developed an AI-powered resume analyzer to evaluate job description match rates, identify skill gaps, and dynamically generate tailored resumes.</li>
+                    <li>• Orchestrated the Razorpay payment gateway to process secure user transactions, implementing custom backend logic to support discount coupons.</li>
                   </ul>
                 </motion.div>
 
                 {/* Projects - Slide from Right with Blur */}
                 <motion.div
+                  className="border-t border-outline-variant/10 pt-6 mt-6"
                   initial={{ opacity: 0, x: 30, filter: "blur(8px)" }}
                   whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
                   viewport={{ root: scrollRef, once: true, amount: 0.2 }}
                   transition={springTransition}
                 >
                   <h4 className="font-headline font-bold text-primary tracking-widest uppercase text-[11px] mb-3">Projects</h4>
-                  <div>
-                    <div className="flex justify-between items-start">
-                      <div className="flex items-center gap-2">
-                        <h5 className="font-bold text-on-surface text-sm">InsightFlow</h5>
-                        <span className="text-on-surface-variant/30 text-xs text-bold">|</span>
-                        <a href="https://github.com/SurajPatel04/ai-multimedia-rag-app" target="_blank" rel="noopener noreferrer" className="text-primary text-[11px] font-bold hover:underline">Source Code</a>
-                        <a href="https://insightflow.surajpatel.dev/" target="_blank" rel="noopener noreferrer" className="text-primary text-[11px] font-bold hover:underline">Live Link</a>
+                  <div className="space-y-4">
+                    <div>
+                      <div className="flex justify-between items-start">
+                        <div className="flex items-center gap-2">
+                          <h5 className="font-bold text-on-surface text-sm">InsightFlow</h5>
+                          <span className="text-on-surface-variant/30 text-xs text-bold">|</span>
+                          <a href="https://github.com/SurajPatel04/ai-multimedia-rag-app" target="_blank" rel="noopener noreferrer" className="text-primary text-[11px] font-bold hover:underline">Source Code</a>
+                          <a href="https://insightflow.surajpatel.dev" target="_blank" rel="noopener noreferrer" className="text-primary text-[11px] font-bold hover:underline">Live Link</a>
+                        </div>
+                        <span className="text-on-surface-variant/50 text-[10px] font-mono tracking-normal">May 2026</span>
                       </div>
-                      <span className="text-on-surface-variant/50 text-[10px] font-mono tracking-normal">May 2026 - May 2026</span>
+                      <ul className="mt-2 space-y-2 text-[12px] text-on-surface-variant leading-relaxed font-body">
+                        <li>• Engineered a full-stack multimodal RAG platform (FastAPI, LangGraph, React, MongoDB, FAISS, Redis, SSE) enabling Q&A over documents (PDF, Word, Excel, CSV) and media (audio, video) with inline source citations.</li>
+                        <li>• Designed a two-phase ingestion flow that promotes uploads only after confirmation and cleans up the rest, eliminating wasted embedding spend on unconfirmed files.</li>
+                        <li>• Integrated Deepgram for timestamped transcription with clickable media citations, enabling precise retrieval and playback to the exact second.</li>
+                        <li>• Implemented Redis semantic caching for repeated queries, LangGraph-based conversation memory management, and GCP deployment using Docker and GitHub Actions CI/CD.</li>
+                      </ul>
                     </div>
-                    <ul className="mt-2 space-y-2 text-[12px] text-on-surface-variant leading-relaxed">
-                      <li>• Built a full-stack multimodal RAG platform using FastAPI, LangGraph, React, MongoDB, FAISS, Redis, and SSE for PDF/audio/video question answering with source citations.</li>
-                      <li>• Designed a two-phase ingestion flow with temporary upload storage, confirmation-based promotion and cleanup to eliminate wasted embedding cost. </li>
-                      <li>• Integrated Deepgram for timestamped audio/video transcription and implemented clickable media citations for precise retrieval and playback.</li>
-                      <li>• Implemented Redis semantic caching for repeated queries, LangGraph-based conversation memory management, and GCP deployment using Docker and GitHub Actions CI/CD.</li>
-                    </ul>
-                  </div>
-                  <br></br>
-                  <div className="mb-6">
-                    <div className="flex justify-between items-start">
-                      <div className="flex items-center gap-2">
-                        <h5 className="font-bold text-on-surface text-sm">AI Interview</h5>
-                        <span className="text-on-surface-variant/30 text-xs text-bold">|</span>
-                        <a href="https://github.com/SurajPatel04/AI-Interview" target="_blank" rel="noopener noreferrer" className="text-primary text-[11px] font-bold hover:underline">Source Code</a>
-                        <a href="https://interview.surajpatel.dev/" target="_blank" rel="noopener noreferrer" className="text-primary text-[11px] font-bold hover:underline">Live URL</a>
+                    <div>
+                      <div className="flex justify-between items-start">
+                        <div className="flex items-center gap-2">
+                          <h5 className="font-bold text-on-surface text-sm">AI Interview</h5>
+                          <span className="text-on-surface-variant/30 text-xs text-bold">|</span>
+                          <a href="https://github.com/SurajPatel04/AI-Interview" target="_blank" rel="noopener noreferrer" className="text-primary text-[11px] font-bold hover:underline">Source Code</a>
+                          <a href="https://interview.surajpatel.dev" target="_blank" rel="noopener noreferrer" className="text-primary text-[11px] font-bold hover:underline">Live Link</a>
+                        </div>
+                        <span className="text-on-surface-variant/50 text-[10px] font-mono tracking-normal">May 2025 – Aug 2025</span>
                       </div>
-                      <span className="text-on-surface-variant/50 text-[10px] font-mono tracking-normal">May 2025 - June 2025</span>
+                      <ul className="mt-2 space-y-2 text-[12px] text-on-surface-variant leading-relaxed font-body">
+                        <li>• Engineered a full-stack AI-powered interview system using React, Node.js, and MongoDB, generating context-aware questions from resumes, skills, and user responses using LangChain and Gemini.</li>
+                        <li>• Engineered a real-time interview system with WebRTC and Socket.io, integrating streaming audio and TTS, reducing next-question API response latency from ~8–10s to ~3–6s using Redis caching.</li>
+                      </ul>
                     </div>
-                    <ul className="mt-2 space-y-2 text-[12px] text-on-surface-variant leading-relaxed">
-                      <li>• Built a full-stack AI-powered interview system using React, Node.js and MongoDB, generating context-aware questions from resumes, skills, and user responses using LangChain and Gemini.</li>
-                      <li>• Engineered a real-time interview system with Socket.io, integrating streaming audio and TTS, reducing next-question API response latency from ~8–10s to ~3–6s using Redis caching.</li>
-                    </ul>
                   </div>
                 </motion.div>
 
-                {/* Core Expertise (Technical Skills) - Staggered Pop & Blur */}
+                {/* Education - Slide from Bottom with Blur */}
                 <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ root: scrollRef, once: true, amount: 0.1 }}
+                  className="border-t border-outline-variant/10 pt-6 mt-6"
+                  initial={{ opacity: 0, y: 30, filter: "blur(8px)" }}
+                  whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                  viewport={{ root: scrollRef, once: true, amount: 0.2 }}
                   transition={springTransition}
                 >
-                  <h4 className="font-headline font-bold text-primary tracking-widest uppercase text-[11px] mb-3">Technical Skills</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {['JavaScript', 'TypeScript', 'Python', 'React', 'HTML', 'CSS', 'Tailwind CSS', 'Node.js', 'Express.js', 'REST APIs', 'FastAPI', 'PostgreSQL', 'MongoDB', 'Redis', 'LangChain', 'LangGraph', 'Docker', 'Git', 'Github', "Prisma", "Mongoose", "Beanie"].map((skill, idx) => (
-                      < motion.span
-                        key={skill}
-                        initial={{ opacity: 0, scale: 0.5, filter: "blur(5px)" }}
-                        whileInView={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-                        viewport={{ root: scrollRef, once: true, amount: 0.5 }}
-                        transition={{ duration: 0.5, delay: idx * 0.05, ease: [0.25, 0.46, 0.45, 0.94] as any }}
-                        className="bg-surface-container-highest text-on-surface-variant text-[11px] font-bold px-3 py-1.5 rounded-full"
-                      >
-                        {skill}
-                      </motion.span>
-                    ))}
+                  <h4 className="font-headline font-bold text-primary tracking-widest uppercase text-[11px] mb-3">Education</h4>
+                  <div className="space-y-4">
+                    <div>
+                      <div className="flex justify-between items-start">
+                        <h5 className="font-bold text-on-surface text-sm">Master of Computer Applications (MCA)</h5>
+                        <span className="text-on-surface-variant/50 text-[10px] font-mono tracking-normal">2024 – 2026</span>
+                      </div>
+                      <p className="text-on-surface-variant/70 text-[12px] mt-1 font-body">Amity University Online, Noida, India</p>
+                    </div>
+                    <div>
+                      <div className="flex justify-between items-start">
+                        <h5 className="font-bold text-on-surface text-sm">Bachelor of Science</h5>
+                        <span className="text-on-surface-variant/50 text-[10px] font-mono tracking-normal">2021 – 2024</span>
+                      </div>
+                      <p className="text-on-surface-variant/70 text-[12px] mt-1 font-body">Lucknow Christian College, Lucknow, India</p>
+                    </div>
                   </div>
                 </motion.div>
-
 
                 {/* Certifications - Slide from Bottom with Blur */}
                 <motion.div
+                  className="border-t border-outline-variant/10 pt-6 mt-6"
                   initial={{ opacity: 0, y: 30, filter: "blur(8px)" }}
                   whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                   viewport={{ root: scrollRef, once: true, amount: 0.2 }}
                   transition={springTransition}
                 >
                   <h4 className="font-headline font-bold text-primary tracking-widest uppercase text-[11px] mb-3">Certifications</h4>
-                  <div className="space-y-4">
+                  <div className="space-y-4 font-body">
                     <div>
                       <div className="flex justify-between items-start">
                         <h5 className="font-bold text-on-surface text-sm">The Fullstack Developer Path</h5>

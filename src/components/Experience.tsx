@@ -20,7 +20,7 @@ export default function Experience() {
               {/* Header */}
               <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 md:gap-0 border-b border-outline-variant/10 pb-6">
                 <div>
-                  <h3 className="font-headline text-xl sm:text-3xl font-bold text-on-surface">Full Stack Engineer</h3>
+                  <h3 className="font-headline text-xl sm:text-3xl font-bold text-on-surface">Full Stack Engineer Intern</h3>
                   <div className="text-[#D0ADC5] font-headline font-semibold text-base sm:text-lg mt-1">@ Careerboat.ai</div>
                 </div>
                 <div className="shrink-0">
@@ -34,19 +34,19 @@ export default function Experience() {
               <ul className="space-y-4 text-on-surface-variant font-body text-sm sm:text-base mt-2">
                 <li className="flex gap-4 items-start">
                   <span className="text-primary mt-[6px] text-xs shrink-0">•</span>
-                  <span className="leading-relaxed md:text-justify w-full">Built an AI-powered interview system that generates context-aware questions using LangChain and LangGraph, dynamically adapting based on candidate resumes, selected skills, and previous responses to simulate realistic interview scenarios.</span>
+                  <span className="leading-relaxed md:text-justify w-full">Developed AI interview APIs using Node.js with LangChain and LangGraph, generating context-aware questions based on resumes, skills, and prior responses, while optimizing token usage through state management using MongoDB checkpointers and dynamic context summarization.</span>
                 </li>
                 <li className="flex gap-4 items-start">
                   <span className="text-primary mt-[6px] text-xs shrink-0">•</span>
-                  <span className="leading-relaxed md:text-justify w-full">Designed stateful LLM workflows using LangGraph with MongoDB checkpointers, implementing dynamic context summarization to manage long conversations and significantly reduce token usage while preserving relevant context.</span>
+                  <span className="leading-relaxed md:text-justify w-full">Orchestrated TTS, AWS S3, and SSE for real-time audio streaming and token-by-token AI responses.</span>
                 </li>
                 <li className="flex gap-4 items-start">
                   <span className="text-primary mt-[6px] text-xs shrink-0">•</span>
-                  <span className="leading-relaxed md:text-justify w-full">Developed a real-time voice interaction pipeline integrating Google Cloud TTS, Server-Sent Events (SSE), and AWS S3 to enable low-latency, token-by-token audio streaming for interactive interviews.</span>
+                  <span className="leading-relaxed md:text-justify w-full">Developed an AI-powered resume analyzer to evaluate job description match rates, identify skill gaps, and dynamically generate tailored resumes.</span>
                 </li>
                 <li className="flex gap-4 items-start">
                   <span className="text-primary mt-[6px] text-xs shrink-0">•</span>
-                  <span className="leading-relaxed md:text-justify w-full">Implemented a production-grade payment system using Razorpay, supporting subscriptions, one-time payments, coupon logic, and webhook-based backend validation for secure transaction handling.</span>
+                  <span className="leading-relaxed md:text-justify w-full">Orchestrated the Razorpay payment gateway to process secure user transactions, implementing custom backend logic to support discount coupons.</span>
                 </li>
               </ul>
 
