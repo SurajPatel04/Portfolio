@@ -10,9 +10,9 @@ const GithubIcon = ({ className }: { className?: string }) => (
 
 import aiInterviewImg from '../assets/Ai-Interview.png';
 import mainmVideoImg from '../assets/MainmVIdeo.png';
-import architectureImg from '../assets/manim_video_generation_pipeline.png';
+import architectureImg from '../assets/markdown-mainm-Video.png';
 import insightFlowImg from '../assets/InsightFlow.png';
-import insightFlowArchitectureImg from '../assets/InsightFlowSystemDiagram.png';
+import insightFlowArchitectureImg from '../assets/markdown-InsightFlow.png';
 import timestampCitationImg from '../assets/timestamp_citation_ux.png';
 
 const projectsData = [
@@ -150,11 +150,11 @@ const ProjectDetailsModal = ({
 
             {/* Scrollable Area */}
             <div className="overflow-auto p-6 sm:p-8 bg-surface-container flex-grow custom-scrollbar">
-              {project.deepDive.architectureImg && (
+              {project.deepDive.architectureImg ? (
                 <div className="bg-[#18181A] p-4 rounded-xl border border-outline-variant/10 flex justify-center">
                   <img src={project.deepDive.architectureImg} alt="Architecture" className="max-w-full rounded-lg" />
                 </div>
-              )}
+              ) : null}
             </div>
           </motion.div>
         </div>
@@ -178,6 +178,16 @@ export default function Projects() {
     handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Preload Mermaid CDN script when portfolio mounts so it's instantly available
+  useEffect(() => {
+    if (!(window as any).mermaid) {
+      const preloadScript = document.createElement('script');
+      preloadScript.src = 'https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js';
+      preloadScript.async = true;
+      document.body.appendChild(preloadScript);
+    }
   }, []);
 
   const totalSlides = Math.max(1, projectsData.length - itemsPerPage + 1);
