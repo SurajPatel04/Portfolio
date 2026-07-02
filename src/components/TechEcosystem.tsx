@@ -1,61 +1,90 @@
 import { motion, AnimatePresence } from 'motion/react';
 import { CodeXml, Layers, Server, Database, BrainCircuit, Terminal, ChevronDown } from 'lucide-react';
 import { useState } from 'react';
+import { 
+  SiTypescript, SiPython, SiJavascript, 
+  SiReact, SiTailwindcss, SiHtml5, 
+  SiNodedotjs, SiFastapi, 
+  SiPostgresql, SiMongodb, SiRedis, 
+  SiOpenai, SiGooglecloud, SiDocker, SiGithubactions 
+} from 'react-icons/si';
+import { FaNetworkWired, FaBrain, FaDatabase } from 'react-icons/fa';
 
 const technologies = [
   {
     title: "Languages",
     icon: CodeXml,
-    items: ["TypeScript", "Python", "JavaScript"]
+    items: [
+      { name: "TypeScript", icon: SiTypescript },
+      { name: "Python", icon: SiPython },
+      { name: "JavaScript", icon: SiJavascript }
+    ]
   },
   {
     title: "Frontend",
     icon: Layers,
-    items: ["React / Redux", "Tailwind CSS", "HTML5 / CSS3"]
+    items: [
+      { name: "React / Redux", icon: SiReact },
+      { name: "Tailwind CSS", icon: SiTailwindcss },
+      { name: "HTML5 / CSS3", icon: SiHtml5 }
+    ]
   },
   {
     title: "Backend",
     icon: Server,
-    items: ["Node.js / Express", "FastAPI", "REST APIs / WebSockets"]
+    items: [
+      { name: "Node.js / Express", icon: SiNodedotjs },
+      { name: "FastAPI", icon: SiFastapi },
+      { name: "REST APIs / WebSockets", icon: FaNetworkWired }
+    ]
   },
   {
     title: "Databases",
     icon: Database,
-    items: ["PostgreSQL", "MongoDB", "Redis (Caching/Store)"]
+    items: [
+      { name: "PostgreSQL", icon: SiPostgresql },
+      { name: "MongoDB", icon: SiMongodb },
+      { name: "Redis (Caching/Store)", icon: SiRedis }
+    ]
   },
   {
     title: "AI & Agentic",
     icon: BrainCircuit,
-    items: ["LangChain / LangGraph", "OpenAI / Anthropic APIs", "Vector DBs / RAG"]
+    items: [
+      { name: "LangChain / LangGraph", icon: FaBrain },
+      { name: "OpenAI / Anthropic APIs", icon: SiOpenai },
+      { name: "Vector DBs / RAG", icon: FaDatabase }
+    ]
   },
   {
     title: "DevOps & Cloud",
     icon: Terminal,
-    items: ["GCP (Google Cloud)", "Docker / Containers", "GitHub Actions CI/CD"]
+    items: [
+      { name: "GCP (Google Cloud)", icon: SiGooglecloud },
+      { name: "Docker / Containers", icon: SiDocker },
+      { name: "GitHub Actions CI/CD", icon: SiGithubactions }
+    ]
   }
 ];
 
 export default function TechEcosystem() {
-  // Default state: Only 1 open (index 0)
   const [openItems, setOpenItems] = useState<number[]>([0]);
 
   const isAllOpen = openItems.length === technologies.length;
 
   const toggleAll = () => {
     if (isAllOpen) {
-      setOpenItems([]); // Click 'Hide' -> Collapse all
+      setOpenItems([]); 
     } else {
-      setOpenItems(technologies.map((_, index) => index)); // Click 'Show All' -> Open ALL
+      setOpenItems(technologies.map((_, index) => index));
     }
   };
 
   const toggleItem = (index: number) => {
-    // If it is the ONLY item currently open, clicking it collapses it.
-    // Otherwise, clicking ANY item switches the view to make it the ONLY open section.
     if (openItems.includes(index) && openItems.length === 1) {
       setOpenItems([]);
     } else {
-      setOpenItems([index]); // Switch open section
+      setOpenItems([index]);
     }
   };
 
@@ -79,12 +108,13 @@ export default function TechEcosystem() {
             {isAllOpen ? 'Hide All Skills' : 'Show All Skills'}
           </button>
         </div>
+        
         {/* Desktop Layout: Grid */}
         <div className="hidden md:grid grid-cols-2 lg:grid-cols-3 gap-6">
           {technologies.map((tech, index) => (
             <div key={index} className="group relative overflow-hidden bg-surface-container p-8 rounded-full border border-outline-variant/10 hover:-translate-y-2 hover:border-primary/50 hover:shadow-[0_10px_40px_-15px_rgba(0,218,248,0.3)] transition-all duration-500">
-              {/* Elegant Inner Glow - Pure Primary/Green */}
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+              {/* Blur blob background on hover like Certifications */}
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 blur-[70px] opacity-0 group-hover:opacity-20 bg-primary pointer-events-none transition-opacity duration-700 z-0"></div>
 
               <div className="relative z-10">
                 <div className="flex items-center gap-4 mb-6">
@@ -96,8 +126,8 @@ export default function TechEcosystem() {
                 <ul className="space-y-4 text-base font-medium">
                   {tech.items.map((item, i) => (
                     <li key={i} className="flex items-center gap-3 text-on-surface-variant group-hover:text-on-surface transition-colors">
-                      <span className="w-1.5 h-1.5 shrink-0 rounded-full bg-primary transition-all duration-300"></span>
-                      <span>{item}</span>
+                      <item.icon className="w-5 h-5 text-primary/80 group-hover:text-primary transition-colors shrink-0" />
+                      <span>{item.name}</span>
                     </li>
                   ))}
                 </ul>
@@ -113,7 +143,7 @@ export default function TechEcosystem() {
             return (
               <div
                 key={index}
-                className={`bg-surface-container border transition-all duration-300 rounded-full overflow-hidden ${isOpen ? 'border-primary/30 shadow-[0_8px_30px_-10px_rgba(0,218,248,0.2)] bg-surface-container-high' : 'border-outline-variant/10'
+                className={`bg-surface-container border transition-all duration-300 rounded-[28px] overflow-hidden ${isOpen ? 'border-primary/30 shadow-[0_8px_30px_-10px_rgba(0,218,248,0.2)] bg-surface-container-high' : 'border-outline-variant/10'
                   }`}
               >
                 <button
@@ -129,12 +159,11 @@ export default function TechEcosystem() {
                         {tech.title}
                       </span>
 
-                      {/* Truncated inline preview when collapsed */}
                       {!isOpen && (
                         <span className="text-[13px] text-on-surface-variant/60 truncate mt-[1.5px]">
                           <span className="text-primary/60 mr-1.5 hidden sm:inline">→</span>
                           <span className="text-primary/60 mr-1.5 sm:hidden">-</span>
-                          {tech.items.join(' • ')}
+                          {tech.items.map(i => i.name).join(' • ')}
                         </span>
                       )}
                     </div>
@@ -151,7 +180,14 @@ export default function TechEcosystem() {
                       transition={{ duration: 0.3, ease: 'easeInOut' }}
                     >
                       <div className="pb-4 pr-4 pl-[60px] pt-0 text-[13.5px] text-on-surface-variant/90 font-medium leading-relaxed">
-                        {tech.items.join(' • ')}
+                        <ul className="space-y-3 mt-1">
+                          {tech.items.map((item, i) => (
+                            <li key={i} className="flex items-center gap-2.5">
+                              <item.icon className="w-4 h-4 text-primary/80 shrink-0" />
+                              <span>{item.name}</span>
+                            </li>
+                          ))}
+                        </ul>
                       </div>
                     </motion.div>
                   )}

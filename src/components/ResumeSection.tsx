@@ -117,7 +117,7 @@ export default function ResumeSection() {
                   <h4 className="font-headline font-bold text-primary tracking-widest uppercase text-[11px] mb-3">Professional Experience</h4>
                   <div className="flex justify-between items-start">
                     <div>
-                      <h5 className="font-bold text-on-surface text-sm">Full Stack Engineer Intern</h5>
+                      <h5 className="font-bold text-on-surface text-sm">Full Stack Engineer</h5>
                       <p className="text-on-surface-variant/70 text-xs mt-1 font-bold">Careerboat.ai</p>
                     </div>
                     <span className="text-on-surface-variant/50 text-[10px] font-mono tracking-normal">Dec 2025 – Present</span>

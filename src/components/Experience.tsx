@@ -20,7 +20,7 @@ export default function Experience() {
               {/* Header */}
               <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 md:gap-0 border-b border-outline-variant/10 pb-6">
                 <div>
-                  <h3 className="font-headline text-xl sm:text-3xl font-bold text-on-surface">Full Stack Engineer Intern</h3>
+                  <h3 className="font-headline text-xl sm:text-3xl font-bold text-on-surface">Full Stack Engineer</h3>
                   <div className="text-[#D0ADC5] font-headline font-semibold text-base sm:text-lg mt-1">@ Careerboat.ai</div>
                 </div>
                 <div className="shrink-0">
@@ -34,7 +34,7 @@ export default function Experience() {
               <ul className="space-y-4 text-on-surface-variant font-body text-sm sm:text-base mt-2">
                 <li className="flex gap-4 items-start">
                   <span className="text-primary mt-[6px] text-xs shrink-0">•</span>
-                  <span className="leading-relaxed md:text-justify w-full">Developed AI interview APIs using Node.js with LangChain and LangGraph, generating context-aware questions based on resumes, skills, and prior responses, while optimizing token usage through state management using MongoDB checkpointers and dynamic context summarization.</span>
+                  <span className="leading-relaxed md:text-justify w-full">Developed AI interview APIs using Node.js with LangChain and LangGraph, generating context-aware questions based on resumes, skills, and prior responses, while optimizing token usage through state management using MongoDB check pointers and dynamic context summarization.</span>
                 </li>
                 <li className="flex gap-4 items-start">
                   <span className="text-primary mt-[6px] text-xs shrink-0">•</span>
@@ -46,7 +46,7 @@ export default function Experience() {
                 </li>
                 <li className="flex gap-4 items-start">
                   <span className="text-primary mt-[6px] text-xs shrink-0">•</span>
-                  <span className="leading-relaxed md:text-justify w-full">Orchestrated the Razorpay payment gateway to process secure user transactions, implementing custom backend logic to support discount coupons.</span>
+                  <span className="leading-relaxed md:text-justify w-full">Integrated the Razorpay payment gateway for secure transactions, with custom backend logic for discount coupons.</span>
                 </li>
               </ul>
 
