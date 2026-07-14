@@ -34,11 +34,15 @@ export default function Experience() {
               <ul className="space-y-4 text-on-surface-variant font-body text-sm sm:text-base mt-2">
                 <li className="flex gap-4 items-start">
                   <span className="text-primary mt-[6px] text-xs shrink-0">•</span>
-                  <span className="leading-relaxed md:text-justify w-full">Developed AI interview APIs using Node.js with LangChain and LangGraph, generating context-aware questions based on resumes, skills, and prior responses, while optimizing token usage through state management using MongoDB check pointers and dynamic context summarization.</span>
+                  <span className="leading-relaxed md:text-justify w-full">Cut LLM token consumption by 40% on the AI interview service by architecting stateful Node.js APIs with MongoDB checkpointing and dynamic context summarization across multi-turn sessions.</span>
                 </li>
                 <li className="flex gap-4 items-start">
                   <span className="text-primary mt-[6px] text-xs shrink-0">•</span>
-                  <span className="leading-relaxed md:text-justify w-full">Orchestrated TTS, AWS S3, and SSE for real-time audio streaming and token-by-token AI responses.</span>
+                  <span className="leading-relaxed md:text-justify w-full">Reduced time-to-first-audio to ∼2s by engineering a real-time streaming layer over Server-Sent Events, AWS S3, and a TTS pipeline that delivered token-by-token responses to the client.</span>
+                </li>
+                <li className="flex gap-4 items-start">
+                  <span className="text-primary mt-[6px] text-xs shrink-0">•</span>
+                  <span className="leading-relaxed md:text-justify w-full">Optimized a high-volume job search API by redesigning MySQL FULLTEXT queries and ranking algorithms, reducing search latency from 1–5 minutes to 5–10 seconds while improving search relevance.</span>
                 </li>
                 <li className="flex gap-4 items-start">
                   <span className="text-primary mt-[6px] text-xs shrink-0">•</span>
@@ -53,7 +57,7 @@ export default function Experience() {
               {/* Tech Stack Chips */}
               <div className="mt-4 pt-6 border-t border-outline-variant/10">
                 <div className="flex flex-wrap gap-2.5">
-                  {['LangChain', 'LangGraph', 'MongoDB', 'Redis', 'GCP TTS', 'AWS S3', 'SSE', 'Razorpay', 'Node.js', "Express.js", 'React'].map((tech) => (
+                  {['LangChain', 'LangGraph', 'MongoDB', 'MySQL', 'Redis', 'GCP TTS', 'AWS S3', 'SSE', 'Razorpay', 'Node.js', "Express.js", 'React'].map((tech) => (
                     <span key={tech} className="bg-surface-container-high/60 hover:bg-surface-container-highest transition-colors duration-300 px-3 py-1 rounded-full text-[11px] sm:text-xs font-bold text-on-surface-variant/90 border border-outline-variant/10 shadow-sm cursor-default">
                       {tech}
                     </span>

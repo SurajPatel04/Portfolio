@@ -92,13 +92,13 @@ export default function ResumeSection() {
                       <span className="font-bold text-on-surface">Backend:</span> Node.js, Express.js, FastAPI, REST APIs, JWT, OAuth 2.0
                     </div>
                     <div>
-                      <span className="font-bold text-on-surface">Databases & Caching:</span> PostgreSQL (Prisma), MongoDB (Mongoose, Beanie), Redis
+                      <span className="font-bold text-on-surface">Databases & Caching:</span> PostgreSQL (Prisma), SQL, MongoDB (Mongoose, Beanie), Redis, FAISS (Vector DB)
                     </div>
                     <div>
-                      <span className="font-bold text-on-surface">AI:</span> LangChain, LangGraph, LangSmith
+                      <span className="font-bold text-on-surface">AI:</span> LangChain, LangGraph, LangSmith (LLM observability), OpenAI API, Gemini API, RAG, Prompt Engineering
                     </div>
                     <div>
-                      <span className="font-bold text-on-surface">Tools & DevOps:</span> Docker, Git, GitHub Actions, Celery (Task Queue System)
+                      <span className="font-bold text-on-surface">Tools & DevOps:</span> AWS (S3), GCP, Docker, Git, GitHub Actions, Linux, Bash/Shell, Celery
                     </div>
                     <div>
                       <span className="font-bold text-on-surface">Core Fundamentals:</span> Data Structures & Algorithms, System Design
@@ -123,10 +123,11 @@ export default function ResumeSection() {
                     <span className="text-on-surface-variant/50 text-[10px] font-mono tracking-normal">Dec 2025 – Present</span>
                   </div>
                   <ul className="mt-3 space-y-2 text-[12px] text-on-surface-variant leading-relaxed font-body">
-                    <li>• Developed AI interview APIs using Node.js with LangChain and LangGraph, generating context-aware questions based on resumes, skills, and prior responses, while optimizing token usage through state management using MongoDB checkpointers and dynamic context summarization.</li>
-                    <li>• Orchestrated TTS, AWS S3, and SSE for real-time audio streaming and token-by-token AI responses.</li>
+                    <li>• Cut LLM token consumption by 40% on the AI interview service by architecting stateful Node.js APIs with MongoDB checkpointing and dynamic context summarization across multi-turn sessions.</li>
+                    <li>• Reduced time-to-first-audio to ∼2s by engineering a real-time streaming layer over Server-Sent Events, AWS S3, and a TTS pipeline that delivered token-by-token responses to the client.</li>
+                    <li>• Optimized a high-volume job search API by redesigning MySQL FULLTEXT queries and ranking algorithms, reducing search latency from 1–5 minutes to 5–10 seconds while improving search relevance.</li>
                     <li>• Developed an AI-powered resume analyzer to evaluate job description match rates, identify skill gaps, and dynamically generate tailored resumes.</li>
-                    <li>• Orchestrated the Razorpay payment gateway to process secure user transactions, implementing custom backend logic to support discount coupons.</li>
+                    <li>• Integrated the Razorpay payment gateway for secure transactions, with custom backend logic for discount coupons.</li>
                   </ul>
                 </motion.div>
 

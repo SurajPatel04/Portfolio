@@ -373,10 +373,11 @@ function ExperienceSection() {
           <span style={{ color: '#666' }}> {'  '} Dec 2025 — Present</span>
         </div>
         <div className="ml-6 mt-2 space-y-3 md:space-y-1 text-sm md:text-justify pr-4 sm:pr-8" style={{ color: '#aaa' }}>
-          <p>• Built an AI-powered interview system that generates context-aware questions using LangChain and LangGraph, dynamically adapting based on candidate resumes, selected skills, and previous responses to simulate realistic interview scenarios.</p>
-          <p>• Designed stateful LLM workflows using LangGraph with MongoDB checkpointers, implementing dynamic context summarization to manage long conversations and significantly reduce token usage while preserving relevant context.</p>
-          <p>• Developed a real-time voice interaction pipeline integrating Google Cloud TTS, Server-Sent Events (SSE), and AWS S3 to enable low-latency, token-by-token audio streaming for interactive interviews.</p>
-          <p>• Implemented a production-grade payment system using Razorpay, supporting subscriptions, one-time payments, coupon logic, and webhook-based backend validation for secure transaction handling.</p>
+          <p>• Cut LLM token consumption by 40% on the AI interview service by architecting stateful Node.js APIs with MongoDB checkpointing and dynamic context summarization across multi-turn sessions.</p>
+          <p>• Reduced time-to-first-audio to ∼2s by engineering a real-time streaming layer over Server-Sent Events, AWS S3, and a TTS pipeline that delivered token-by-token responses to the client.</p>
+          <p>• Optimized a high-volume job search API by redesigning MySQL FULLTEXT queries and ranking algorithms, reducing search latency from 1–5 minutes to 5–10 seconds while improving search relevance.</p>
+          <p>• Developed an AI-powered resume analyzer to evaluate job description match rates, identify skill gaps, and dynamically generate tailored resumes.</p>
+          <p>• Integrated the Razorpay payment gateway for secure transactions, with custom backend logic for discount coupons.</p>
         </div>
       </div>
     </CmdBlock>
@@ -620,10 +621,11 @@ export default function TerminalView() {
           <div className="flex items-center gap-3"><span style={{ color: '#33ff33' }}>●</span><span style={{ color: '#e0e0e0' }} className="font-bold">Full Stack Engineer — Intern</span></div>
           <div className="ml-6"><span style={{ color: '#00daf8' }}>@ Careerboat.ai</span><span style={{ color: '#666' }}> {'  '} Dec 2025 — Present</span></div>
           <div className="ml-6 mt-2 space-y-3 md:space-y-1 text-sm md:text-justify pr-4 sm:pr-8" style={{ color: '#aaa' }}>
-            <p>• Built an AI-powered interview system that generates context-aware questions using LangChain and LangGraph, dynamically adapting based on candidate resumes, selected skills, and previous responses to simulate realistic interview scenarios.</p>
-            <p>• Designed stateful LLM workflows using LangGraph with MongoDB checkpointers, implementing dynamic context summarization to manage long conversations and significantly reduce token usage while preserving relevant context.</p>
-            <p>• Developed a real-time voice interaction pipeline integrating Google Cloud TTS, Server-Sent Events (SSE), and AWS S3 to enable low-latency, token-by-token audio streaming for interactive interviews.</p>
-            <p>• Implemented a production-grade payment system using Razorpay, supporting subscriptions, one-time payments, coupon logic, and webhook-based backend validation for secure transaction handling.</p>
+            <p>• Cut LLM token consumption by 40% on the AI interview service by architecting stateful Node.js APIs with MongoDB checkpointing and dynamic context summarization across multi-turn sessions.</p>
+            <p>• Reduced time-to-first-audio to ∼2s by engineering a real-time streaming layer over Server-Sent Events, AWS S3, and a TTS pipeline that delivered token-by-token responses to the client.</p>
+            <p>• Optimized a high-volume job search API by redesigning MySQL FULLTEXT queries and ranking algorithms, reducing search latency from 1–5 minutes to 5–10 seconds while improving search relevance.</p>
+            <p>• Developed an AI-powered resume analyzer to evaluate job description match rates, identify skill gaps, and dynamically generate tailored resumes.</p>
+            <p>• Integrated the Razorpay payment gateway for secure transactions, with custom backend logic for discount coupons.</p>
           </div>
         </div>
       ),
